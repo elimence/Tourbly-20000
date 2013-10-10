@@ -26,8 +26,6 @@ from google.appengine.ext import db
 template_dir = "templates"
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                autoescape = True)
- 
-jinja_env.filters['nl2br'] = nl2br
 
 class Handler(webapp2.RequestHandler):
     """
