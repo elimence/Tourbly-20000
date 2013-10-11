@@ -9,6 +9,7 @@ class Tourist(db.Model):
 	state = db.StringProperty()
 	languages = db.ArrayProperty()
 	picture = db.BlobProperty()
+	created = db.DateTimeProperty()
 
 	@classmethod
 	def addTourist(cls, email, password):
@@ -25,4 +26,10 @@ class Tourist(db.Model):
 				tourist.put()
 				return True, tourist
 
-	
+	@classmethod 
+	def verifyUser(cls, email, password):
+		status, user = Helper.verify_user(email, password, "tourist")
+
+		if status:
+			return user
+

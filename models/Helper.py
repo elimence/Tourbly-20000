@@ -23,8 +23,8 @@ class Helper(db.model):
         return all_users.filter("email =", email).get()
 
     @staticmethod
-    def verify_user(self, email, password, user_type):
-    	all_users = null
+    def verify_user(email, password, user_type):
+    	all_users = None
     	if user_type == "tourist":
         	all_users = Tourist.all()
         else:
