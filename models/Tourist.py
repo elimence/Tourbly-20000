@@ -27,9 +27,16 @@ class Tourist(db.Model):
 				return True, tourist
 
 	@classmethod 
-	def verifyUser(cls, email, password):
-		status, user = Helper.verify_user(email, password, "tourist")
+	def verifyTourist(cls, email, password):
+		status, tourist = Helper.verify_user(email, password, "tourist")
 
 		if status:
-			return user
+			return tourist
 
+	@classmethod 
+	def getTourist(cls, email):
+		return cls.filter("email=", email).get()
+
+	@classmethod
+	def getAllTourists(cls):
+		return cls.all()

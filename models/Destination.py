@@ -20,6 +20,14 @@ class Destination(db.Model):
 			destination.put()
 			return True, destination
 
+	@classmethod
+	def getDestination(cls, name):
+		return cls.filter("name=", name).get
+
+	@classmethod
+	def getAllDestination(cls):
+		return cls.all()
+
 	@staticmethod
 	def checkDestinationExists(name, latlng):
 		return Destination.filter("name=", name).get(), Destination.filter("latlng=", latlng).get()
