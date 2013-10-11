@@ -22,7 +22,7 @@ class Destination(db.Model):
 
 	@classmethod
 	def getDestination(cls, name):
-		return cls.filter("name=", name).get
+		return cls.filter("name=", name).get()
 
 	@classmethod
 	def getAllDestination(cls):
