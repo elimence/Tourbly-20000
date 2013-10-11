@@ -1,0 +1,18 @@
+
+.navbar-fixed-top .navbar-brand,
+.brand {
+  font-family: 'Lily Script One', serif;
+  font-size: 30px;
+  color: #ed9c28;
+}
+.navlinks {
+  text-transform: uppercase;
+  font-size: 16.5px;
+  /*font-family: 'Josefin Sans', sans-serif;*/
+  font-family: 'Roboto Slab', serif;
+  /*font-family: 'Advent Pro', sans-serif;*/
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  color: #0088cc;
+}
