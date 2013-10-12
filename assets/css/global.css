@@ -1,10 +1,10 @@
 
-.navbar-fixed-top .navbar-brand,
-.brand {
+.navbar-fixed-top .navbar-brand, .navbar-fixed-top .navbar-brand:hover {
   font-family: 'Lily Script One', serif;
   font-size: 30px;
   color: #ed9c28;
 }
+
 .navlinks {
   text-transform: uppercase;
   font-size: 16.5px;
@@ -15,4 +15,8 @@
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
   color: #0088cc;
+}
+
+.footer-divider {
+  margin: 80px 0; 
 }
