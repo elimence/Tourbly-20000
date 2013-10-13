@@ -53,7 +53,6 @@ class SignupHandler(Handler):
     def get(self):
         self.render("signup.html")
 
-
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/home', HomeHandler),
