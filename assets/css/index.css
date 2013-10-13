@@ -1,20 +1,26 @@
-#content {
-  border: 0px solid #f00;
-  padding-top: 50px;
+/* Misc */
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
 }
-/*.navbar-default {
-  display: none;
-}*/
-.carousel-holder {
-  border: 0px solid #f00;
+
+/* ... Nav */
+.navbar-default {
+  box-shadow: 0 1px 13px rgba(0,0,0,0.3);
+}
+
+/* ... Carousel */
+.carousel {
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+.carousel-image {
+  max-height: 460px;
 }
 .carousel-inner .slide-header {
   font-size: 3.3em;
   text-shadow: 0 1px 7px #000;
   font-family: "Libre Baskerville";
-}
-.carousel-image {
-  max-height: 500px;
 }
 .carousel-inner .search-slide-caption {
   margin-bottom: 4em;
@@ -49,12 +55,76 @@
   letter-spacing: 0.08em;
 }
 
-.navbar-default {
-  box-shadow: 0 1px 13px rgba(0,0,0,0.3);
+/* Pad the edges of the mobile views a bit */
+.places {
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 0px solid #f00;
+}
+.places .header,
+.quickstarts .header {
+  border: 0px solid #bbb;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.places .header .heading,
+.quickstarts .quickstart-col .section-header {
+  color: #393c3d;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1.2;
+  text-rendering: optimizelegibility;
+  margin-bottom: 5px;
+  color: #0088cc;
+}
+.places .header .sub-heading,
+.quickstarts .header .sub-heading {
+  font-size: 1.3em;
 }
 
+.places .body {
+  border: 0px solid #bbb;
+}
 
-/*Targeted Styles*/
+.places .place-img-holder {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 1.25%;
+  padding-right: 1.25%;
+  border: 0px solid #f00;
+}
+.places .place-img-holder img {
+  opacity: 0.9;
+}
+.places .place-img-holder img:hover {
+  opacity: 1.0;
+}
+.places .place-text-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 3.9%;
+  padding: 0.8em;
+}
+.places .place-text-overlay .caption {
+  font-family: "Libre Baskerville";
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 1px 7px #000;
+}
+.quickstarts .quickstart-col .section-header {
+  font-weight: normal;
+  font-size: 20px;
+}
+.quickstarts .quickstart-col .section-text {
+  text-align: justify;
+  font-size: 1.2em;
+}
+.quickstarts .quickstart-col .section-text a:link,
+.quickstarts .quickstart-col .section-text a:visited {
+  color: #5CB85C;
+}
+
+/* Responsive Styles */
 /* Xtra Small */
 @media (max-width: 910px) {
   .carousel-inner .search-box form #destination {
