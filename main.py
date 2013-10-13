@@ -48,10 +48,14 @@ class MainHandler(Handler):
 class HomeHandler(Handler):
     def get(self):
         self.render("index.html")
-        
+
+class SignupHandler(Handler):
+    def get(self):
+        self.render("signup.html")
 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/home', HomeHandler)
+    ('/home', HomeHandler),
+    ('/signup', SignupHandler)
 ], debug=True)
