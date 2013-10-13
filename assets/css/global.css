@@ -1,18 +1,37 @@
+/* Misc */
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
 
-.navbar-fixed-top .navbar-brand,
-.brand {
+/* ... Nav */
+.navbar-default {
+  box-shadow: 0 1px 13px rgba(0,0,0,0.3);
+  /*display: none;*/
+}
+
+.navbar-fixed-top .navbar-brand, .navbar-fixed-top .navbar-brand:hover {
   font-family: 'Lily Script One', serif;
   font-size: 30px;
   color: #ed9c28;
 }
+
 .navlinks {
   text-transform: uppercase;
   font-size: 16.5px;
-  /*font-family: 'Josefin Sans', sans-serif;*/
   font-family: 'Roboto Slab', serif;
+  /*font-family: 'Josefin Sans', sans-serif;*/
   /*font-family: 'Advent Pro', sans-serif;*/
 }
 
 .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
   color: #0088cc;
+}
+
+.footer-divider {
+  margin: 60px 0; 
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
