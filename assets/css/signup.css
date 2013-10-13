@@ -1,10 +1,6 @@
-/*.signup-form {
-  margin-top: 50px;
-  background-image: url('/assets/images/buffalo.jpg');
-  background-repeat: no-repeat;
-  background-position: 0 -500px;
-  height: 500px;
-}*/
+.navbar-default .navbar-nav>li>a#signup:link, .navbar-default .navbar-nav>li>a#signup:visited {
+  color: #ED9C28;
+}
 
 .carousel {
   margin-top: 50px;
