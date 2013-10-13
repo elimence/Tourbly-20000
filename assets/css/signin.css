@@ -1,0 +1,180 @@
+body {
+  padding-bottom: 0;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #ED9C28;
+}
+
+
+.carousel {
+  margin-top: 50px;
+}
+
+.carousel-image {
+  max-height: 555px;
+}
+
+.carousel-caption {
+  right: 10%;
+  left: 10%;
+  top: 5em;
+  text-align: left;
+}
+
+.signup-form-holder {
+  border: 0px solid #f00;
+}
+.side-text .heading {
+  font-size: 4em;
+  font-family: "Libre Baskerville";
+  text-shadow: 0 1px 7px #000;
+}
+.side-text .lead {
+  text-shadow: 0 1px 7px #000;
+}
+
+.form {
+  padding-top: 2.2em;
+}
+.form input {
+  margin-bottom: 0.8em;
+  padding: 1.3em 0.7em;
+  font-size: 1.2em;
+  box-shadow: 0 0px 2px #000;
+}
+.form .form-heading,
+.form .google-sign-in-caption {
+  margin-top: 0;
+  text-align: center;
+  text-shadow: 0 1px 7px #000;
+  font-family: "Libre Baskerville";
+}
+.form .google-sign-in-caption {
+  margin-top: 0.5em;
+  font-family: "helvetica neue", sans-serif;
+}
+
+.google-sign-in-holder {
+  text-align: center;
+}
+.google-sign-in-button {
+  cursor: pointer;
+}
+
+/* Form for mobile devices @max-width-767 */
+.mobile-signup-form {
+  margin-top: 75px;
+}
+.mobile-signup-form .form-heading,
+.mobile-signup-form .google-sign-in-caption {
+  margin-top: 0;
+  text-align: center;
+  font-family: "Libre Baskerville";
+  font-family: "helvetica neue", sans-serif;
+}
+.mobile-signup-form .form-heading {
+  margin-bottom: 0.6em;
+  font-size: 2.3em;
+}
+.mobile-signup-form .google-sign-in-caption {
+  margin-top: 0.8em;
+  font-family: "helvetica neue", sans-serif;
+}
+.mobile-signup-form input {
+  margin-bottom: 0.8em;
+  padding: 1.3em 0.7em;
+  font-size: 1.2em;
+}
+
+/* Reasons to love Tourbly */
+.reasons-to-love-tourbly {
+  margin-top: 4em;
+  text-align: center;
+}
+.reasons-to-love-tourbly .header {
+  margin-bottom: 5em;
+}
+.reasons-to-love-tourbly .header h1 {
+  margin-top: 0;
+  margin-bottom: 0.1em;
+  font-size: 40px;
+  font-weight: normal;
+  color: #5CB85C;
+}
+.reasons-to-love-tourbly .body img {
+  box-shadow: 0 0px 12px rgba(0,0,0,0.2);
+}
+.reasons-to-love-tourbly .body .sub-heading {
+  color: #0088cc;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 1150px) {
+  .carousel-caption {
+    top: 3.8em;
+  }
+  .side-text .lead {
+    display: none;
+  }
+}
+@media (max-width: 1003px) {
+  .carousel-caption {
+    top: 2.6em;
+  }
+  .side-text .heading {
+    font-size: 3.6em;
+  }
+}
+@media (max-width: 920px) {
+  .carousel-caption {
+    top: 0.8em;
+  }
+  .side-text .heading {
+    font-size: 3.5em;
+  }
+}
+@media (max-width: 877px) {
+  .carousel-caption {
+    top: 0.0em;
+  }
+  .side-text .heading {
+    font-size: 3.2em;
+  }
+}
+@media (max-width: 840px) {
+  .carousel-caption {
+    top: -1.3em;
+  }
+  .side-text .heading {
+    font-size: 3.2em;
+  }
+}
+@media (max-width: 808px) {
+  .carousel-caption {
+    top: -0.8em;
+  }
+  .side-text .heading {
+    font-size: 3.0em;
+  }
+  .form input {
+    margin-bottom: 0.0em;
+  }
+  #submit-btn {
+    margin-top: 0.5em;
+  }
+}
+@media (max-width: 767px) {
+  .carousel-caption {
+    top: -2.0em;
+  }
+  .form input {
+    margin-bottom: 0.4em;
+  }
+}
+@media (max-width: 740px) {
+  .carousel-caption {
+    top: -2.0em;
+  }
+}
