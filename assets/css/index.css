@@ -1,14 +1,3 @@
-/* Misc */
-body {
-  padding-bottom: 40px;
-  color: #5a5a5a;
-}
-
-/* ... Nav */
-.navbar-default {
-  box-shadow: 0 1px 13px rgba(0,0,0,0.3);
-}
-
 /* ... Carousel */
 .carousel {
   margin-top: 50px;

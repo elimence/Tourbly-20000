@@ -1,3 +1,14 @@
+/* Misc */
+body {
+  padding-bottom: 40px;
+  color: #5a5a5a;
+}
+
+/* ... Nav */
+.navbar-default {
+  box-shadow: 0 1px 13px rgba(0,0,0,0.3);
+  /*display: none;*/
+}
 
 .navbar-fixed-top .navbar-brand, .navbar-fixed-top .navbar-brand:hover {
   font-family: 'Lily Script One', serif;
@@ -8,8 +19,8 @@
 .navlinks {
   text-transform: uppercase;
   font-size: 16.5px;
-  /*font-family: 'Josefin Sans', sans-serif;*/
   font-family: 'Roboto Slab', serif;
+  /*font-family: 'Josefin Sans', sans-serif;*/
   /*font-family: 'Advent Pro', sans-serif;*/
 }
 
@@ -18,5 +29,9 @@
 }
 
 .footer-divider {
-  margin: 80px 0; 
+  margin: 60px 0; 
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
 }
