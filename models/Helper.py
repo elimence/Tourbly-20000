@@ -23,6 +23,14 @@ class Helper(db.model):
         return all_users.filter("email =", email).get()
 
     @staticmethod
+    def checkEmailExists(all_users, email):
+        return all_users.filter("email =", email).get()
+
+    @staticmethod
+    def checkUsernameExists(all_users, username):
+        return all_users.filter("username =", username).get()
+
+    @staticmethod
     def verify_user(email, password, user_type):
     	all_users = None
     	if user_type == "tourist":

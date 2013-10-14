@@ -20,7 +20,7 @@ import os
 import json
 import logging
 
-from google.appengine.ext import db
+from models import Destination
 
 
 template_dir = "templates"
@@ -57,9 +57,16 @@ class SigninHandler(Handler):
     def get(self):
         self.render("signin.html")
 
+class PlacesHandler(Handler):
+    def get(self):
+        places = Destination.getAllDestination()
+        self.render("places.html", places = places)
+        
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/home', HomeHandler),
     ('/signup', SignupHandler),
-    ('/signin', SigninHandler)
+    ('/signin', SigninHandler),
+    ('/places', PlacesHandler)
 ], debug=True)

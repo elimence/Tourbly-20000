@@ -116,7 +116,7 @@ class Security():
 
 # => Request handler extended with class Security and misc functionality
 
-class Handler(Security):
+class Handler(Security, webapp2):
     def w(cls,*a, **kw):
         Handler.response.out.write(*a, **kw)
     def write(self, *a, **kw):

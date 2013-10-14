@@ -1,13 +1,13 @@
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 
-class Destination(db.Model):
-	name = db.StringProperty(required = True)
-	latlng = db.StringProperty(required = True)
-	description = db.TextProperty(required = True)
-	region = db.StringProperty()
-	city = db.StringProperty()
-	direction = db.TextProperty()
-	pictures = db.ArrayProperty()
+class Destination(ndb.Model):
+	name = ndb.StringProperty(required = True)
+	latlng = ndb.StringProperty(required = True)
+	description = ndb.TextProperty(required = True)
+	region = ndb.StringProperty()
+	city = ndb.StringProperty()
+	direction = ndb.TextProperty()
+	pictures = ndb.BlobProperty(repeated = True)
 
 	@classmethod
 	def addDestination(cls, name, latlng, description):
