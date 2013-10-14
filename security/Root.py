@@ -10,15 +10,16 @@ import hmac
 import random
 import string
 import jinja2
-# import webapp2
+import webapp2
 import datetime
 
     
 ## Globals
 
 ph           = 'squemishossifragealladinandthemagiclampallinanutshellTheEndIsNighAndAllMustPrepare'
-# jinja_env    = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 template_dir = os.path.join(os.path.dirname(__file__), '../templates')
+jinja_env    = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
+
 
 
 
@@ -64,7 +65,7 @@ class Security():
     # params
     #   self  : Ref    -> reference to object instance
     #   _args : Object :: salt       : String  -> stored salt
-    #                  :: plainPass  : String  -> password to verified
+    #                  :: plainPass  : String  -> password to be verified
     #                  :: hashedPass : String  -> stored hash of password
     # returns
     #   : Boolean -> True if matched, False otherwise
@@ -116,7 +117,7 @@ class Security():
 
 # => Request handler extended with class Security and misc functionality
 
-class Handler(Security, webapp2):
+class Handler(Security, webapp2.RequestHandler):
     def w(cls,*a, **kw):
         Handler.response.out.write(*a, **kw)
     def write(self, *a, **kw):
@@ -219,7 +220,7 @@ class Handler(Security, webapp2):
 
     # Name - check_session
     # Desc
-    #   verifies client loging status
+    #   verifies client's login status
     # params
     #   self           : Ref    -> reference to object instance
     #   session_cookie : String -> name of session cookie

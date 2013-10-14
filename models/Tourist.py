@@ -1,6 +1,6 @@
-from google.appengine.ext import ndb
+from google.appengine.ext import db
 
-class Tourist(ndb.Model):
+class Tourist(db.Model):
 	firstName = db.StringProperty()
 	lastName = db.StringProperty()
 	email = db.StringProperty(required = True)
