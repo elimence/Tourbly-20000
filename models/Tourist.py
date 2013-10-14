@@ -1,15 +1,15 @@
 from google.appengine.ext import ndb
 
 class Tourist(ndb.Model):
-	firstName = ndb.StringProperty()
-	lastName = ndb.StringProperty()
-	email = ndb.StringProperty(required = True)
-	password = ndb.StringProperty(required = True)
-	country = ndb.StringProperty()
-	state = ndb.StringProperty()
-	languages = ndb.StringProperty(repeated = True)
-	picture = ndb.BlobProperty()
-	created = ndb.DateTimeProperty(auto_now_add = True)
+	firstName = db.StringProperty()
+	lastName = db.StringProperty()
+	email = db.StringProperty(required = True)
+	password = db.StringProperty(required = True)
+	country = db.StringProperty()
+	state = db.StringProperty()
+	languages = db.ListProperty(String)
+	picture = db.BlobProperty()
+	created = db.DateTimeProperty(auto_now_add = True)
 
 	@classmethod
 	def addTourist(cls, email, password):
