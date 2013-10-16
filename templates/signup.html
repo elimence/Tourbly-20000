@@ -50,12 +50,16 @@
                   <p class="lead">We connect you with friendly &amp; reliable tour guides to over 100 tourist destinations accross west Africa. We guarantee you a safe and exciting experience.</p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 form">
-                  <form method = "post" class="form-signin">
+                  <form method = "post" action = "/signup" class="form-signin">
+                    <p style = "color: red;">{{error}}</p>
                     <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-                    <input type="text" class="form-control" placeholder="Pick a Username" autofocus>
-                    <input type="text" class="form-control" placeholder="Your email">
-                    <input type="password" class="form-control" placeholder="Create a Password">
-                    <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign up for Tourbly</button>
+                    <input type="text" class="form-control" placeholder="Your email" autofocus name = "email" value = "{{email}}">
+                    <p style = "color: red;">{{email_error}}</p>
+                    <input type="password" class="form-control" placeholder="Create a Password" name = "password">
+                    <p style = "color: red;">{{password_error}}</p>
+                    <input type="password" class="form-control" placeholder="Confirm Your Password" name = "confirm_password">
+                    <p style = "color: red;">{{confirm_password_error}}</p>
+                    <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Sign up for Tourbly</button>
                   </form>
                   <h4 class="google-sign-in-caption">Have a Google account?</h4>
                   <div class="google-sign-in-holder">

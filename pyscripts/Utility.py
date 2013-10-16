@@ -17,7 +17,4 @@ class Struct:
 # def obj(dic):
 # 	return Struct(**dic)
 
-class obj():
-	def __init__(self, arg):
-		self.arg = arg
 		

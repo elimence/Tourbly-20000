@@ -4,8 +4,9 @@
 # @purpose db model for Guide data
 
 
-import Root
-import Utility
+from security import Root
+from pyscripts import Utility
+import Review
 from google.appengine.ext import db
 
 
@@ -21,4 +22,4 @@ class Guide(db.Model, Root.Handler):
     _workDays    = db.ListProperty(db.Key)
     _picture     = db.BlobProperty()
     _languages   = db.ListProperty(db.Key)
-    _rating      = db.ReferenceProperty(Review, collection_name='reviews')
+    _rating      = db.ReferenceProperty(Review.Review, collection_name='reviews')

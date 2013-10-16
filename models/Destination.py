@@ -1,6 +1,7 @@
 from google.appengine.ext import db
+from security import Root
 
-class Destination(db.Model):
+class Destination(db.Model, Root.Handler):
 	name = db.StringProperty(required = True)
 	latlng = db.StringProperty(required = True)
 	description = db.TextProperty(required = True)

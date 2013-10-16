@@ -1,7 +1,7 @@
 from google.appengine.ext import db
 
-class Helper(db.model):
-	@staticmethod
+class Helper():
+    @staticmethod
     def make_salt():
         return ''.join(random.choice(string.letters) for i in range(5))
 

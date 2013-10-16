@@ -1,30 +1,24 @@
+# from security import Root
 from google.appengine.ext import db
+# import Helper
 
 class Tourist(db.Model):
 	firstName = db.StringProperty()
 	lastName = db.StringProperty()
-	email = db.StringProperty(required = True)
+	email = db.EmailProperty(required = True)
 	password = db.StringProperty(required = True)
 	country = db.StringProperty()
 	state = db.StringProperty()
-	languages = db.ListProperty(String)
+	languages = db.ListProperty(db.Key)
 	picture = db.BlobProperty()
 	created = db.DateTimeProperty(auto_now_add = True)
 
-	@classmethod
-	def addTourist(cls, email, password):
-		hashed_password = Helper.make_pw_hash(password)
-
-		if email and hashed_password:
-			all_users = cls.all()
-			check_user = Helper.checkUserExists(all_users, email)
-
-			if check_user:
-				return False, check_user
-			else:
-				tourist = cls(email = email, password = hashed_password)
-				tourist.put()
-				return True, tourist
+	# @classmethod
+	@staticmethod
+	def addTourist(email, hashed_password):
+		tourist = Tourist(email = email, password = str(hashed_password))
+		tourist.put()
+		return tourist
 
 	@classmethod 
 	def verifyTourist(cls, email, password):

@@ -4,7 +4,7 @@
 # @purpose db model for Review data
 
 
-import Root
+from security import Root
 from google.appengine.ext import db
 
 date = ""

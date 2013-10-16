@@ -12,6 +12,9 @@ import string
 import jinja2
 import webapp2
 import datetime
+import re
+
+from models import Tourist
 
     
 ## Globals
@@ -54,9 +57,12 @@ class Security():
     #   :String -> hashed password and random salt
 
     def hash_password(self, _args):
-        salt = self.rand_salt(_args.name)
-        hash_pass = hmac.new(salt+ph, str(_args.password))
+        salt = self.rand_salt(_args['name'])
+        hash_pass = hmac.new(salt+ph, str(_args['password']))
         return hash_pass.hexdigest(), salt
+        # salt = self.rand_salt(_args.name)
+        # hash_pass = hmac.new(salt+ph, str(_args.password))
+        # return hash_pass.hexdigest(), salt
         
 
     # Name - auth_password
@@ -106,7 +112,7 @@ class Security():
     #   : String -> the generated salt
 
     def rand_salt(self, _args):
-        return ''.join(random.choice(_args.base) for i in range(8)) 
+        return ''.join(random.choice(_args) for i in range(8)) 
         + ''.join(random.choice(string.letters) for i in range(8))
 
 
@@ -116,7 +122,9 @@ class Security():
 
 
 # => Request handler extended with class Security and misc functionality
-
+USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
+PASS_RE = re.compile(r"^.{6,20}$")
 class Handler(Security, webapp2.RequestHandler):
     def w(cls,*a, **kw):
         Handler.response.out.write(*a, **kw)
@@ -130,8 +138,45 @@ class Handler(Security, webapp2.RequestHandler):
     # standard render function
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
-             
+    
 
+    # Name - valid_username
+        # Desc
+        #   Validates username enterd by user for signup
+        # params
+        #   username  : username entered by user
+        # returns
+        #   : Boolean -> Valid username or invalid
+    @staticmethod
+    def validate_username(username):
+        if re.match(USER_RE, username):
+            return True
+        else:
+            return False
+            
+            
+    # Name - valid_password
+        # Desc
+        #   Validates password enterd by user for signup
+        # params
+        #   self           : Ref    -> reference to object instance
+        #   username  : password entered by user
+        # returns
+        #   : Boolean -> Valid password or invalid
+    @staticmethod
+    def validate_password(password):
+        if re.match(PASS_RE, password):
+            return True
+        else:
+            return False
+            
+    #validates email input
+    @staticmethod
+    def validate_email(email):
+        if re.match(EMAIL_RE, email):
+            return True
+        else:
+            return False
 
     # Name - set_cookie
     # Desc
@@ -230,5 +275,95 @@ class Handler(Security, webapp2.RequestHandler):
     def check_session(self, session_cookie):
         session = self.get_cookie(session_cookie)
         return self.auth_hash(session[0], session[1])
+
+    # Name - get_user_by_email
+    # Desc
+    #   Gets a user by the email
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   all_users : objects of all users in the table in question
+    #   email : Email to be used for the query
+    # returns
+    #   : User -> User if that email exists, none if otherwise
+
+    def get_user_by_email(self, all_users, email):
+        return all_users.filter("email =", email).get()
+
+    # Name - username
+    # Desc
+    #   Gets a user by the username
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   all_users : objects of all users in the table in question
+    #   username : Username to be used for the query
+    # returns
+    #   : User -> User if that username exists, none if otherwise
+    def get_user_by_username(self, all_users, username):
+        return all_users.filter("username =", username).get()
+
+    # Name - username_error_prompt
+    # Desc
+    #   To get the right error prompt to be displayed to the user when username is enterd for signup
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   username : Username entered by user for signup
+    # returns
+    #   : String -> Error prompt to the user
+    def username_error_prompt(self, username):
+        all_users = Tourist.Tourist.all()
+        if username == "":
+            return "Username is required"
+        elif self.validate_username(username) != True:
+            return "Username must be at least 3 characters"
+        elif self.get_user_by_username(all_users, username) != None:
+            return "Username already exists"
+        else:
+            return ""
+
+
+    # Name - email_error_prompt
+    # Desc
+    #   To get the right error prompt to be displayed to the user when email is enterd for signup
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   email : Email entered by user for signup
+    # returns
+    #   : String -> Error prompt to the user
+    def email_error_prompt(self, email):
+        all_users = Tourist.Tourist.all()
+        if email == "":
+            return "Email is required"
+        elif self.validate_email(email) != True:
+            return "Inavid email entered"
+        elif self.get_user_by_email(all_users, email) != None:
+            return "Email already exists"
+        else:
+            return ""
+        
+
+    # Name - password_error_prompt
+    # Desc
+    #   To get the right error prompt to be displayed to the user when password is enterd for signup
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   password : Password entered by user for signup
+    # returns
+    #   : String -> Error prompt to the user
+    def password_error_prompt(self, password):
+        if password == "":
+            return "Password is required"
+        elif self.validate_password(password) != True:
+            return "Password must be at least 6 characters"
+        else:
+            return ""
+
+    def confirm_password_error_prompt(self, password, confirm_password):
+        if confirm_password == "":
+            return "Confirm Your Password"
+        elif confirm_password != password:
+            return "Passwords do not match"
+        else:
+            return ""
+
         
         

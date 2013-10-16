@@ -4,14 +4,16 @@
 # @purpose db model for Request data
 
 
-import Root
+from security import Root
+import Destination
+import Guide
 from google.appengine.ext import db
 
 date = ""
 
 class Request(db.Model, Root.Handler):
-    _destination = db.ReferenceProperty()
+    _destination = db.ReferenceProperty(Destination.Destination)
     _startDate   = db.DateTimeProperty()
     _requester   = db.ListProperty(db.Key)
     _endDate     = db.DateTimeProperty()
-    _guide       = db.ReferenceProperty()
+    _guide       = db.ReferenceProperty(Guide.Guide)
