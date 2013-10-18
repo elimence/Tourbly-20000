@@ -31,13 +31,17 @@ class SignupHandler(Root.Handler):
                 # tourist_obj = Tourist.Tourist(username = username, password = password, email = email)
                 _args = {"name":email, "password":password}
                 hashed_password, salt = self.hash_password(_args)
-                tourist = Tourist.Tourist.addTourist(email, hashed_password, salt)
+                token, salt2 = self.hash_password(_args)
+                tourist = Tourist.Tourist.addTourist(email, hashed_password, salt, token)
 
                 session_vars = {"name" : "authenticator", "value" : email}
                 self.create_session(session_vars)
 
-                # tourist = {tourist}
-                # self.send_verification_email(tourist)
+                ph = "lkdsjfdsjklfjhiwereyim,nn.nafndfgityereryewiybx,ncn,neroejslfjoiuer"
+                _args = {"name":email + ph, "password":password}
+                verification_link = "http://tourbly.appspot.com/verify_email?token=" + token + "&email=" + email
+                params = {"email" : email, "url" : verification_link}
+                self.send_verification_email(params)
                 self.render("home.html", test = "Signed up successfully, " + tourist.email)
             else:
                 self.render("signup.html", email = email, email_error = self.email_error_prompt(email), password_error = self.password_error_prompt(password), confirm_password_error = self.confirm_password_error_prompt(password, confirm_password))
@@ -65,7 +69,11 @@ class SigninHandler(Root.Handler):
                 if self.auth_password(_args):
                     session_vars = {"name" : "authenticator", "value" : email}
                     self.create_session(session_vars)
-                    self.render("home.html", test = "You've been signed in successfully, " + tourist.email)
+
+                    if tourist.firstName == None:
+                        self.render("home.html", test = "You've been signed in successfully, " + tourist.email)
+                    else:
+                        self.render("home.html", test = "You've been signed in successfully, " + tourist.firstName)
                 else:
                     self.render("signin.html", error = "Invalid email or password")
             else:
@@ -76,7 +84,24 @@ class SigninHandler(Root.Handler):
 class PlacesHandler(Root.Handler):
     def get(self):
         places = Destination.Destination.getAllDestination()
-        self.render("places.html", places = places)   
+        self.render("places.html", places = places)  
+
+class LogoutHandler(Root.Handler):
+     def get(self):
+        self.logout(["authenticator"])
+
+class VerifyEmailhandler(Root.Handler):
+    def get(self):
+        token = self.request.get("token")
+        email = self.request.get("email")
+        tourist = db.GqlQuery("select * from Tourist where email = :1", email).get()
+
+        if tourist.token == token:
+            tourist.activated = True
+            tourist.put()
+            self.render("home.html", test = "Your account has been activated")
+        else: 
+            self.redirect("/home")
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
@@ -84,5 +109,7 @@ app = webapp2.WSGIApplication([
     ('/signup', SignupHandler),
     ('/signin', SigninHandler),
     ('/places', PlacesHandler),
+    ('/logout', LogoutHandler),
+    ('/verify_email', VerifyEmailhandler)
   
 ], debug=True)

@@ -371,11 +371,29 @@ class Handler(Security, webapp2.RequestHandler):
     #   To get the right error prompt to be displayed to the user when password is enterd for signup
     # params
     #   self           : Ref    -> reference to object instance
-    #   tourist : Tourist entity added after sign up
+    #   _args : List -> list of objects with cookie name and value as follows
+    #                           :: email  -> Email of user to which verification message will be sent
+    #                           :: url -> link with token to verify user's email
     # returns
     #   : Void -> Returns nothing
-    # def send_verification_email(self, tourist):
-        
+    def send_verification_email(self, _args):
+        message = mail.EmailMessage(sender="Christian Osei-Bonsu <christian.osei-bonsu@meltwater.org>",
+                            subject="Welcome To Tourbly, Please Verify Your Account")
+
+        message.to = "<" + _args["email"] + ">"
+        message.body = """
+        Dear User:
+
+        Your have successfully signed up onto the Tourbly platform. Discover beautiful scenery, 
+        culture and lifestyles with friendly and reliable tour guides you can trust.
+
+        Please complete your sign up by clicking on the following link """ + _args["url"] + """
+
+        Cheers,
+        The Tourbly Team
+        """
+
+        message.send()
 
 
         

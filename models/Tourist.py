@@ -12,13 +12,14 @@ class Tourist(db.Model):
 	languages = db.ListProperty(db.Key)
 	salt = db.StringProperty(required = True)
 	picture = db.BlobProperty()
-	activated = db.BooleanProperty()
+	activated = db.BooleanProperty(default = False)
+	token = db.StringProperty()
 	created = db.DateTimeProperty(auto_now_add = True)
 
 	# @classmethod
 	@staticmethod
-	def addTourist(email, hashed_password, salt):
-		tourist = Tourist(email = email, password = str(hashed_password), salt = salt)
+	def addTourist(email, hashed_password, salt, token):
+		tourist = Tourist(email = email, password = str(hashed_password), salt = salt, token = token)
 		tourist.put()
 		return tourist
 
