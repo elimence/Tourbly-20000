@@ -15,6 +15,7 @@ import datetime
 import re
 
 from models import Tourist
+from google.appengine.api import mail
 
     
 ## Globals
@@ -77,7 +78,7 @@ class Security():
     #   : Boolean -> True if matched, False otherwise
         
     def auth_password(self, _args):
-        if hmac.new(salt+ph, str(p)).hexdigest() == h:
+        if hmac.new(_args["salt"]+ph, str(_args["password"])).hexdigest() == _args["hashed_password"]:
             return True
         else:
             return False
@@ -259,7 +260,7 @@ class Handler(Security, webapp2.RequestHandler):
 
     def create_session(self, session_vars):
         for cookie in session_vars:
-            self.set_cookie(cookie.name, cookie.value)
+            self.set_cookie(cookie["name"], cookie["value"])
         
         
 
@@ -364,6 +365,18 @@ class Handler(Security, webapp2.RequestHandler):
             return "Passwords do not match"
         else:
             return ""
+
+    # Name - send_verification_email
+    # Desc
+    #   To get the right error prompt to be displayed to the user when password is enterd for signup
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   tourist : Tourist entity added after sign up
+    # returns
+    #   : Void -> Returns nothing
+    # def send_verification_email(self, tourist):
+        
+
 
         
         
