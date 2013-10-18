@@ -192,9 +192,9 @@ class Handler(Security, webapp2.RequestHandler):
 
     def set_cookie(self, _args):
         self.response.headers.add_header('Set-Cookie', '%s=%s|%s; expires=%s' % 
-             (str(_args.name), str(_args.value), self.Hash_string(_args.value), 
+             (str(_args["name"]), str(_args["value"]), self.Hash_string(_args["value"]), 
               (datetime.datetime.now()
-              + datetime.timedelta(weeks=_args.validity | 4)).strftime('%a, %d %b %Y %H:%M:%S GMT')))
+              + datetime.timedelta(weeks=_args["validity"] | 4)).strftime('%a, %d %b %Y %H:%M:%S GMT')))
         
 
 
@@ -257,13 +257,13 @@ class Handler(Security, webapp2.RequestHandler):
     #                           :: value -> value of cookie
     # returns
     #   : Void -> returns nothing
-
     def create_session(self, session_vars):
-        for cookie in session_vars:
-            self.set_cookie(cookie["name"], cookie["value"])
+        # # for cookie in session_vars:
+        #     self.set_cookie(cookie["name"], cookie["value"])
+        _args = {"name" : session_vars["name"], "value" : session_vars["value"], "validity" : 4}
+        self.set_cookie(_args)
         
         
-
     # Name - check_session
     # Desc
     #   verifies client's login status

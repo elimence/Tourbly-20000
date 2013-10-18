@@ -50,10 +50,11 @@
                   <p class="lead">We connect you with friendly &amp; reliable tour guides to over 100 tourist destinations accross west Africa. We guarantee you a safe and exciting experience.</p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 form">
-                  <form class="form-signin">
+                  <form class="form-signin" method = "post" action = "/signin">
+                    <p style = "color: red;">{{error}}</p>
                     <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-                    <input type="text" class="form-control" placeholder="Your username" autofocus>
-                    <input type="password" class="form-control" placeholder="Enter your password">
+                    <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email">
+                    <input type="password" class="form-control" placeholder="Enter your password" name = "password">
                     <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
                   </form>
                   <h4 class="google-sign-in-caption">Or Signin with Google Plus</h4>
@@ -82,7 +83,7 @@
           <form class="form-signin">
             <p style = "color: red;">{{error}}</p>
             <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-            <input type="text" class="form-control" placeholder="Your username" autofocus>
+            <input type="text" class="form-control" placeholder="Your Email" autofocus>
             <input type="password" class="form-control" placeholder="Enter your password">
             <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
           </form>

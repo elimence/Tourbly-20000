@@ -10,13 +10,15 @@ class Tourist(db.Model):
 	country = db.StringProperty()
 	state = db.StringProperty()
 	languages = db.ListProperty(db.Key)
+	salt = db.StringProperty(required = True)
 	picture = db.BlobProperty()
+	activated = db.BooleanProperty()
 	created = db.DateTimeProperty(auto_now_add = True)
 
 	# @classmethod
 	@staticmethod
-	def addTourist(email, hashed_password):
-		tourist = Tourist(email = email, password = str(hashed_password))
+	def addTourist(email, hashed_password, salt):
+		tourist = Tourist(email = email, password = str(hashed_password), salt = salt)
 		tourist.put()
 		return tourist
 

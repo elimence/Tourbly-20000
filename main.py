@@ -3,6 +3,7 @@ import webapp2
 
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
 from google.appengine.api import mail
+from google.appengine.ext import db
 from models import Destination, Tourist, Guide, Request
 from security import Root
 
@@ -29,13 +30,13 @@ class SignupHandler(Root.Handler):
             if self.validate_email(email) and self.validate_password(password) and password == confirm_password and (self.get_user_by_email(all_users, email) == None):
                 # tourist_obj = Tourist.Tourist(username = username, password = password, email = email)
                 _args = {"name":email, "password":password}
-                hashed_password = self.hash_password(_args)
-                tourist = Tourist.Tourist.addTourist(email, hashed_password)
+                hashed_password, salt = self.hash_password(_args)
+                tourist = Tourist.Tourist.addTourist(email, hashed_password, salt)
 
                 session_vars = {"name" : "authenticator", "value" : email}
-                self.create_session()
+                self.create_session(session_vars)
 
-                tourist = {tourist}
+                # tourist = {tourist}
                 # self.send_verification_email(tourist)
                 self.render("home.html", test = "Signed up successfully, " + tourist.email)
             else:
@@ -52,19 +53,25 @@ class SigninHandler(Root.Handler):
     def post(self):
         email = self.request.get("email")
         password = self.request.get("password")
-        tourist = self.get_user_by_email(email)
+        all_users = Tourist.Tourist.all()
+        # tourist = self.get_user_by_email(all_users, email)
+        tourist = db.GqlQuery("select * from Tourist where email = :1", email).get()
 
-        if tourist:
-            hashed_password, salt = tourist.password.split("|")
-            _args = {"password" : password, "hashed_password" : hashed_password, "salt" : salt}
-            if self.auth_password(_args):
-                session_vars = {"name" : "authenticator", "value" : email}
-                self.create_session()
-                self.render("home.html", test = "You've been signed in successfully, " + tourist.firstName | tourist.email)
+        if email and password:
+            if tourist:
+                hashed_password= tourist.password
+                salt = tourist.salt
+                _args = {"password" : password, "hashed_password" : hashed_password, "salt" : salt}
+                if self.auth_password(_args):
+                    session_vars = {"name" : "authenticator", "value" : email}
+                    self.create_session(session_vars)
+                    self.render("home.html", test = "You've been signed in successfully, " + tourist.email)
+                else:
+                    self.render("signin.html", error = "Invalid email or password")
             else:
-                self.render("signin.html", error = "Invalid email or password")
+                self.render("signin.html", error = "User with email " + email + " cannot be found")
         else:
-            self.render("signin.html", error = "User with email " + email + " cannot be found")
+            self.render("signin.html", error = "Both fields are required")
 
 class PlacesHandler(Root.Handler):
     def get(self):
