@@ -3,8 +3,8 @@ from google.appengine.ext import db
 # import Helper
 
 class Tourist(db.Model):
-	firstName = db.StringProperty()
-	lastName = db.StringProperty()
+	first_name = db.StringProperty()
+	last_name = db.StringProperty()
 	email = db.EmailProperty(required = True)
 	password = db.StringProperty(required = True)
 	country = db.StringProperty()
@@ -18,10 +18,19 @@ class Tourist(db.Model):
 
 	# @classmethod
 	@staticmethod
-	def addTourist(email, hashed_password, salt, token):
-		tourist = Tourist(email = email, password = str(hashed_password), salt = salt, token = token)
+	def addTourist(email, hashed_password, salt, token, picture):
+		tourist = Tourist(email = email, password = str(hashed_password), salt = salt, token = token, picture = picture)
 		tourist.put()
 		return tourist
+
+	@classmethod
+	def updateTourist(cls, email, first_name, last_name, country, state):
+		cls.email = email
+		cls.first_name = first_name 
+		cls.last_name = last_name
+		cls.country = country
+		cls.state = state
+		cls.put()
 
 	@classmethod 
 	def verifyTourist(cls, email, password):

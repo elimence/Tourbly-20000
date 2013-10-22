@@ -1,6 +1,7 @@
 
 import webapp2
 
+from google.appengine.api import urlfetch
 from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
 from google.appengine.api import mail
 from google.appengine.ext import db
@@ -24,6 +25,8 @@ class SignupHandler(Root.Handler):
         email = self.request.get("email")
         password = self.request.get("password")
         confirm_password  = self.request.get("confirm_password")
+        picture_fetch = urlfetch.Fetch("http://s3.amazonaws.com/37assets/svn/765-default-avatar.png")
+        picture = picture_fetch.content
         all_users = Tourist.Tourist.all()
 
         if email and password and confirm_password:
@@ -32,19 +35,23 @@ class SignupHandler(Root.Handler):
                 _args = {"name":email, "password":password}
                 hashed_password, salt = self.hash_password(_args)
                 token, salt2 = self.hash_password(_args)
-                tourist = Tourist.Tourist.addTourist(email, hashed_password, salt, token)
+                tourist = Tourist.Tourist.addTourist(email, hashed_password, salt, token, picture)
 
                 session_vars = {"name" : "authenticator", "value" : email}
+                session_vars2 = {"name" : "query", "value" : tourist.key().id()}
                 self.create_session(session_vars)
+                self.create_session(session_vars2)
 
                 ph = "lkdsjfdsjklfjhiwereyim,nn.nafndfgityereryewiybx,ncn,neroejslfjoiuer"
                 _args = {"name":email + ph, "password":password}
-                verification_link = "http://tourbly.appspot.com/verify_email?token=" + token + "&email=" + email
+                verification_link = "http://tourbly.appspot.com/verify_email?token=" + token + "&id=" + str(tourist.key().id())
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
                 self.render("home.html", test = "Signed up successfully, " + tourist.email)
             else:
-                self.render("signup.html", email = email, email_error = self.email_error_prompt(email), password_error = self.password_error_prompt(password), confirm_password_error = self.confirm_password_error_prompt(password, confirm_password))
+                self.render("signup.html", email = email, email_error = self.email_error_prompt(email), 
+                    password_error = self.password_error_prompt(password), confirm_password_error = 
+                    self.confirm_password_error_prompt(password, confirm_password))
         else:
             error = "All fields are required"
             self.render("signup.html", email = email, error = error)
@@ -68,9 +75,11 @@ class SigninHandler(Root.Handler):
                 _args = {"password" : password, "hashed_password" : hashed_password, "salt" : salt}
                 if self.auth_password(_args):
                     session_vars = {"name" : "authenticator", "value" : email}
+                    session_vars2 = {"name" : "query", "value" : tourist.key().id()}
                     self.create_session(session_vars)
+                    self.create_session(session_vars2)
 
-                    if tourist.firstName == None:
+                    if tourist.first_name == None:
                         self.render("home.html", test = "You've been signed in successfully, " + tourist.email)
                     else:
                         self.render("home.html", test = "You've been signed in successfully, " + tourist.firstName)
@@ -93,15 +102,54 @@ class LogoutHandler(Root.Handler):
 class VerifyEmailhandler(Root.Handler):
     def get(self):
         token = self.request.get("token")
-        email = self.request.get("email")
-        tourist = db.GqlQuery("select * from Tourist where email = :1", email).get()
+        tourist_id = int(self.request.get("id"))
+        tourist = Tourist.Tourist.get_by_id(tourist_id)
 
         if tourist.token == token:
             tourist.activated = True
             tourist.put()
-            self.render("home.html", test = "Your account has been activated")
+            self.render("profile.html", success_message = "Your account has been activated")
         else: 
             self.redirect("/home")
+
+class ImageHandler(Root.Handler):
+    def get(self):
+        tourist_id = int(self.request.get('tourist_id'))
+        tourist = Tourist.Tourist.get_by_id(tourist_id)
+        if tourist.picture:
+            self.response.headers['Content-Type'] = 'image/png'
+            self.write(tourist.picture)
+
+class profileHandler(Root.Handler):
+    def get(self):
+        if self.check_session("authenticator"):
+            tourist_id = int(self.get_cookie("query")[0])
+            tourist = Tourist.Tourist.get_by_id(tourist_id)
+            self.render("profile.html", email = tourist.email, first_name = tourist.first_name, 
+                last_name = tourist.last_name, country = tourist.country, state = tourist.state, 
+                tourist_id = tourist_id)
+        else:
+            self.redirect("/home")
+
+    def post(self):
+        tourist_id = int(self.get_cookie("query")[0])
+        tourist = Tourist.Tourist.get_user_by_id(tourist_id)
+
+        email = self.request.get("email")
+        first_name = self.request.get("first_name")
+        last_name = self.request.get("last_name")
+        country = self.request.get("country")
+        state = self.request.get("state")
+
+        if self.validate_email(email) and self.validate_username(first_name) and self.validate_username(last_name):
+            tourist.updateTourist(email, first_name, last_name, country, state)
+            self.render("profile.html", success_message = "Your profile has been updated successfully")
+        else:
+            self.render("profile.html", email = email, email_error = self.email_error_prompt(email), first_name = first_name, 
+                last_name = last_name, state = state)
+
+
+  
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
@@ -110,6 +158,8 @@ app = webapp2.WSGIApplication([
     ('/signin', SigninHandler),
     ('/places', PlacesHandler),
     ('/logout', LogoutHandler),
-    ('/verify_email', VerifyEmailhandler)
+    ('/verify_email', VerifyEmailhandler),
+    ('/img', ImageHandler),
+    ('/profile', profileHandler)
   
 ], debug=True)

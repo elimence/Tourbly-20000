@@ -384,7 +384,7 @@ class Handler(Security, webapp2.RequestHandler):
         message.body = """
         Dear User:
 
-        Your have successfully signed up onto the Tourbly platform. Discover beautiful scenery, 
+        You have successfully signed up onto the Tourbly platform. Discover beautiful scenery, 
         culture and lifestyles with friendly and reliable tour guides you can trust.
 
         Please complete your sign up by clicking on the following link """ + _args["url"] + """
