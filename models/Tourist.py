@@ -3,12 +3,12 @@ from google.appengine.ext import db
 # import Helper
 
 class Tourist(db.Model):
-	first_name = db.StringProperty()
-	last_name = db.StringProperty()
+	first_name = db.StringProperty(default = "")
+	last_name = db.StringProperty(default = "")
 	email = db.EmailProperty(required = True)
 	password = db.StringProperty(required = True)
-	country = db.StringProperty()
-	state = db.StringProperty()
+	country = db.StringProperty(default = "") 
+	state = db.StringProperty(default = "")
 	languages = db.ListProperty(db.Key)
 	salt = db.StringProperty(required = True)
 	picture = db.BlobProperty()

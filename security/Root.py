@@ -123,7 +123,7 @@ class Security():
 
 
 # => Request handler extended with class Security and misc functionality
-USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+USER_RE = re.compile(r"^[a-zA-Z0-9_-]{0,20}$")
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 PASS_RE = re.compile(r"^.{6,20}$")
 class Handler(Security, webapp2.RequestHandler):
@@ -141,22 +141,22 @@ class Handler(Security, webapp2.RequestHandler):
         self.write(self.render_str(template, **kw))
     
 
-    # Name - valid_username
+    # Name - validate_name
         # Desc
-        #   Validates username enterd by user for signup
+        #   Validates name enterd by user for signup
         # params
-        #   username  : username entered by user
+        #   name  : name entered by user
         # returns
-        #   : Boolean -> Valid username or invalid
+        #   : Boolean -> Valid name or invalid
     @staticmethod
-    def validate_username(username):
-        if re.match(USER_RE, username):
+    def validate_name(name):
+        if re.match(USER_RE, name):
             return True
         else:
             return False
             
             
-    # Name - valid_password
+    # Name - validate_password
         # Desc
         #   Validates password enterd by user for signup
         # params
@@ -337,6 +337,25 @@ class Handler(Security, webapp2.RequestHandler):
         elif self.validate_email(email) != True:
             return "Inavid email entered"
         elif self.get_user_by_email(all_users, email) != None:
+            return "Email already exists"
+        else:
+            return ""
+
+    # Name - profile_email_error_prompt
+    # Desc
+    #   To get the right error prompt to be displayed to the user when email is enterd for signup
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   email : Email entered by user for signup
+    # returns
+    #   : String -> Error prompt to the user
+    def profile_email_error_prompt(self, email, new_email):
+        all_users = Tourist.Tourist.all()
+        if new_email == "":
+            return "Email is required"
+        elif self.validate_email(new_email) != True:
+            return "Inavid email entered"
+        elif self.get_user_by_email(all_users, new_email) != None and new_email != email:
             return "Email already exists"
         else:
             return ""

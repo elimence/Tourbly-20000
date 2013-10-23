@@ -23,7 +23,10 @@ class HomeHandler(Root.Handler):
 
 class SignupHandler(Root.Handler):
     def get(self):
-        self.render("signup.html")
+        if self.check_session("query"):
+            self.redirect("/home")
+        else:
+            self.render("signup.html")
 
     def post(self):
         email = self.request.get("email")
@@ -51,7 +54,7 @@ class SignupHandler(Root.Handler):
                 verification_link = "http://tourbly.appspot.com/verify_email?token=" + token + "&id=" + str(tourist.key().id())
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
-                self.render("home.html", test = "Signed up successfully, " + tourist.email)
+                self.render("home.html", test = "You have Signed up successfully, " + tourist.email)
             else:
                 self.render("signup.html", email = email, email_error = self.email_error_prompt(email), 
                     password_error = self.password_error_prompt(password), confirm_password_error = 
@@ -63,7 +66,10 @@ class SignupHandler(Root.Handler):
 
 class SigninHandler(Root.Handler):
     def get(self):
-        self.render("signin.html")
+        if self.check_session("query"):
+            self.redirect("/home")
+        else:
+            self.render("signin.html")
 
     def post(self):
         email = self.request.get("email")
@@ -101,7 +107,9 @@ class PlacesHandler(Root.Handler):
 
 class LogoutHandler(Root.Handler):
      def get(self):
-        self.logout(["authenticator"])
+        current_page = self.request.get("current_page")
+        self.logout(["authenticator", "query"])
+        self.redirect("/" + current_page)
 
 class VerifyEmailhandler(Root.Handler):
     def get(self):
@@ -131,7 +139,7 @@ class profileHandler(Root.Handler):
             tourist = Tourist.Tourist.get_by_id(tourist_id)
             self.render("profile.html", email = tourist.email, first_name = tourist.first_name, 
                 last_name = tourist.last_name, country = tourist.country, state = tourist.state, 
-                tourist_id = tourist_id)
+                tourist_id = tourist_id, isLoggedIn = self.check_session("query"), tourist = tourist)
         else:
             self.redirect("/home")
 
@@ -139,20 +147,24 @@ class profileHandler(Root.Handler):
         tourist_id = int(self.get_cookie("query")[0])
         tourist = Tourist.Tourist.get_by_id(tourist_id)
 
-        email = self.request.get("email")
+        new_email = self.request.get("email")
         first_name = self.request.get("first_name")
         last_name = self.request.get("last_name")
         country = self.request.get("country")
         state = self.request.get("state")
+        picture = self.request.get("profile_pic")
 
-        if self.validate_email(email) and self.validate_username(first_name) and self.validate_username(last_name):
-            Tourist.Tourist.updateTourist(tourist, email, first_name, last_name, country, state)
-            self.render("profile.html",  email = tourist.email, first_name = tourist.first_name, 
-                last_name = tourist.last_name, country = tourist.country, state = tourist.state, 
-                tourist_id = tourist_id, success_message = "Your profile has been updated successfully")
+        if self.validate_email(new_email) and self.validate_name(first_name) and self.validate_name(last_name):
+            Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
+            if picture:
+                tourist.picture = str(picture)
+                tourist.put()
+            self.render("profile.html", email = tourist.email, first_name = tourist.first_name, 
+                last_name = tourist.last_name, country = tourist.country, state = tourist.state, isLoggedIn = self.check_session("query"),
+                tourist_id = tourist_id, success_message = "Your profile has been updated successfully", tourist = tourist)
         else:
-            self.render("profile.html", email = email, email_error = self.email_error_prompt(email), first_name = 
-                first_name, last_name = last_name, state = state)
+            self.render("profile.html", email = new_email, email_error = self.profile_email_error_prompt(tourist.email, new_email), first_name = 
+                first_name, last_name = last_name, state = state, tourist_id = tourist_id, success_message = "there is something wrong")
 
 
   
