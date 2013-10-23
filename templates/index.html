@@ -32,8 +32,20 @@
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right navlinks">
             <li><a href="/places" id="places">Destinations</a></li>
-            <li><a href="/signup" id="signup">Signup</a></li>
-            <li class="active"><a href="/signin" id="signin">Sign In</a></li>
+            {% if isLoggedIn %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{tourist.email}} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/profile">View Profile</a></li>
+                  <li><a href="#">Change Password</a></li>
+                  <li><a href="#">Logout</a></li>
+                </ul>
+              </li>
+            {% endif %}
+            {% if not isLoggedIn %}
+              <li><a href="/signup" id="signup">Signup</a></li>
+              <li class="active"><a href="/signin" id="signin">Sign In</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

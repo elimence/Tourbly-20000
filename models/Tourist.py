@@ -23,7 +23,7 @@ class Tourist(db.Model):
 		tourist.put()
 		return tourist
 
-	@classmethod
+	@staticmethod
 	def updateTourist(cls, email, first_name, last_name, country, state):
 		cls.email = email
 		cls.first_name = first_name 

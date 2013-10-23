@@ -242,7 +242,7 @@ class Handler(Security, webapp2.RequestHandler):
     #   : 
 
     def get_user_id(self):
-        cookie = self.request.cookies.get('id', None)
+        cookie = self.request.cookies.get('query', None)
         return int(cookie.split('|')[0])
     
 

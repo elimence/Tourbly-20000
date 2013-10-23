@@ -15,7 +15,11 @@ class MainHandler(Root.Handler):
 
 class HomeHandler(Root.Handler):
     def get(self):
-        self.render("index.html")
+        if self.check_session("query"):
+            tourist = Tourist.Tourist.get_by_id(self.get_user_id())
+            self.render("index.html", isLoggedIn = self.check_session("query"), tourist = tourist)
+        else:
+            self.render("index.html", isLoggedIn = self.check_session("query"))
 
 class SignupHandler(Root.Handler):
     def get(self):
@@ -122,7 +126,7 @@ class ImageHandler(Root.Handler):
 
 class profileHandler(Root.Handler):
     def get(self):
-        if self.check_session("authenticator"):
+        if self.check_session("query"):
             tourist_id = int(self.get_cookie("query")[0])
             tourist = Tourist.Tourist.get_by_id(tourist_id)
             self.render("profile.html", email = tourist.email, first_name = tourist.first_name, 
@@ -133,7 +137,7 @@ class profileHandler(Root.Handler):
 
     def post(self):
         tourist_id = int(self.get_cookie("query")[0])
-        tourist = Tourist.Tourist.get_user_by_id(tourist_id)
+        tourist = Tourist.Tourist.get_by_id(tourist_id)
 
         email = self.request.get("email")
         first_name = self.request.get("first_name")
@@ -142,11 +146,13 @@ class profileHandler(Root.Handler):
         state = self.request.get("state")
 
         if self.validate_email(email) and self.validate_username(first_name) and self.validate_username(last_name):
-            tourist.updateTourist(email, first_name, last_name, country, state)
-            self.render("profile.html", success_message = "Your profile has been updated successfully")
+            Tourist.Tourist.updateTourist(tourist, email, first_name, last_name, country, state)
+            self.render("profile.html",  email = tourist.email, first_name = tourist.first_name, 
+                last_name = tourist.last_name, country = tourist.country, state = tourist.state, 
+                tourist_id = tourist_id, success_message = "Your profile has been updated successfully")
         else:
-            self.render("profile.html", email = email, email_error = self.email_error_prompt(email), first_name = first_name, 
-                last_name = last_name, state = state)
+            self.render("profile.html", email = email, email_error = self.email_error_prompt(email), first_name = 
+                first_name, last_name = last_name, state = state)
 
 
   
