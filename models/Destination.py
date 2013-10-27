@@ -8,6 +8,7 @@ class Destination(db.Model, Root.Handler):
 	region = db.StringProperty()
 	city = db.StringProperty()
 	direction = db.TextProperty()
+	times_visited = db.IntegerProperty()
 	pictures = db.ListProperty(db.Blob)
 
 	@classmethod

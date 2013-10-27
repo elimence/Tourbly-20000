@@ -23,7 +23,7 @@
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body onload="init()">
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -176,6 +176,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/holder.js"></script>

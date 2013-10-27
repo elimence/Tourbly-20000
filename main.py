@@ -102,8 +102,9 @@ class SigninHandler(Root.Handler):
 
 class PlacesHandler(Root.Handler):
     def get(self):
+        tourist = Tourist.Tourist.get_by_id(int(self.get_cookie("query")[0]))
         places = Destination.Destination.getAllDestination()
-        self.render("places.html", places = places)  
+        self.render("places.html", places = places, isLoggedIn = self.check_session("query"), tourist = tourist)  
 
 class LogoutHandler(Root.Handler):
      def get(self):
@@ -137,8 +138,14 @@ class profileHandler(Root.Handler):
         if self.check_session("query"):
             tourist_id = int(self.get_cookie("query")[0])
             tourist = Tourist.Tourist.get_by_id(tourist_id)
+
+            countries_fetch = urlfetch.Fetch("http://api.worldbank.org/countries?format=json")
+            if countries_fetch.status == 200:
+                countries_json = countries_fetch.content
+                countries = self.get_countries(countries_json)
+
             self.render("profile.html", email = tourist.email, first_name = tourist.first_name, 
-                last_name = tourist.last_name, country = tourist.country, state = tourist.state, 
+                last_name = tourist.last_name, country = countries, state = tourist.state, 
                 tourist_id = tourist_id, isLoggedIn = self.check_session("query"), tourist = tourist)
         else:
             self.redirect("/home")

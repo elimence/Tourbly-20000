@@ -13,6 +13,7 @@ import jinja2
 import webapp2
 import datetime
 import re
+import json
 
 from models import Tourist
 from google.appengine.api import mail
@@ -414,6 +415,17 @@ class Handler(Security, webapp2.RequestHandler):
 
         message.send()
 
-
-        
-        
+    # Name - get_countries
+    # Desc
+    #   Extracts names of all countries from json object to get it in an array format
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   countries_json : json of data on all countries 
+    # returns
+    #   : Array -> Returns array of all countries
+    def get_countries(self, countries_json):
+        countries_array = json.loads(countries_json)
+        countries = []
+        # for i = 1; i <= len(countries_array[1]); i ++ :
+        #     countries.add(countries_array[1])
+        return countries_array[1][1]["name"]
