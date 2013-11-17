@@ -178,3 +178,11 @@ body {
     top: -2.0em;
   }
 }
+
+/* Override Bootstrap CSS to allow carousel image to fill screen */
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+  display: block;
+  height: auto;
+  min-width: 100%;
+  line-height: 1;
+}
