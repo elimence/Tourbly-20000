@@ -1,4 +1,5 @@
 from security import Root
+from models import Tourist
 
 # MISC UTILITIES
 from google.appengine.api import mail

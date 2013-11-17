@@ -1,5 +1,6 @@
 
 from security import Root
+from models import Tourist
 
 
 class Home(Root.Handler):

@@ -1,5 +1,6 @@
 
 from security import Root
+from models import Tourist
 
 
 class Signin(Root.Handler):

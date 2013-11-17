@@ -1,4 +1,6 @@
+
 from security import Root
+from models import Tourist
 
 
 class Image(Root.Handler):
