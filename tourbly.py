@@ -22,23 +22,15 @@ from controllers import profile
 from controllers import verifyemail
 
 
-# MISC UTILITIES
 
-from google.appengine.ext import db
-from google.appengine.api import mail
-from google.appengine.api import urlfetch
-from models import Destination, Tourist, Guide, Request
-from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
-
-
-
-
+# APPLICATION ENTRY
 
 class tourbly(Root.Handler):
     def get(self):
         self.redirect('/home')
 
 
+# URI ROUTING
 
 app = webapp2.WSGIApplication([
     webapp2.Route(r'/',               handler=tourbly,                    name='root'),

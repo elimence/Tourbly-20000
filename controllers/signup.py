@@ -1,5 +1,7 @@
 
 from security import Root
+from models import Tourist
+from google.appengine.api import urlfetch
 
 
 class Signup(Root.Handler):

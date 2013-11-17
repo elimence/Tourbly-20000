@@ -1,5 +1,5 @@
 # @name    Request.py
-# @author  Samuel A.
+# @author  S. A.
 # @date    Oct 13 13
 # @purpose db model for Request data
 

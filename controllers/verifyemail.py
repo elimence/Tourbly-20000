@@ -1,5 +1,9 @@
 from security import Root
 
+# MISC UTILITIES
+from google.appengine.api import mail
+from google.appengine.ext.webapp.mail_handlers import InboundMailHandler
+
 
 class VerifyEmail(Root.Handler):
     def get(self):

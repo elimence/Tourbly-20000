@@ -1,3 +1,4 @@
+
 from google.appengine.ext import db
 from security import Root
 
@@ -34,4 +35,4 @@ class Destination(db.Model, Root.Handler):
 		return Destination.filter("name=", name).get(), Destination.filter("latlng=", latlng).get()
 
 
-	
+
