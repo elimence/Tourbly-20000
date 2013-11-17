@@ -1,4 +1,5 @@
 from security import Root
+from models import Destination
 
 
 class Places(Root.Handler):
