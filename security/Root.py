@@ -17,10 +17,13 @@ import re
 from models import Tourist
 from google.appengine.api import mail
 
-    
+
 ## Globals
 
 ph           = 'squemishossifragealladinandthemagiclampallinanutshellTheEndIsNighAndAllMustPrepare'
+
+
+# TEMPLATE DIRECTORY CONFIGURATIONS FOR HTML FILES
 template_dir = os.path.join(os.path.dirname(__file__), '../templates')
 jinja_env    = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 
@@ -44,7 +47,7 @@ class Security():
     def Hash_string(self, ref):
         cypher = hmac.new(ph, str(ref))
         return cypher.hexdigest()
-    
+
 
     # Name - hash_password
     # Desc
@@ -64,7 +67,7 @@ class Security():
         # salt = self.rand_salt(_args.name)
         # hash_pass = hmac.new(salt+ph, str(_args.password))
         # return hash_pass.hexdigest(), salt
-        
+
 
     # Name - auth_password
     # Desc
@@ -76,7 +79,7 @@ class Security():
     #                  :: hashedPass : String  -> stored hash of password
     # returns
     #   : Boolean -> True if matched, False otherwise
-        
+
     def auth_password(self, _args):
         if hmac.new(_args["salt"]+ph, str(_args["password"])).hexdigest() == _args["hashed_password"]:
             return True
@@ -100,7 +103,7 @@ class Security():
             return True
         else:
             return False
-        
+
 
 
     # Name - rand_salt
@@ -113,7 +116,7 @@ class Security():
     #   : String -> the generated salt
 
     def rand_salt(self, _args):
-        return ''.join(random.choice(_args) for i in range(8)) 
+        return ''.join(random.choice(_args) for i in range(8))
         + ''.join(random.choice(string.letters) for i in range(8))
 
 
@@ -127,19 +130,21 @@ USER_RE = re.compile(r"^[a-zA-Z0-9_-]{0,20}$")
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 PASS_RE = re.compile(r"^.{6,20}$")
 class Handler(Security, webapp2.RequestHandler):
+
     def w(cls,*a, **kw):
         Handler.response.out.write(*a, **kw)
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
-        
+
     def render_str(self, template, **params):
         t = jinja_env.get_template(template)
         return t.render(params)
-        
+
     # standard render function
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
-    
+
+
 
     # Name - validate_name
         # Desc
@@ -154,8 +159,8 @@ class Handler(Security, webapp2.RequestHandler):
             return True
         else:
             return False
-            
-            
+
+
     # Name - validate_password
         # Desc
         #   Validates password enterd by user for signup
@@ -170,7 +175,7 @@ class Handler(Security, webapp2.RequestHandler):
             return True
         else:
             return False
-            
+
     #validates email input
     @staticmethod
     def validate_email(email):
@@ -191,11 +196,11 @@ class Handler(Security, webapp2.RequestHandler):
     #   : Void -> returns nothing
 
     def set_cookie(self, _args):
-        self.response.headers.add_header('Set-Cookie', '%s=%s|%s; expires=%s' % 
-             (str(_args["name"]), str(_args["value"]), self.Hash_string(_args["value"]), 
+        self.response.headers.add_header('Set-Cookie', '%s=%s|%s; expires=%s' %
+             (str(_args["name"]), str(_args["value"]), self.Hash_string(_args["value"]),
               (datetime.datetime.now()
               + datetime.timedelta(weeks=_args["validity"] | 4)).strftime('%a, %d %b %Y %H:%M:%S GMT')))
-        
+
 
 
     # Name - logout
@@ -223,13 +228,13 @@ class Handler(Security, webapp2.RequestHandler):
 
     def get_cookie(self, name):
         cookie = self.request.cookies.get(name, None)
-        
+
         if cookie:
             temp = cookie.split('|')
             return temp
         else:
             return [None, None]
-    
+
 
 
     # Name - get_cookie ==> (Deprecated)
@@ -239,12 +244,12 @@ class Handler(Security, webapp2.RequestHandler):
     #   self : Ref    -> reference to object instance
     #   name : String -> name of cookie to be retrieved
     # returns
-    #   : 
+    #   :
 
     def get_user_id(self):
         cookie = self.request.cookies.get('query', None)
         return int(cookie.split('|')[0])
-    
+
 
 
     # Name - create_session
@@ -262,8 +267,8 @@ class Handler(Security, webapp2.RequestHandler):
         #     self.set_cookie(cookie["name"], cookie["value"])
         _args = {"name" : session_vars["name"], "value" : session_vars["value"], "validity" : 4}
         self.set_cookie(_args)
-        
-        
+
+
     # Name - check_session
     # Desc
     #   verifies client's login status
@@ -359,7 +364,7 @@ class Handler(Security, webapp2.RequestHandler):
             return "Email already exists"
         else:
             return ""
-        
+
 
     # Name - password_error_prompt
     # Desc
@@ -403,7 +408,7 @@ class Handler(Security, webapp2.RequestHandler):
         message.body = """
         Dear User:
 
-        You have successfully signed up onto the Tourbly platform. Discover beautiful scenery, 
+        You have successfully signed up onto the Tourbly platform. Discover beautiful scenery,
         culture and lifestyles with friendly and reliable tour guides you can trust.
 
         Please complete your sign up by clicking on the following link """ + _args["url"] + """
@@ -415,5 +420,5 @@ class Handler(Security, webapp2.RequestHandler):
         message.send()
 
 
-        
-        
+
+

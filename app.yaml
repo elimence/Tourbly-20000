@@ -4,6 +4,10 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+error_handlers:
+- error_code: over_quota
+  file: over_quota.html
+
 handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
@@ -13,7 +17,7 @@ handlers:
   static_dir: assets
 
 - url: .*
-  script: main.app
+  script: tourbly.app
 
 libraries:
 - name: webapp2
