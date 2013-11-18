@@ -11,6 +11,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/default.css" rel="stylesheet">
+    <link href="/assets/css/default.date.css" rel="stylesheet">
+    <link href="/assets/css/default.time.css" rel="stylesheet">
     <link href="/assets/css/global.css" rel="stylesheet" media="screen">
     <link href="/assets/css/index.css" rel="stylesheet" media="screen">
 
@@ -66,7 +69,9 @@
               <h1 class="slide-header find-a-guide">Find a tour guide.</h1>
               <div class="search-box">
                 <form role="form">
-                  <input type="text" class="form-control input" id="destination" placeholder="Where are you headed?">
+                  <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
+                  <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Arrival">
+                  <input id="departure" name="departure" class="form-control input" type="text" placeholder="Departure">
                   <button type="submit" class="input btn btn-success" id="submit-btn">Search</button>
                 </form>
               </div>
@@ -165,21 +170,34 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Footer -->
     <div class="container footer">
       <hr class="footer-divider">
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a> &middot; <a href="https://plus.google.com/114524818757221632119" rel="publisher">Google+</a></p>
       </footer>
     </div>
+
+    <!-- Link to google plus page -->
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
     <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/picker.js"></script>
+    <script src="/assets/js/picker.date.js"></script>
+    <script src="/assets/js/picker.time.js"></script>
+    <script src="/assets/js/legacy.js"></script>
     <script src="/assets/js/holder.js"></script>
+    <script>
+      $(function () {
+        $('#arrival').pickadate();
+        $('#departure').pickadate();
+      })
+    </script>
   </body>
 </html>

@@ -17,6 +17,13 @@
 .carousel-inner .cities-slide-caption {
   margin-bottom: 4em;
 }
+/* Override Bootstrap CSS to allow carousel image to fill screen */
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+  display: block;
+  height: auto;
+  min-width: 100%;
+  line-height: 1;
+}
 .carousel-inner .search-box {
   border: 0px solid #555;
   width: 100%;
@@ -34,7 +41,13 @@
   border-radius: 2px;
 }
 .carousel-inner .search-box form #destination {
-  width: 81.5%;
+  width: 40.5%;
+  font-size: 1.2em;
+}
+.carousel-inner #arrival,
+.carousel-inner #departure {
+  width: 20%;
+  background-color: #fff;
   font-size: 1.2em;
 }
 .carousel-inner .search-box form #submit-btn {
@@ -122,7 +135,7 @@
   .carousel-inner .search-box form #submit-btn {
     width: 100%;
     margin-left: 0px;
-    margin-top: 0.5em;
+    /*margin-top: 0.5em;*/
   }
 }
 @media (max-width: 650px) {
@@ -161,13 +174,47 @@
     margin-bottom: -0.5em;
   }
 }
-
-
-
-/* Override Bootstrap CSS to allow carousel image to fill screen */
-.carousel-inner > .item > img, .carousel-inner > .item > a > img {
-  display: block;
-  height: auto;
-  min-width: 100%;
-  line-height: 1;
+@media (max-width: 1102px) {
+  .carousel-inner .search-box form #destination,
+  .carousel-inner .search-box form #submit-btn {
+    width: 100%;
+  }
+  .carousel-inner #arrival,
+  .carousel-inner #departure {
+    width: 49.5%;
+  }
+  .carousel-inner .search-box form #submit-btn {
+    margin-left: 0;
+  }
+  .carousel-inner .search-box form #destination,
+  .carousel-inner #arrival,
+  .carousel-inner #departure {
+    margin-bottom: 0.5em;
+  }
+}
+@media (max-width: 601px) {
+  .carousel-inner #arrival,
+  .carousel-inner #departure {
+    width: 49%;
+  }
+}
+@media (max-width: 354px) {
+  .carousel-inner .search-box {
+    position: relative;
+    top: 1.5em;
+  }
+  .carousel-indicators {
+    display: none;
+  }
+}
+@media (max-width: 320px) {
+  .carousel-inner #arrival,
+  .carousel-inner #departure {
+    width: 48.5%;
+  }
+  .carousel-inner .search-box {
+    border: 0px solid #f00;
+    position: relative;
+    top: 2.5em;
+  }
 }
