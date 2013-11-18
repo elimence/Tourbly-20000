@@ -17,6 +17,13 @@
 .carousel-inner .cities-slide-caption {
   margin-bottom: 4em;
 }
+/* Override Bootstrap CSS to allow carousel image to fill screen */
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+  display: block;
+  height: auto;
+  min-width: 100%;
+  line-height: 1;
+}
 .carousel-inner .search-box {
   border: 0px solid #555;
   width: 100%;
