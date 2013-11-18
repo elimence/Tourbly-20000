@@ -27,7 +27,7 @@ from controllers import verifyemail
 
 class tourbly(Root.Handler):
     def get(self):
-        self.redirect('/signin')
+        self.redirect('home')
 
 
 # URI ROUTING
