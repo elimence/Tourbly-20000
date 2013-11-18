@@ -35,3 +35,6 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+.show-outline {
+  border: 1px solid #bbb;
+}
