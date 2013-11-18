@@ -1,5 +1,5 @@
 # @name    Guide.py
-# @author  Samuel A.
+# @author  S. A.
 # @date    Oct 11 13
 # @purpose db model for Guide data
 
