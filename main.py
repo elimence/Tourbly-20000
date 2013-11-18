@@ -166,8 +166,9 @@ class profileHandler(Root.Handler):
             self.render("profile.html", email = new_email, email_error = self.profile_email_error_prompt(tourist.email, new_email), first_name = 
                 first_name, last_name = last_name, state = state, tourist_id = tourist_id, success_message = "there is something wrong")
 
-
-  
+class SearchHandler(Root.Handler):
+    def get(self):
+        self.render("search.html")
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
@@ -178,6 +179,7 @@ app = webapp2.WSGIApplication([
     ('/logout', LogoutHandler),
     ('/verify_email', VerifyEmailhandler),
     ('/img', ImageHandler),
-    ('/profile', profileHandler)
+    ('/profile', profileHandler),
+    ('/search', SearchHandler)
   
 ], debug=True)
