@@ -29,9 +29,9 @@ class Handler(webapp2.RequestHandler):
 
 
 def handle_404(request, response, exception):
-	tmp = Handler()
-	tmp.response = response
-	logging.exception(exception)
-	tmp.render('404.html')
-	response.set_status(404)
+    response.set_status(404)
+    tmp = Handler()
+    tmp.response = response
+    logging.exception(exception)
+    tmp.render('404.html')
 
