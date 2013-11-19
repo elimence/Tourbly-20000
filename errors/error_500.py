@@ -30,10 +30,10 @@ class Handler(webapp2.RequestHandler):
 
 
 def handle_500(request, response, exception):
-	tmp = Handler()
-	tmp.response = response
-	logging.exception(exception)
-	tmp.render('500.html')
-	response.set_status(500)
+    response.set_status(500)
+    tmp = Handler()
+    tmp.response = response
+    logging.exception(exception)
+    tmp.render('500.html')
 
 
