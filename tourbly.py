@@ -20,6 +20,7 @@ from controllers import logout
 from controllers import places
 from controllers import profile
 from controllers import verifyemail
+from controllers import search
 
 
 
@@ -41,7 +42,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/logout',         handler=logout.Logout,              name='logout'),
     webapp2.Route(r'/places',         handler=places.Places,              name='places'),
     webapp2.Route(r'/profile',        handler=profile.Profile,            name='profile'),
-    webapp2.Route(r'/verify_email',   handler=verifyemail.VerifyEmail,    name='verify')
+    webapp2.Route(r'/verify_email',   handler=verifyemail.VerifyEmail,    name='verify'),
+    webapp2.Route(r'/search',         handler=search.Search,              name='search')
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
