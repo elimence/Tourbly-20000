@@ -21,7 +21,10 @@
       <script src="../../assets/js/html5shiv.js"></script>
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
+
   </head>
+
+
   <body>
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -49,7 +52,8 @@
         </div>
       </div>
     </div>
-    
+
+
     <div id="signup-form" class="carousel slide hidden-xs">
       <div class="carousel-inner">
         <div class="item active">
@@ -68,20 +72,19 @@
                     <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email">
                     <input type="password" class="form-control" placeholder="Enter your password" name = "password">
                     <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+
+                    <div class="hr-with-words">
+                      <span class="bigor">or</span>
+                    </div>
+
+                    <div id="gSignInWrapper">
+                      <div id="customBtn" class="customGPlusSignIn">
+                        <span class="icon"></span>
+                        <span class="buttonText">Sign in with Google</span>
+                      </div>
+                    </div>
                   </form>
-                  <h4 class="google-sign-in-caption">Or Signin with Google Plus</h4>
-                  <div class="google-sign-in-holder">
-                    <span id="signinButton">
-                      <span
-                        class="g-signin"
-                        data-callback="signinCallback"
-                        data-clientid="827578877318-dgh5dascl1j7jvidepip6b4droqb3gmj.apps.googleusercontent.com"
-                        data-cookiepolicy="single_host_origin"
-                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                        data-scope="https://www.googleapis.com/auth/plus.login">
-                      </span>
-                    </span>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -89,6 +92,8 @@
         </div>
       </div>
     </div><!-- /.carousel -->
+
+
     <div class="container visible-xs hidden-sm hidden-md hidden-lg">
       <div class="row">
         <div class="col-xs-12 mobile-signup-form">
@@ -98,23 +103,23 @@
             <input type="text" class="form-control" placeholder="Your Email" autofocus>
             <input type="password" class="form-control" placeholder="Enter your password">
             <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+
+            <div class="hr-with-words">
+              <span class="smallor">or</span>
+            </div>
+
+            <div id="gSignInWrapper">
+              <div id="customBtn" class="customGPlusSignIn">
+                <span class="icon"></span>
+                <span class="buttonText">Google</span>
+              </div>
+            </div>
           </form>
-          <h4 class="google-sign-in-caption">Or Signin with Google Plus</h4>
-          <div class="google-sign-in-holder">
-            <span id="signinButton">
-              <span
-                class="g-signin"
-                data-callback="signinCallback"
-                data-clientid="827578877318-dgh5dascl1j7jvidepip6b4droqb3gmj.apps.googleusercontent.com"
-                data-cookiepolicy="single_host_origin"
-                data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                data-scope="https://www.googleapis.com/auth/plus.login">
-              </span>
-            </span>
-          </div>
+
         </div>
       </div>
     </div>
+
 
     <!-- Footer -->
     <!-- <div class="container footer">
@@ -128,13 +133,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
     <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/client:plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-
       function signinCallback(authResult) {
         if (authResult['access_token']) {
           document.write('Welcome');
@@ -150,6 +150,25 @@
           console.log('Sign-in state: ' + authResult['error']);
         }
       }
+
+      (function() {
+        var po = document.createElement('script');
+        po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+      })();
+
+      function render() {
+        gapi.signin.render('customBtn', {
+          'callback': 'signinCallback',
+          'clientid': '228603290478-2inhjn6b42kfhm5u37n3egv53hjmvi75.apps.googleusercontent.com',
+          'cookiepolicy': 'single_host_origin',
+          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+          'scope': 'https://www.googleapis.com/auth/plus.login'
+        });
+      }
+
     </script>
   </body>
 </html>

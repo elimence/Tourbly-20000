@@ -75,20 +75,20 @@
                     <input type="password" class="form-control" placeholder="Confirm Your Password" name = "confirm_password">
                     <p style = "color: red;">{{confirm_password_error}}</p>
                     <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Sign up for Tourbly</button>
+
+                    <div class="hr-with-words">
+                      <span class="bigor">or</span>
+                    </div>
+
+                    <div id="gSignInWrapper">
+                      <div id="customBtn" class="customGPlusSignIn">
+                        <span class="icon"></span>
+                        <span class="buttonText">Sign in with Google</span>
+                      </div>
+                    </div>
+
                   </form>
-                  <h4 class="google-sign-in-caption">Have a Google account?</h4>
-                  <div class="google-sign-in-holder">
-                    <span id="signinButton">
-                      <span
-                        class="g-signin"
-                        data-callback="signinCallback"
-                        data-clientid="827578877318-dgh5dascl1j7jvidepip6b4droqb3gmj.apps.googleusercontent.com"
-                        data-cookiepolicy="single_host_origin"
-                        data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                        data-scope="https://www.googleapis.com/auth/plus.login">
-                      </span>
-                    </span>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -105,20 +105,19 @@
             <input type="text" class="form-control" placeholder="Your email">
             <input type="password" class="form-control" placeholder="Create a Password">
             <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign up for Tourbly</button>
+
+            <div class="hr-with-words">
+              <span class="smallor">or</span>
+            </div>
+
+            <div id="gSignInWrapper">
+              <div id="customBtn" class="customGPlusSignIn">
+                <span class="icon"></span>
+                <span class="buttonText">Google</span>
+              </div>
+            </div>
           </form>
-          <h4 class="google-sign-in-caption">Want to sign in with Google Plus?</h4>
-          <div class="google-sign-in-holder">
-            <span id="signinButton">
-              <span
-                class="g-signin"
-                data-callback="signinCallback"
-                data-clientid="827578877318-dgh5dascl1j7jvidepip6b4droqb3gmj.apps.googleusercontent.com"
-                data-cookiepolicy="single_host_origin"
-                data-requestvisibleactions="http://schemas.google.com/AddActivity"
-                data-scope="https://www.googleapis.com/auth/plus.login">
-              </span>
-            </span>
-          </div>
+
         </div>
       </div>
     </div>
@@ -159,18 +158,12 @@
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-      (function() {
-        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/client:plusone.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-      })();
-
       function signinCallback(authResult) {
         if (authResult['access_token']) {
           document.write('Welcome');
           // Update the app to reflect a signed in user
           // Hide the sign-in button now that the user is authorized, for example:
-          document.getElementById('signinButton').setAttribute('style', 'display: none');
+          // document.getElementById('signinButton').setAttribute('style', 'display: none');
         } else if (authResult['error']) {
           // Update the app to reflect a signed out user
           // Possible error values:
@@ -180,15 +173,25 @@
           console.log('Sign-in state: ' + authResult['error']);
         }
       }
-    </script>
 
-
-    <script type="text/javascript">
       (function() {
-       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-       po.src = 'https://apis.google.com/js/client:plusone.js';
-       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-     })();
+        var po = document.createElement('script');
+        po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(po, s);
+      })();
+
+      function render() {
+        gapi.signin.render('customBtn', {
+          'callback': 'signinCallback',
+          'clientid': '228603290478-2inhjn6b42kfhm5u37n3egv53hjmvi75.apps.googleusercontent.com',
+          'cookiepolicy': 'single_host_origin',
+          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+          'scope': 'https://www.googleapis.com/auth/plus.login'
+        });
+      }
+
     </script>
 
   </body>
