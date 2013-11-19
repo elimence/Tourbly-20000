@@ -33,7 +33,6 @@ def handle_500(request, response, exception):
 	tmp = Handler()
 	tmp.response = response
 	logging.exception(exception)
-	# response.write('A server error has occurred!')
 	tmp.render('500.html')
 	response.set_status(500)
 

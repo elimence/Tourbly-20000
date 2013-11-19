@@ -32,7 +32,6 @@ def handle_404(request, response, exception):
 	tmp = Handler()
 	tmp.response = response
 	logging.exception(exception)
-	response.write('Oops! I could swear this page was here!')
 	tmp.render('404.html')
 	response.set_status(404)
 
