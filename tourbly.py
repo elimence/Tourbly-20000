@@ -40,10 +40,10 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/signup',               handler=signup.Signup,              name='signup'),
     webapp2.Route(r'/logout',               handler=logout.Logout,              name='logout'),
     webapp2.Route(r'/places',               handler=places.Places,              name='places'),
+    webapp2.Route(r'/search',               handler=search.Search,              name='search'),
     webapp2.Route(r'/profile',              handler=profile.Profile,            name='profile'),
     webapp2.Route(r'/verify_email',         handler=verifyemail.VerifyEmail,    name='verify'),
-    webapp2.Route(r'/search',               handler=search.Search,              name='search'),
-    webapp2.Route(r'/guides/ezu',     handler=guide.Guide,                name='guide')
+    webapp2.Route(r'/guides/<:[a-zA-Z]+>',  handler=guide.Guide,                name='guide')
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
