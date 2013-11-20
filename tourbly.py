@@ -13,16 +13,15 @@ from errors import error_500
 # IMPORT CONTROLLERS
 
 from controllers import home
+from controllers import guide
 from controllers import image
 from controllers import signin
 from controllers import signup
 from controllers import logout
 from controllers import places
+from controllers import search
 from controllers import profile
 from controllers import verifyemail
-from controllers import search
-from controllers import guide
-
 
 # APPLICATION ENTRY
 
@@ -51,6 +50,3 @@ app = webapp2.WSGIApplication([
 # ERROR HANDLERS
 app.error_handlers[404] = error_404.handle_404
 app.error_handlers[500] = error_500.handle_500
-
-
-
