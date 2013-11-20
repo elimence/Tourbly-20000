@@ -1,76 +1,153 @@
-.search {
+.guide {
   margin-top: 90px;
   margin-bottom: 10px;
 }
-.search .filters .header {
+.guide .id {
   border: 1px solid #ddd;
-  padding: 0.8em 1em 1em 1em;
+  padding: 0.3em;
   border-radius: 4px;
-  margin-bottom: 1em;
 }
-.filters .header .header-text {
-  margin: 0;
-  font-family: 'Roboto Slab', serif;
-  color: #0088cc;
+.guide .id .name {
+  font-family: 'Libre Baskerville', sans-serif;
+  font-weight: bold;
+  margin-top: 0.5em;
 }
-.filters .date-input {
-  padding-left: 15px;
-  margin-bottom: 15px;
+.guide .id .city {
+  font-weight: bold;
 }
-.filters .date-label {
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding-left: 0.5em;
-  padding-top: 0.1em;
-  padding-bottom: 0.1em;
+.guide .id .term {
+  color: #aaa;
 }
-.filters .date-label label {
-  font-family: 'raleway', serif;
+.guide .id .city,
+.guide .id .term,
+.guide .id .status {
+  font-family: helvetica, sans-serif;
   font-size: 1.1em;
-  margin-top: 0.2em;
-  color: #999;
-  font-weight: normal;
-}
-.filters #destination {
-  font-family: raleway, sans-serif;
-}
-
-#arrival,
-#departure {
-  background-color: #fff;
-  font-family: raleway, sans-serif;
-}
-
-
-.viewport .header {
-  padding: 0.9em 1em 0.8em 1em;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-.viewport .header .header-text {
   margin: 0;
-  font-family: 'Roboto Slab', serif;
-  color: #777;
 }
-.viewport .guides {
+.guide .book {
   margin-top: 1em;
 }
-.guides .guide {
+.guide .verified-icon {
+  color: rgb(0, 206, 0);
+}
+.guide .other {
+  border: 0px solid #bbb;
+}
+
+.guide .personal .stats {
+  border: 1px solid #ddd;
+  margin-top: 2em;
+  border-radius: 4px;
+}
+.stats .wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+.stats .header {
+  border-bottom: 1px solid #ddd;
+  padding: 1em;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.stats .header .heading {
+  margin: 0;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.5em;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 1.5em;
+  color: #000;
 }
-.guides .guide .image {
-  margin: 0 auto;
+.stats .body {
+  /*padding-top: 1em;*/
 }
-.guides .guide .name:link,
-.guides .guide .name:visited {
-  color: #0088cc;
-  font-family: 'Roboto Slab', serif;
+.stats .body .stat {
+  text-align: center;
+  padding: 0.7em;
   font-size: 1.3em;
-  margin-top: 0.5em;
-  display: block;
+  border-bottom: 1px solid #ddd;
 }
-.guide .reviews {
-  color: #555;
-  font-family: 'Roboto Slab', sans-serif;
+
+
+.other .bio {
+  border: 0px solid #bbb;
+  font-family: "Libre Baskerville", serif;
+}
+.bio .header {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 3px rgba(190, 190, 190, 0.75);
+  -moz-box-shadow:    0px 0px 3px rgba(190, 190, 190, 0.75);
+  box-shadow:         0px 0px 3px rgba(190, 190, 190, 0.75);
+}
+.bio .header .header-text {
+  margin-left: 0.8em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 1.8em;
+  color: #51B451;
+  font-family: 'Roboto Slab';
+}
+.bio .body {
+  border: 0px solid #bbb;
+  margin-top: 1em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  border-bottom: 1px solid #eee;
+}
+.bio .body .body-text {
+  line-height: 2em;
+  font-size: 1.0em;
+}
+
+.reviews-separator {
+  text-align: center;
+  font-size: 4em;
+}
+
+
+.other .reviews {
+  margin-top: 3.6em;
+}
+.reviews .header {
+  border-bottom: 1px solid #eee;
+  padding: 1em;
+}
+.reviews .header .header-text {
+  margin: 0;
+  font-weight: bold;
+  margin-left: 0.4em;
+  font-family: 'Roboto Slab';
+  color: #51B451;
+}
+.reviews .review {
+  border-bottom: 1px solid #eee;
+  padding-top: 1.0em;
+  padding-bottom: 0.35em;
+  padding-left: 1.7em;
+}
+.reviews .review .head .reviewer {
+  display: inline-block;
+  font-family: 'Sintony', sans-serif;
+  margin: 0;
+  /*color: #3f729b;*/
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-right: 1em;
+}
+.reviews .review .head .review-date{
+  font-family: 'Gabriela', serif;
+  font-weight: bold;
+  color: #999;
+  font-size: 1.3em;
+}
+.reviews .review .body p{
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.875em;
+  text-align: justify;
+}
+.blue-icon {
+  /*color: #038DD3;*/
 }
