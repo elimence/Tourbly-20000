@@ -161,6 +161,10 @@
 
 
     <script>
+      function s_up_c_bks_loc(authResult) {
+        usr_prf_ops.s_up_c_bks(authResult);
+      }
+
       (function() {
         var po = document.createElement('script');
         po.type = 'text/javascript'; po.async = true;
@@ -171,7 +175,7 @@
 
       function render() {
         gapi.signin.render('customBtn', {
-          'callback': 'auth_ed.in',
+          'callback': 's_up_c_bks_loc',
           'clientid': '228603290478-2inhjn6b42kfhm5u37n3egv53hjmvi75.apps.googleusercontent.com',
           'cookiepolicy': 'single_host_origin',
           'requestvisibleactions': 'http://schemas.google.com/AddActivity',
