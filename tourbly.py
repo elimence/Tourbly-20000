@@ -43,7 +43,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/search',               handler=search.Search,              name='search'),
     webapp2.Route(r'/profile',              handler=profile.Profile,            name='profile'),
     webapp2.Route(r'/verify_email',         handler=verifyemail.VerifyEmail,    name='verify'),
-    webapp2.Route(r'/guides/<:[a-zA-Z]+>',  handler=guide.Guide,                name='guide')
+    webapp2.Route(r'/guides/<:[0-9]+>',     handler=guide.GuideHandler,         name='guide')
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 

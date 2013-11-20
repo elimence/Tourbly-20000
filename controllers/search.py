@@ -32,13 +32,17 @@ class Search(Root.Handler):
 
     	suggested_guides = None
     	if destination:
-    		request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" 
+            request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" 
                 + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
 
-    		request_json = json.loads(request)
-    		destination_country = getCountryFromJson(request_json)
+            request_json = json.loads(request)
+            destination_country = getCountryFromJson(request_json)
 
-    		suggested_guides = Guide.Guide.gql("where _country = :1", destination_country)
+            # guide = Guide.Guide(_country = "Ghana", _picture = "andre.jpg", _firstname = "Andre", 
+            #     _lastname = "Paullette", _email = "andre@gmail.com")
+            # guide.put()
+
+            suggested_guides = Guide.Guide.gql("where _country = :1 limit 12", destination_country)
 
         self.render("search.html", suggested_guides = suggested_guides, search_args = search_args)
         

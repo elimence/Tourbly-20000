@@ -61,7 +61,7 @@
         </div>
         <form role="form">
           <div class="form-group">
-            <input type="email" class="form-control" id="" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
+            <input type="email" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
           </div>
           <div class="row date-input">
             <div class="col-lg-4 date-label">
@@ -101,8 +101,8 @@
           {% if suggested_guides is not none %}
             {% for suggested_guide in suggested_guides %}
               <div class="col-lg-3 guide">
-                <a href="#"><img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive"></a>
-                <a href="#" class="name">{{suggested_guide._firstname}}</a>
+                <a href="/guides/{{suggested_guide.key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
+                <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
                 <span class="reviews">23 Reviews</span>
               </div>
             {% endfor %}
@@ -181,6 +181,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/picker.js"></script>

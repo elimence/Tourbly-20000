@@ -1,6 +1,5 @@
 # from security import Root
 from google.appengine.ext import db
-# import Helper
 
 class Tourist(db.Model):
 	first_name = db.StringProperty(default = "")
@@ -11,7 +10,7 @@ class Tourist(db.Model):
 	state = db.StringProperty(default = "")
 	languages = db.ListProperty(db.Key)
 	salt = db.StringProperty(required = True)
-	picture = db.BlobProperty()
+	picture = db.StringProperty()
 	activated = db.BooleanProperty(default = False)
 	token = db.StringProperty()
 	created = db.DateTimeProperty(auto_now_add = True)
