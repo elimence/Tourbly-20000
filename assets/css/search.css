@@ -21,17 +21,25 @@
   border: 1px solid #ddd;
   border-radius: 3px;
   padding-left: 0.5em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
 }
 .filters .date-label label {
-  font-family: 'Quicksand', serif;
-  font-size: 1.3em;
+  font-family: 'raleway', serif;
+  font-size: 1.1em;
   margin-top: 0.2em;
   color: #999;
+  font-weight: normal;
 }
-.filters .datepicker {
-  /*padding-right: 0;*/
+.filters #destination {
+  font-family: raleway, sans-serif;
 }
 
+#arrival,
+#departure {
+  background-color: #fff;
+  font-family: raleway, sans-serif;
+}
 
 
 .viewport .header {
@@ -61,4 +69,8 @@
   font-size: 1.3em;
   margin-top: 0.5em;
   display: block;
+}
+.guide .reviews {
+  color: #555;
+  font-family: 'Roboto Slab', sans-serif;
 }

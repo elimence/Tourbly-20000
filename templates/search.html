@@ -11,7 +11,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-formhelpers.min.css" rel="stylesheet">
+    <link href="/assets/css/default.css" rel="stylesheet">
+    <link href="/assets/css/default.date.css" rel="stylesheet">
+    <link href="/assets/css/default.time.css" rel="stylesheet">
     <link href="/assets/css/global.css" rel="stylesheet" media="screen">
     <link href="/assets/css/search.css" rel="stylesheet" media="screen">
 
@@ -66,8 +68,7 @@
               <label for="">Arriving</label>
             </div>
             <div class="col-lg-8 datepicker">
-              <div class="bfh-datepicker" data-date="today">
-              </div>
+              <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Date of Arrival" value="19 November, 2013">
             </div>
           </div>
           <div class="row date-input">
@@ -75,8 +76,7 @@
               <label for="">Leaving</label>
             </div>
             <div class="col-lg-8 datepicker">
-              <div class="bfh-datepicker" data-date="today">
-              </div>
+              <input id="departure" name="departure" class="form-control input" type="text" placeholder="Date of Departure" value="1 December, 2013">
             </div>
           </div>
         </form>
@@ -87,36 +87,64 @@
         </div>
         <div class="row body guides">
           <div class="col-lg-3 guide">
-            <img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive">
+            <a href="#"><img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive"></a>
             <a href="#" class="name">David</a>
+            <span class="reviews">23 Reviews</span>
           </div>
           <div class="col-lg-3 guide">
-            <img src="/assets/images/sonia.jpg" width="105" class="image img-rounded img-responsive">
+            <a href="#"><img src="/assets/images/sonia.jpg" width="105" class="image img-rounded img-responsive"></a>
             <a href="#" class="name">Sonia</a>
+            <span class="reviews">12 Reviews</span>
           </div>
           <div class="col-lg-3 guide">
-            <img src="/assets/images/nick.jpg" width="105" class="image img-rounded img-responsive">
+            <a href="#"><img src="/assets/images/nick.jpg" width="105" class="image img-rounded img-responsive"></a>
             <a href="#" class="name">Nicolas</a>
+            <spa class="reviews"n>7 Reviews</span>
           </div>
           <div class="col-lg-3 guide">
-            <img src="/assets/images/andre.jpg" width="105" class="image img-rounded img-responsive">
+            <a href="#"><img src="/assets/images/andre.jpg" width="105" class="image img-rounded img-responsive"></a>
             <a href="#" class="name">Andre</a>
+            <span class="reviews">17 Reviews</span>
           </div>
           <div class="col-lg-3 guide">
-            <img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive">
-            <a href="#" class="name">David</a>
+            <a href="#"><img src="/assets/images/rach.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Rachel</a>
+            <span class="reviews">23 Reviews</span>
           </div>
           <div class="col-lg-3 guide">
-            <img src="/assets/images/sonia.jpg" width="105" class="image img-rounded img-responsive">
-            <a href="#" class="name">Sonia</a>
+            <a href="#"><img src="/assets/images/sarah.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Sarah</a>
+            <span class="reviews">12 Reviews</span>
           </div>
           <div class="col-lg-3 guide">
-            <img src="/assets/images/nick.jpg" width="105" class="image img-rounded img-responsive">
-            <a href="#" class="name">Nicolas</a>
+            <a href="#"><img src="/assets/images/paige.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Paige</a>
+            <spa class="reviews"n>7 Reviews</span>
           </div>
           <div class="col-lg-3 guide">
-            <img src="/assets/images/andre.jpg" width="105" class="image img-rounded img-responsive">
-            <a href="#" class="name">Andre</a>
+            <a href="#"><img src="/assets/images/tuesday.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Tuesday</a>
+            <span class="reviews">17 Reviews</span>
+          </div>
+          <div class="col-lg-3 guide">
+            <a href="#"><img src="/assets/images/jena.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Jena</a>
+            <span class="reviews">23 Reviews</span>
+          </div>
+          <div class="col-lg-3 guide">
+            <a href="#"><img src="/assets/images/sayla.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Sayla</a>
+            <span class="reviews">12 Reviews</span>
+          </div>
+          <div class="col-lg-3 guide">
+            <a href="#"><img src="/assets/images/amber.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Amber</a>
+            <spa class="reviews"n>7 Reviews</span>
+          </div>
+          <div class="col-lg-3 guide">
+            <a href="#"><img src="/assets/images/alita.jpg" width="105" class="image img-rounded img-responsive"></a>
+            <a href="#" class="name">Alita</a>
+            <span class="reviews">17 Reviews</span>
           </div>
         </div>
       </div>
@@ -134,6 +162,15 @@
     <!-- Bootstrap core JavaScript -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/bootstrap-formhelpers.min.js"></script>
+    <script src="/assets/js/picker.js"></script>
+    <script src="/assets/js/picker.date.js"></script>
+    <script src="/assets/js/picker.time.js"></script>
+    <script src="/assets/js/legacy.js"></script>
+    <script>
+      $(function () {
+        $('#arrival').pickadate();
+        $('#departure').pickadate();
+      })
+    </script>
   </body>
 </html>
