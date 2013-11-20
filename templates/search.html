@@ -83,9 +83,16 @@
       </div>
       <div class="col-lg-9 viewport">
         <div class="row header">
-          <h3 class="header-text">Showing available tour guides, {{search_args["destination"]}}</h3>
+          <h3 class="header-text">Showing available tour guides for {{search_args["destination"]}}</h3>
         </div>
         <div class="row body guides">
+
+          {% for suggested_guide in suggested_guides %}
+            <div class="col-lg-3 guide">
+              <a href="#"><img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive"></a>
+              <a href="#" class="name">David</a>
+            <span class="reviews">23 Reviews</span>
+          {% endfor %}
           <div class="col-lg-3 guide">
             <a href="#"><img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive"></a>
             <a href="#" class="name">David</a>
