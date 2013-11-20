@@ -6,12 +6,14 @@
 
 from security import Root
 from google.appengine.ext import db
+import Tourist
+import Guide
 
 date = ""
 
 class Review(db.Model, Root.Handler):
-    _reviewer = db.StringProperty()
-    _reviewee = db.StringProperty()
+    _reviewer = db.ReferenceProperty(Tourist.Tourist, collection_name = "reviewers_set")
+    _reviewee = db.ReferenceProperty(Guide.Guide, collection_name = "reviewees_set")
     _rating   = db.IntegerProperty()
     _comment  = db.StringProperty()
 

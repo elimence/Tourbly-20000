@@ -18,6 +18,7 @@ from controllers import image
 from controllers import signin
 from controllers import signup
 from controllers import logout
+from controllers import loader
 from controllers import places
 from controllers import search
 from controllers import profile
@@ -43,7 +44,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/search',               handler=search.Search,              name='search'),
     webapp2.Route(r'/profile',              handler=profile.Profile,            name='profile'),
     webapp2.Route(r'/verify_email',         handler=verifyemail.VerifyEmail,    name='verify'),
-    webapp2.Route(r'/guides/<:[0-9]+>',     handler=guide.GuideHandler,         name='guide')
+    webapp2.Route(r'/guides/<:[0-9]+>',     handler=guide.GuideHandler,         name='guide'),
+    webapp2.Route(r'/loader',               handler=loader.Loader,              name='loader')
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
