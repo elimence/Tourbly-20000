@@ -3,18 +3,18 @@ from google.appengine.ext import db
 # import Helper
 
 class Tourist(db.Model):
-	first_name = db.StringProperty(default = "")
-	last_name = db.StringProperty(default = "")
-	email = db.EmailProperty(required = True)
-	password = db.StringProperty(required = True)
-	country = db.StringProperty(default = "") 
-	state = db.StringProperty(default = "")
-	languages = db.ListProperty(db.Key)
-	salt = db.StringProperty(required = True)
-	picture = db.BlobProperty()
-	activated = db.BooleanProperty(default = False)
-	token = db.StringProperty()
-	created = db.DateTimeProperty(auto_now_add = True)
+	first_name	= db.StringProperty(default = "")
+	last_name 	= db.StringProperty(default = "")
+	email 		= db.EmailProperty(required = True)
+	password 	= db.StringProperty(required = True)
+	country 	= db.StringProperty(default = "")
+	state 		= db.StringProperty(default = "")
+	languages 	= db.ListProperty(db.Key)
+	salt 		= db.StringProperty(required = True)
+	picture 	= db.BlobProperty()
+	activated 	= db.BooleanProperty(default = False)
+	token 		= db.StringProperty()
+	created 	= db.DateTimeProperty(auto_now_add = True)
 
 	# @classmethod
 	@staticmethod
@@ -26,20 +26,20 @@ class Tourist(db.Model):
 	@staticmethod
 	def updateTourist(cls, email, first_name, last_name, country, state):
 		cls.email = email
-		cls.first_name = first_name 
+		cls.first_name = first_name
 		cls.last_name = last_name
 		cls.country = country
 		cls.state = state
 		cls.put()
 
-	@classmethod 
+	@classmethod
 	def verifyTourist(cls, email, password):
 		status, tourist = Helper.verify_user(email, password, "tourist")
 
 		if status:
 			return tourist
 
-	@classmethod 
+	@classmethod
 	def getTourist(cls, email):
 		return cls.filter("email=", email).get()
 

@@ -1,3 +1,4 @@
+
 # @name    Root.py
 # @author  Samuel A.
 # @date    Oct 13 13
@@ -70,6 +71,7 @@ class Security():
         # return hash_pass.hexdigest(), salt
 
 
+
     # Name - auth_password
     # Desc
     #   verifies passwords by hashing and comparing with stored hash
@@ -86,6 +88,7 @@ class Security():
             return True
         else:
             return False
+
 
 
 
@@ -126,10 +129,13 @@ class Security():
 
 
 
-# => Request handler extended with class Security and misc functionality
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{0,20}$")
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 PASS_RE = re.compile(r"^.{6,20}$")
+
+
+
+# => Request handler extended with class Security and misc functionality
 class Handler(Security, webapp2.RequestHandler):
 
     def w(cls,*a, **kw):
@@ -148,12 +154,12 @@ class Handler(Security, webapp2.RequestHandler):
 
 
     # Name - validate_name
-        # Desc
-        #   Validates name enterd by user for signup
-        # params
-        #   name  : name entered by user
-        # returns
-        #   : Boolean -> Valid name or invalid
+    # Desc
+    #   Validates name enterd by user for signup
+    # params
+    #   name  : name entered by user
+    # returns
+    #   : Boolean -> Valid name or invalid
     @staticmethod
     def validate_name(name):
         if re.match(USER_RE, name):
@@ -163,13 +169,13 @@ class Handler(Security, webapp2.RequestHandler):
 
 
     # Name - validate_password
-        # Desc
-        #   Validates password enterd by user for signup
-        # params
-        #   self           : Ref    -> reference to object instance
-        #   username  : password entered by user
-        # returns
-        #   : Boolean -> Valid password or invalid
+    # Desc
+    #   Validates password enterd by user for signup
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   username  : password entered by user
+    # returns
+    #   : Boolean -> Valid password or invalid
     @staticmethod
     def validate_password(password):
         if re.match(PASS_RE, password):
@@ -184,6 +190,8 @@ class Handler(Security, webapp2.RequestHandler):
             return True
         else:
             return False
+
+
 
     # Name - set_cookie
     # Desc
@@ -263,11 +271,13 @@ class Handler(Security, webapp2.RequestHandler):
     #                           :: value -> value of cookie
     # returns
     #   : Void -> returns nothing
+
     def create_session(self, session_vars):
         # # for cookie in session_vars:
         #     self.set_cookie(cookie["name"], cookie["value"])
         _args = {"name" : session_vars["name"], "value" : session_vars["value"], "validity" : 4}
         self.set_cookie(_args)
+
 
 
     # Name - check_session
@@ -283,6 +293,8 @@ class Handler(Security, webapp2.RequestHandler):
         session = self.get_cookie(session_cookie)
         return self.auth_hash(session[0], session[1])
 
+
+
     # Name - get_user_by_email
     # Desc
     #   Gets a user by the email
@@ -296,6 +308,8 @@ class Handler(Security, webapp2.RequestHandler):
     def get_user_by_email(self, all_users, email):
         return all_users.filter("email =", email).get()
 
+
+
     # Name - username
     # Desc
     #   Gets a user by the username
@@ -305,8 +319,11 @@ class Handler(Security, webapp2.RequestHandler):
     #   username : Username to be used for the query
     # returns
     #   : User -> User if that username exists, none if otherwise
+
     def get_user_by_username(self, all_users, username):
         return all_users.filter("username =", username).get()
+
+
 
     # Name - username_error_prompt
     # Desc
@@ -316,6 +333,7 @@ class Handler(Security, webapp2.RequestHandler):
     #   username : Username entered by user for signup
     # returns
     #   : String -> Error prompt to the user
+
     def username_error_prompt(self, username):
         all_users = Tourist.Tourist.all()
         if username == "":
@@ -336,6 +354,7 @@ class Handler(Security, webapp2.RequestHandler):
     #   email : Email entered by user for signup
     # returns
     #   : String -> Error prompt to the user
+
     def email_error_prompt(self, email):
         all_users = Tourist.Tourist.all()
         if email == "":
@@ -347,6 +366,8 @@ class Handler(Security, webapp2.RequestHandler):
         else:
             return ""
 
+
+
     # Name - profile_email_error_prompt
     # Desc
     #   To get the right error prompt to be displayed to the user when email is enterd for signup
@@ -355,6 +376,7 @@ class Handler(Security, webapp2.RequestHandler):
     #   email : Email entered by user for signup
     # returns
     #   : String -> Error prompt to the user
+
     def profile_email_error_prompt(self, email, new_email):
         all_users = Tourist.Tourist.all()
         if new_email == "":
@@ -367,6 +389,7 @@ class Handler(Security, webapp2.RequestHandler):
             return ""
 
 
+
     # Name - password_error_prompt
     # Desc
     #   To get the right error prompt to be displayed to the user when password is enterd for signup
@@ -375,6 +398,7 @@ class Handler(Security, webapp2.RequestHandler):
     #   password : Password entered by user for signup
     # returns
     #   : String -> Error prompt to the user
+
     def password_error_prompt(self, password):
         if password == "":
             return "Password is required"
@@ -383,6 +407,8 @@ class Handler(Security, webapp2.RequestHandler):
         else:
             return ""
 
+
+
     def confirm_password_error_prompt(self, password, confirm_password):
         if confirm_password == "":
             return "Confirm Your Password"
@@ -390,6 +416,8 @@ class Handler(Security, webapp2.RequestHandler):
             return "Passwords do not match"
         else:
             return ""
+
+
 
     # Name - send_verification_email
     # Desc
@@ -401,6 +429,7 @@ class Handler(Security, webapp2.RequestHandler):
     #                           :: url -> link with token to verify user's email
     # returns
     #   : Void -> Returns nothing
+
     def send_verification_email(self, _args):
         message = mail.EmailMessage(sender="Christian Osei-Bonsu <christian.osei-bonsu@meltwater.org>",
                             subject="Welcome To Tourbly, Please Verify Your Account")
@@ -420,14 +449,18 @@ class Handler(Security, webapp2.RequestHandler):
 
         message.send()
 
+
+
+
     # Name - get_countries
     # Desc
     #   Extracts names of all countries from json object to get it in an array format
     # params
     #   self           : Ref    -> reference to object instance
-    #   countries_json : json of data on all countries 
+    #   countries_json : json of data on all countries
     # returns
     #   : Array -> Returns array of all countries
+
     def get_countries(self, countries_json):
         countries_array = json.loads(countries_json)
         countries = []
