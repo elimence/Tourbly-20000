@@ -3,6 +3,14 @@
 
     BASE_API_PATH : 'plus/v1/',
 
+    _aboutMe     : "",
+    _tagline     : "",
+    _coverPhoto  : "",
+    _visiblePpl  : "",
+    _profilePic  : "",
+    _displayName : "",
+
+
     s_up_c_bks    : function(authResult) {
       gapi.client.load('plus', 'v1', function() {
         if (authResult['access_token']) {
@@ -14,17 +22,24 @@
 
         console.log('authResult', authResult);
       });
-    },
+
+    }, // end property def s_up_c_bks
+
 
     s_in_c_bks  : function(authResult) {
-      if (authResult['access_token']) {
-        document.write('signed in successfully with gplus');
-      } else if(authResult['error']) {
-        console.log('There was an error: ' + authResult['error']);
-      }
+      gapi.client.load('plus', 'v1', function() {
+        if (authResult['access_token']) {
+          usr_prf_ops.profile();
+          usr_prf_ops.people();
+        } else if(authResult['error']) {
+          console.log('There was an error: ' + authResult['error']);
+        }
 
-      console.log('authResult', authResult);
-    },
+        console.log('authResult', authResult);
+      });
+
+    }, // end property def - s_in_c_bks
+
 
     un_auth_usr : function() {
       $.ajax({
@@ -41,9 +56,10 @@
         error       : function(e) {
           console.log(e);
         }
-
       });
-    },
+
+    }, // end property def un_auth_usr
+
 
     people : function() {
       var request = gapi.client.plus.people.list({
@@ -52,13 +68,16 @@
       });
 
       request.execute(function(people) {
-        console.log('Number of people visible to this app: ' + people.totalItems + '\n');
+        usr_prf_ops._visiblePpl = people.totalItems;
+
         for (var personIndex in people.items) {
           person = people.items[personIndex];
           console.log(person.image.url);
         }
       });
-    },
+
+    }, // end property def - people
+
 
     profile : function() {
       var request = gapi.client.plus.people.get( {'userId' : 'me'} );
@@ -68,15 +87,24 @@
           return;
         }
 
-        console.log('image: '+ profile.image.url);
-        console.log('display name: '+ profile.displayName);
-        console.log('tagline: '+ profile.tagline);
-        console.log('about me: '+ profile.aboutMe);
+        usr_prf_ops._aboutMe      = profile.aboutMe;
+        usr_prf_ops._tagline      = profile.tagline;
+        usr_prf_ops._profilePic   = profile.image.url;
+        usr_prf_ops._displayName  = profile.displayName;
+
+        console.log(usr_prf_ops);
 
         if (profile.cover && profile.coverPhoto) {
-          console.log('cover phote: '+ profile.cover.coverPhoto.url);
+          usr_prf_ops._coverPhoto = profile.cover.coverPhoto.url;
         }
       });
-    }
 
- } // ends usr_prf_ops
+    } // end property def - profile
+
+
+ } // end usr_prf_ops
+
+
+ var to_srv = {
+
+ }
