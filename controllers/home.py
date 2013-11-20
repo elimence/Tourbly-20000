@@ -47,8 +47,13 @@ class Home(Root.Handler):
             request_json = json.loads(request)
             destination_country = getCountryFromJson(request_json)
 
-            suggested_guides = db.GqlQuery("select * from Guide where country = :1", destination_country)
+            suggested_guides = db.GqlQuery("select * from Guide")
 
-            self.render("search.html", suggested_guides = suggested_guides, search_args = search_args)
+            guide = Guide.Guide(_country = "Ghana", _picture = "https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v2/yo/r/UlIqmHJn-SK.gif",
+                _firstname = "David", _lastname = "Thomson", _email = "david@gmail.com")
+            guide.put()
+            # self.render("search.html", suggested_guides = suggested_guides, search_args = search_args)
+            self.redirect("/search?destination=" + destination_country + "&arrival_date=" + arrival_date + 
+                "&departure_date=" + departure_date)
     	else:
     		self.render("index.html", error_message = "Please provide all details to complete search")

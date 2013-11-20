@@ -12,12 +12,13 @@ from google.appengine.ext import db
 
 date = ""
 
+
 class Guide(db.Model, Root.Handler):
     _firstname   = db.StringProperty()
     _lastname    = db.StringProperty()
     _email       = db.EmailProperty()
     _phoneNumber = db.PhoneNumberProperty()
-    _country = db.StringProperty(required = True)
+    _country     = db.StringProperty(required = True)
     _dateOfBirth = db.DateProperty()
     _locations   = db.ListProperty(db.Key)
     _workDays    = db.ListProperty(db.Key)
