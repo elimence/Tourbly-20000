@@ -68,7 +68,9 @@
             <div class="carousel-caption search-slide-caption">
               <h1 class="slide-header find-a-guide">Find a tour guide.</h1>
               <div class="search-box">
-                <form role="form">
+                <span style = "color:red">{{error_message}}</span>
+                <form method = "POST" action = "/home" role="form">
+
                   <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
                   <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Arrival">
                   <input id="departure" name="departure" class="form-control input" type="text" placeholder="Departure">
