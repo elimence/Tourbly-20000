@@ -61,7 +61,7 @@
         </div>
         <form role="form">
           <div class="form-group">
-            <input type="email" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
+            <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
           </div>
           <div class="row date-input">
             <div class="col-lg-4 date-label">
@@ -84,8 +84,8 @@
               <label for="">Gender</label>
             </div>
             <div class="col-lg-8 gender-select">
-              <select name="gender" class="form-control">
-                <option value="All">All</option>
+              <select name="gender" class="form-control" >
+                <option value="Any">Any</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
               </select>
@@ -96,7 +96,8 @@
               <label for="">Language</label>
             </div>
             <div class="col-lg-8 language-select">
-              <select name="language" multiple class="form-control">
+              <select name="language" class="form-control">
+                <option value = "None">None</option>
                 <option value="Afrikaans">Afrikaans</option>
                 <option value="Albanian">Albanian</option>
                 <option value="Arabic">Arabic</option>
@@ -172,6 +173,8 @@
               </select>
             </div>
           </div>
+
+          <button style = "width:match-parent" class="input btn btn-success" type = "submit" name = "filter">Filter</button>
         </form>
       </div>
       <div class="col-lg-9 viewport">
@@ -185,7 +188,7 @@
               Sorry, no tour guides match your search. Select more options from the left to see available tour guides
             {% endif %}
 
-            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] %}
+            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "None" and search_args["language"] == "Any" %}
               Many tour guides are happily waiting to help you. Just select your options from the left panel to find them.
             {% endif %}
           </h3>

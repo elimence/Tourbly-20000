@@ -22,15 +22,40 @@ def getCountryFromJson(jsonResponse):
 
     return country
 
+def getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender, language, 
+    destination_country):
+    suggested_guides = None
+
+    if gender == "Any" and language == "None":
+        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 limit 12",
+         destination_country, True)
+    elif language == "None":
+        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _gender = :3 limit 12",
+         destination_country, True, gender)
+    elif gender == "Any":
+        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and limit 12",
+         destination_country, True)
+    else:
+        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _gender = :3 limit 12",
+         destination_country, True, gender)
+        
+    return suggested_guides
+
+# def getQueryWithLanguage(suggested_guides, language):
+
+
 class Search(Root.Handler):
     def get(self):
     	destination = self.request.get("destination")
     	arrival_date = self.request.get("arrival_date")
     	departure_date = self.request.get("departure_date")
+        gender = self.request.get("gender")
+        language = self.request.get("language")
 
-    	search_args = {"destination" : destination, "arrival_date" : arrival_date, "departure_date" : departure_date}
+    	search_args = {"destination" : destination, "arrival_date" : arrival_date, "departure_date" : departure_date,
+        "gender" : gender, "language" : language}
 
-    	suggested_guides = None
+        destination_country = ""
     	if destination:
             request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" 
                 + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
@@ -38,12 +63,19 @@ class Search(Root.Handler):
             request_json = json.loads(request)
             destination_country = getCountryFromJson(request_json)
 
-            # guide = Guide.Guide(_country = "Ghana", _picture = "andre.jpg", _firstname = "Andre", 
-            #     _lastname = "Paullette", _email = "andre@gmail.com")
-            # guide.put()
-
-            suggested_guides = Guide.Guide.gql("where _country = :1 limit 12", destination_country)
+        suggested_guides = getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender,
+         language, destination_country)
 
         self.render("search.html", suggested_guides = suggested_guides, search_args = search_args)
         
+    def post(self):
+        destination = self.request.get("destination")
+        arrival_date = self.request.get("arrival")
+        departure_date = self.request.get("departure")
+        gender = self.request.get("gender")
+        language = self.request.get("language")
+
+        self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
+         + "&departure_date=" + departure_date + "&gender=" + gender + "&language=" + language)
+        self.render("index.html", error_message = "Please provide all details to complete search")
         	

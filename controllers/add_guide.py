@@ -30,4 +30,4 @@ class AddGuide(Root.Handler):
 				= dateOfBirth, _languages = [language1, language2, language3], _elevator_pitch = elevator_pitch)
 
 			guide.put()
-		self.redirect("/add_guide")
+		self.redirect("/admin/guides/add_guide")

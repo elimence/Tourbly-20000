@@ -23,7 +23,7 @@ class Guide(db.Model,):
     _gender      = db.StringProperty()
     _locations   = db.ListProperty(db.Key)
     _picture     = db.StringProperty()
-    _isAvailable = db.BooleanProperty(default = False)
+    _isAvailable = db.BooleanProperty(default = True)
     _times_booked = db.StringProperty()
     _lives_in    = db.StringProperty()
     _languages   = db.StringListProperty()

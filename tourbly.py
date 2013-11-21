@@ -36,20 +36,20 @@ class tourbly(Root.Handler):
 # URI ROUTING
 
 app = webapp2.WSGIApplication([
-    webapp2.Route(r'/',                     handler=tourbly,                    name='root'),
-    webapp2.Route(r'/home',                 handler=home.Home,                  name='home'),
-    webapp2.Route(r'/img',                  handler=image.Image,                name='images'),
-    webapp2.Route(r'/signin',               handler=signin.Signin,              name='signin'),
-    webapp2.Route(r'/signup',               handler=signup.Signup,              name='signup'),
-    webapp2.Route(r'/logout',               handler=logout.Logout,              name='logout'),
-    webapp2.Route(r'/places',               handler=places.Places,              name='places'),
-    webapp2.Route(r'/search',               handler=search.Search,              name='search'),
-    webapp2.Route(r'/profile',              handler=profile.Profile,            name='profile'),
-    webapp2.Route(r'/verify_email',         handler=verifyemail.VerifyEmail,    name='verify'),
-    webapp2.Route(r'/guides/<:[0-9]+>',     handler=guide.GuideHandler,         name='guide'),
-    webapp2.Route(r'/loader',               handler=loader.Loader,              name='loader'),
-    webapp2.Route(r'/add_guide',            handler=add_guide.AddGuide,   name='add_guide'),
-    webapp2.Route(r'/add_place',            handler=add_place.AddPlace,         name='add_place')
+    webapp2.Route(r'/',                         handler=tourbly,                    name='root'),
+    webapp2.Route(r'/home',                     handler=home.Home,                  name='home'),
+    webapp2.Route(r'/img',                      handler=image.Image,                name='images'),
+    webapp2.Route(r'/signin',                   handler=signin.Signin,              name='signin'),
+    webapp2.Route(r'/signup',                   handler=signup.Signup,              name='signup'),
+    webapp2.Route(r'/logout',                   handler=logout.Logout,              name='logout'),
+    webapp2.Route(r'/places',                   handler=places.Places,              name='places'),
+    webapp2.Route(r'/search',                   handler=search.Search,              name='search'),
+    webapp2.Route(r'/profile',                  handler=profile.Profile,            name='profile'),
+    webapp2.Route(r'/verify_email',             handler=verifyemail.VerifyEmail,    name='verify'),
+    webapp2.Route(r'/guides/<:[0-9]+>',         handler=guide.GuideHandler,         name='guide'),
+    webapp2.Route(r'/loader',                   handler=loader.Loader,              name='loader'),
+    webapp2.Route(r'/admin/guides/add_guide',   handler=add_guide.AddGuide,         name='add_guide'),
+    webapp2.Route(r'/add_place',                handler=add_place.AddPlace,         name='add_place')
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 

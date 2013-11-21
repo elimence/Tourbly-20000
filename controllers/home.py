@@ -18,8 +18,6 @@ class Home(Root.Handler):
     	departure_date = self.request.get("departure")
         current_date = datetime.now()
 
-        # arrival_date_obj = datetime.strptime(arrival_date, "%d %B, %Y")
-        # departure_date_obj = datetime.strptime(departure_date, "%d-%B-%Y")
     	if destination and arrival_date and departure_date:
             self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
              + "&departure_date=" + departure_date)
