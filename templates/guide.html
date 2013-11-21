@@ -63,13 +63,9 @@
                 <p class="city">New Orleans, Louisiana, USA</p>
                 <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
                 <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary"> 
-                    {% if guide._isAvailable == 0 %}
-                      Not Available
-                    {% endif %}
-
-                    {% if guide.isAvailable == 1 %}
+                    
                       Available
-                    {% endif %}
+                    
                 </span></p>
               </div>
               <div class="book">

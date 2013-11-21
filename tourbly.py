@@ -22,6 +22,8 @@ from controllers import loader
 from controllers import places
 from controllers import search
 from controllers import profile
+from controllers import add_place
+from controllers import add_guide
 from controllers import verifyemail
 
 # APPLICATION ENTRY
@@ -45,7 +47,9 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/profile',              handler=profile.Profile,            name='profile'),
     webapp2.Route(r'/verify_email',         handler=verifyemail.VerifyEmail,    name='verify'),
     webapp2.Route(r'/guides/<:[0-9]+>',     handler=guide.GuideHandler,         name='guide'),
-    webapp2.Route(r'/loader',               handler=loader.Loader,              name='loader')
+    webapp2.Route(r'/loader',               handler=loader.Loader,              name='loader'),
+    webapp2.Route(r'/add_guide',            handler=add_guide.AddGuide,   name='add_guide'),
+    webapp2.Route(r'/add_place',            handler=add_place.AddPlace,         name='add_place')
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
