@@ -38,7 +38,7 @@ class Signup(Root.Handler):
                 verification_link = "http://tourbly.appspot.com/verify_email?token=" + token + "&id=" + str(tourist.key().id())
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
-                self.redirect('/serch')
+                self.redirect('/search')
             else:
                 self.render("signup.html", email = email, email_error = self.email_error_prompt(email),
                     password_error = self.password_error_prompt(password), confirm_password_error =
