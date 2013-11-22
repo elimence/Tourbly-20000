@@ -59,7 +59,7 @@
         <div class="header">
           <h3 class="header-text">Refine your search</h3>
         </div>
-        <form role="form">
+        <form role="form" method = "post" action = "/search">
           <div class="form-group">
             <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
           </div>
@@ -85,9 +85,18 @@
             </div>
             <div class="col-lg-8 gender-select">
               <select name="gender" class="form-control" >
-                <option value="Any">Any</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
+                <option value="Any" 
+                {% if search_args["gender"] == "Any" %} 
+                  selected
+                {% endif %} >Any</option>
+                <option value="Female" 
+                {% if search_args["gender"] == "Female" %} 
+                  selected
+                {% endif %} >Female</option>
+                <option value="Male" 
+                {% if search_args["gender"] == "Male" %} 
+                  selected
+                {% endif %} >Male</option>
               </select>
             </div>
           </div>
@@ -97,8 +106,16 @@
             </div>
             <div class="col-lg-8 language-select">
               <select name="language" class="form-control">
-                <option value = "None">None</option>
-                <option value="Afrikaans">Afrikaans</option>
+                <option value ="None">None</option>
+                {% for language in all_languages %}
+                  <option value = {{language}} 
+                    {% if search_args["language"] == language %} 
+                      selected
+                    {% endif %} >
+                    {{language}}
+                  </option>
+                {% endfor %}
+                <!-- <option value="Afrikaans">Afrikaans</option>
                 <option value="Albanian">Albanian</option>
                 <option value="Arabic">Arabic</option>
                 <option value="Armenian">Armenian</option>
@@ -169,12 +186,12 @@
                 <option value="Uzbek">Uzbek</option>
                 <option value="Vietnamese">Vietnamese</option>
                 <option value="Welsh">Welsh</option>
-                <option value="Xhosa">Xhosa</option>
+                <option value="Xhosa">Xhosa</option> -->
               </select>
             </div>
           </div>
 
-          <button style = "width:match-parent" class="input btn btn-success" type = "submit" name = "filter">Filter</button>
+          <button id = "filter" style = "width:match-parent" class="input btn btn-success" type = "submit" name = "filter">Filter</button>
         </form>
       </div>
       <div class="col-lg-9 viewport">
@@ -230,6 +247,10 @@
         $('#arrival').pickadate();
         $('#departure').pickadate();
       })
+    </script>
+
+    <script type="text/javascript">
+
     </script>
   </body>
 </html>

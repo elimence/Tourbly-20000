@@ -5,6 +5,15 @@ from google.appengine.api import urlfetch
 import urllib
 import json
 
+all_languages = ["Afrikaans", "Albanian", "Arabic", "Armenian", "Basque", "Bengali", "Bulgarian",
+ "Catalan", "Cambodian", "Chinese", "Croatian", "Czech", "Danish", "Dutch", "English", "Estonian",
+ "Fiji", "Finnish", "French", "Georgian", "German", "Greek", "Gujarati", "Hebrew", "Hindi", "Hungarian",
+ "Icelandic", "Indonesian", "Irish", "Italian", "Japanese", "Javanese", "Korean", "Latin", "Latvian",
+ "Lithuanian", "Macedonian", "Malay", "Malayalam", "Maltese", "Maori", "Marathi", "Mongolian", "Nepali",
+ "Norwegian", "Persian", "Polish", "Portuguese", "Punjabi", "Quechua", "Romanian", "Russian", "Samoan",
+ "Serbian", "Slovak", "Slovenian", "Spanish", "Swahili", "Swedish", "Tamil", "Tatar", "Telugu", "Thai",
+ "Tibetan", "Tonga", "Turkish", "Ukrainian", "Urdu", "Uzbek", "Vietnamese", "Welsh", "Xhosa"]
+
 def getCountryFromJson(jsonResponse):
     reponseResults = jsonResponse["results"]
     components_list = reponseResults[0]["address_components"]
@@ -76,7 +85,8 @@ class Search(Root.Handler):
         suggested_guides = getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender,
          language, destination_country)
 
-        self.render("search.html", suggested_guides = suggested_guides, search_args = search_args)
+        self.render("search.html", suggested_guides = suggested_guides, search_args = search_args, 
+            all_languages = all_languages)
         
     def post(self):
         destination = self.request.get("destination")
@@ -87,5 +97,5 @@ class Search(Root.Handler):
 
         self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
          + "&departure_date=" + departure_date + "&gender=" + gender + "&language=" + language)
-        self.render("index.html", error_message = "Please provide all details to complete search")
+        # self.render("index.html", error_message = "Please provide all details to complete search")
         	
