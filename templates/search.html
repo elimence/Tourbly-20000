@@ -129,13 +129,14 @@
               Showing available tour guides for provided options
             {% endif %}
 
+            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "None" and search_args["language"] == "Any" %}
+              Many tour guides are happily waiting to help you. Just select your options from the left panel to find them.
+            {% endif %}
+
             {% if suggested_guides is not none and suggested_guides.count() == 0 %}
               Sorry, no tour guides match your search. Select more options from the left to see available tour guides
             {% endif %}
 
-            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "None" and search_args["language"] == "Any" %}
-              Many tour guides are happily waiting to help you. Just select your options from the left panel to find them.
-            {% endif %}
           </h3>
         </div>
         <div class="row body guides">
