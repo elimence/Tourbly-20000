@@ -25,6 +25,7 @@ from controllers import search
 from controllers import profile
 from controllers import add_place
 from controllers import add_guide
+from controllers import add_review
 from controllers import verifyemail
 
 # APPLICATION ENTRY
@@ -51,7 +52,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/oauth/<:[a-zA-Z]+>',       handler=oauth.Oauth,                name='oauth'),
     webapp2.Route(r'/loader',                   handler=loader.Loader,              name='loader'),
     webapp2.Route(r'/admin/guides/add_guide',   handler=add_guide.AddGuide,         name='add_guide'),
-    webapp2.Route(r'/add_place',                handler=add_place.AddPlace,         name='add_place')
+    webapp2.Route(r'/add_place',                handler=add_place.AddPlace,         name='add_place'),
+    webapp2.Route(r'/admin/reviews/add_review', handler=add_review.AddReview,       name='add_review')
 
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT

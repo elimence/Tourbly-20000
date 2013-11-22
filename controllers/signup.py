@@ -35,7 +35,7 @@ class Signup(Root.Handler):
 
                 ph = "lkdsjfdsjklfjhiwereyim,nn.nafndfgityereryewiybx,ncn,neroejslfjoiuer"
                 _args = {"name":email + ph, "password":password}
-                verification_link = "http://tourbly.appspot.com/verify_email?token=" + token + "&id=" + str(tourist.key().id())
+                verification_link = "http://gcdc2013-tourbly.appspot.com/verify_email?token=" + token + "&id=" + str(tourist.key().id())
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
                 self.render("home.html", test = "You have Signed up successfully, " + tourist.email)

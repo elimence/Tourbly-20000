@@ -439,7 +439,7 @@ class Handler(Security, webapp2.RequestHandler):
     #   : Void -> Returns nothing
 
     def send_verification_email(self, _args):
-        message = mail.EmailMessage(sender="Christian Osei-Bonsu <christian.osei-bonsu@meltwater.org>",
+        message = mail.EmailMessage(sender="Tourbly <tourbly@gmail.com>",
                             subject="Welcome To Tourbly, Please Verify Your Account")
 
         message.to = "<" + _args["email"] + ">"
