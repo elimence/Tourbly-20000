@@ -91,9 +91,13 @@ class Search(Root.Handler):
         suggested_guides = getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender,
          language, destination_country)
 
-
-        self.render("search.html", suggested_guides = suggested_guides, search_args = search_args,
-            all_languages = all_languages)
+        if self.check_session("query"):
+            tourist = Tourist.Tourist.get_by_id(self.get_user_id())
+            self.render("search.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
+             tourist = tourist, search_args = search_args, all_languages = all_languages)
+        else:
+            self.render("search.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
+             tourist = tourist, search_args = search_args, all_languages = all_languages)
 
     def post(self):
         destination = self.request.get("destination")
@@ -104,5 +108,5 @@ class Search(Root.Handler):
 
         self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
          + "&departure_date=" + departure_date + "&gender=" + gender + "&language=" + language)
-        # self.render("index.html", error_message = "Please provide all details to complete search")
+        
 

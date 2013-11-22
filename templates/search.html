@@ -60,7 +60,7 @@
         <div class="header">
           <h3 class="header-text">Refine your search</h3>
         </div>
-        <form role="form" method = "post" action = "/search">
+        <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
           <div class="form-group">
             <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
           </div>
@@ -85,7 +85,7 @@
               <label for="">Gender</label>
             </div>
             <div class="col-lg-8 gender-select">
-              <select name="gender" class="form-control" >
+              <select id = "gender" name="gender" class="form-control" >
                 <option value="Any"
                 {% if search_args["gender"] == "Any" %}
                   selected
@@ -106,7 +106,7 @@
               <label for="">Language</label>
             </div>
             <div class="col-lg-8 language-select">
-              <select name="language" class="form-control">
+              <select id = "languages" name="language" class="form-control">
                 <option value ="None">None</option>
                 {% for language in all_languages %}
                   <option value = {{language}}
@@ -116,83 +116,11 @@
                     {{language}}
                   </option>
                 {% endfor %}
-                <!-- <option value="Afrikaans">Afrikaans</option>
-                <option value="Albanian">Albanian</option>
-                <option value="Arabic">Arabic</option>
-                <option value="Armenian">Armenian</option>
-                <option value="Basque">Basque</option>
-                <option value="Bengali">Bengali</option>
-                <option value="Bulgarian">Bulgarian</option>
-                <option value="Catalan">Catalan</option>
-                <option value="Cambodian">Cambodian</option>
-                <option value="Chinese">Chinese (Mandarin)</option>
-                <option value="Croatian">Croatian</option>
-                <option value="Czech">Czech</option>
-                <option value="Danish">Danish</option>
-                <option value="Dutch">Dutch</option>
-                <option value="English">English</option>
-                <option value="Estonian">Estonian</option>
-                <option value="Fiji">Fiji</option>
-                <option value="Finnish">Finnish</option>
-                <option value="French">French</option>
-                <option value="Georgian">Georgian</option>
-                <option value="German">German</option>
-                <option value="Greek">Greek</option>
-                <option value="Gujarati">Gujarati</option>
-                <option value="Hebrew">Hebrew</option>
-                <option value="Hindi">Hindi</option>
-                <option value="Hungarian">Hungarian</option>
-                <option value="Icelandic">Icelandic</option>
-                <option value="Indonesian">Indonesian</option>
-                <option value="Irish">Irish</option>
-                <option value="Italian">Italian</option>
-                <option value="Japanese">Japanese</option>
-                <option value="Javanese">Javanese</option>
-                <option value="Korean">Korean</option>
-                <option value="Latin">Latin</option>
-                <option value="Latvian">Latvian</option>
-                <option value="Lithuanian">Lithuanian</option>
-                <option value="Macedonian">Macedonian</option>
-                <option value="Malay">Malay</option>
-                <option value="Malayalam">Malayalam</option>
-                <option value="Maltese">Maltese</option>
-                <option value="Maori">Maori</option>
-                <option value="Marathi">Marathi</option>
-                <option value="Mongolian">Mongolian</option>
-                <option value="Nepali">Nepali</option>
-                <option value="Norwegian">Norwegian</option>
-                <option value="Persian">Persian</option>
-                <option value="Polish">Polish</option>
-                <option value="Portuguese">Portuguese</option>
-                <option value="Punjabi">Punjabi</option>
-                <option value="Quechua">Quechua</option>
-                <option value="Romanian">Romanian</option>
-                <option value="Russian">Russian</option>
-                <option value="Samoan">Samoan</option>
-                <option value="Serbian">Serbian</option>
-                <option value="Slovak">Slovak</option>
-                <option value="Slovenian">Slovenian</option>
-                <option value="Spanish">Spanish</option>
-                <option value="Swahili">Swahili</option>
-                <option value="Swedish">Swedish </option>
-                <option value="Tamil">Tamil</option>
-                <option value="Tatar">Tatar</option>
-                <option value="Telugu">Telugu</option>
-                <option value="Thai">Thai</option>
-                <option value="Tibetan">Tibetan</option>
-                <option value="Tonga">Tonga</option>
-                <option value="Turkish">Turkish</option>
-                <option value="Ukrainian">Ukrainian</option>
-                <option value="Urdu">Urdu</option>
-                <option value="Uzbek">Uzbek</option>
-                <option value="Vietnamese">Vietnamese</option>
-                <option value="Welsh">Welsh</option>
-                <option value="Xhosa">Xhosa</option> -->
               </select>
             </div>
           </div>
 
-          <button id = "filter" style = "width:match-parent" class="input btn btn-success" type = "submit" name = "filter">Filter</button>
+          <button id = "filter" class="input btn btn-success btn-block btn-lg" type = "submit" name = "filter">Filter</button>
         </form>
       </div>
       <div class="col-lg-9 viewport">
@@ -243,15 +171,65 @@
     <script src="/assets/js/picker.date.js"></script>
     <script src="/assets/js/picker.time.js"></script>
     <script src="/assets/js/legacy.js"></script>
+    <script src="/assets/js/search.js"></script>
     <script>
       $(function () {
         $('#arrival').pickadate();
         $('#departure').pickadate();
+        attachFilterButtonListener();
       })
     </script>
 
     <script type="text/javascript">
+      var search_form = document.getElementById("filter-form");
 
+      $(document).ready(function(){
+         var clicknum = 0;
+         var previous_content = document.getElementById("gender").value;
+         $("#gender").click(function(){
+          clicknum++;
+          if(clicknum == 1){
+            var current_content = document.getElementById('gender').value;
+            if (current_content != previous_content) {
+              search_form.submit();
+            }
+            clicknum = 0;
+          }
+         });
+        });
+
+      $(document).ready(function(){
+         var clicknum = 0;
+         var previous_content = document.getElementById("languages").value;
+         $("#languages").click(function(){
+          clicknum++;
+          if(clicknum == 1){
+            var current_content = document.getElementById('languages').value;
+            if (current_content != previous_content) {
+              search_form.submit();
+            }
+            clicknum = 0;
+          }
+         });
+        });
+
+      $(document).ready(function(){
+         var clicknum = 0;
+         var previous_content = document.getElementById("arrival").value;
+         $("#arrival").click(function(){
+          clicknum++;
+          if(clicknum == 1){
+            var current_content = document.getElementById('arrival').value;
+            $("#arrival").click(function() {
+              console.log(current_content)
+              if (current_content != previous_content) {
+                search_form.submit();
+              }
+            });
+            clicknum = 0;
+          }
+         });
+        });
     </script>
   </body>
 </html>
