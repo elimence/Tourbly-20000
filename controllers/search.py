@@ -1,5 +1,6 @@
 from security import Root
 from models import Guide
+from models import Tourist
 from google.appengine.ext import db
 from google.appengine.api import urlfetch
 import urllib
@@ -85,8 +86,13 @@ class Search(Root.Handler):
         suggested_guides = getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender,
          language, destination_country)
 
-        self.render("search.html", suggested_guides = suggested_guides, search_args = search_args, 
-            all_languages = all_languages)
+        if self.check_session("query"):
+            tourist = Tourist.Tourist.get_by_id(self.get_user_id())
+            self.render("index.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
+             tourist = tourist, search_args = search_args)
+        else:
+            self.render("index.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
+             tourist = tourist, search_args = search_args)
         
     def post(self):
         destination = self.request.get("destination")
