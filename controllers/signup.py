@@ -9,7 +9,7 @@ class Signup(Root.Handler):
         if self.check_session("query"):
             self.redirect("/home")
         else:
-            self.render("signup.html")
+            self.render("signup.html", isLoggedIn = self.check_session("query"))
 
     def post(self):
         email = self.request.get("email")
@@ -46,3 +46,4 @@ class Signup(Root.Handler):
         else:
             error = "All fields are required"
             self.render("signup.html", email = email, error = error)
+
