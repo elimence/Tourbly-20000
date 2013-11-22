@@ -4,25 +4,29 @@
 # @purpose db model for Guide data
 
 
-from security import Root
+# from security import Root
 from pyscripts import Utility
-import Review
+# import Review
 from google.appengine.ext import db
 
 
 date = ""
 
 
-class Guide(db.Model, Root.Handler):
+class Guide(db.Model,):
     _firstname   = db.StringProperty()
     _lastname    = db.StringProperty()
     _email       = db.EmailProperty()
     _phoneNumber = db.PhoneNumberProperty()
     _country     = db.StringProperty(required = True)
-    _dateOfBirth = db.DateProperty()
+    _dateOfBirth = db.DateTimeProperty()
+    _gender      = db.StringProperty()
     _locations   = db.ListProperty(db.Key)
-    _workDays    = db.ListProperty(db.Key)
     _picture     = db.StringProperty()
-    _isAvailable = db.BooleanProperty(default = False)
-    _languages   = db.ListProperty(db.Key)
-    _rating      = db.ReferenceProperty(Review.Review, collection_name='reviews')
+    _isAvailable = db.BooleanProperty(default = True)
+    _times_booked = db.StringProperty()
+    _lives_in    = db.StringProperty()
+    _languages   = db.StringListProperty()
+    _elevator_pitch = db.TextProperty()
+    # _rating      = db.ReferenceProperty(Review.Review, collection_name='reviews')
+    _created_at  = db.DateTimeProperty(auto_now_add = True) 

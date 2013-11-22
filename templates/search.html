@@ -26,7 +26,7 @@
       <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body onload = "init()">
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -59,9 +59,9 @@
         <div class="header">
           <h3 class="header-text">Refine your search</h3>
         </div>
-        <form role="form">
+        <form role="form" method = "post" action = "/search">
           <div class="form-group">
-            <input type="email" class="form-control" id="" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
+            <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
           </div>
           <div class="row date-input">
             <div class="col-lg-4 date-label">
@@ -79,6 +79,119 @@
               <input id="departure" name="departure" class="form-control input" type="text" placeholder="Date of Departure" value="{{search_args['departure_date']}}">
             </div>
           </div>
+          <div class="row gender">
+            <div class="col-lg-4 gender-label">
+              <label for="">Gender</label>
+            </div>
+            <div class="col-lg-8 gender-select">
+              <select name="gender" class="form-control" >
+                <option value="Any" 
+                {% if search_args["gender"] == "Any" %} 
+                  selected
+                {% endif %} >Any</option>
+                <option value="Female" 
+                {% if search_args["gender"] == "Female" %} 
+                  selected
+                {% endif %} >Female</option>
+                <option value="Male" 
+                {% if search_args["gender"] == "Male" %} 
+                  selected
+                {% endif %} >Male</option>
+              </select>
+            </div>
+          </div>
+          <div class="row language">
+            <div class="col-lg-4 language-label">
+              <label for="">Language</label>
+            </div>
+            <div class="col-lg-8 language-select">
+              <select name="language" class="form-control">
+                <option value ="None">None</option>
+                {% for language in all_languages %}
+                  <option value = {{language}} 
+                    {% if search_args["language"] == language %} 
+                      selected
+                    {% endif %} >
+                    {{language}}
+                  </option>
+                {% endfor %}
+                <!-- <option value="Afrikaans">Afrikaans</option>
+                <option value="Albanian">Albanian</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Armenian">Armenian</option>
+                <option value="Basque">Basque</option>
+                <option value="Bengali">Bengali</option>
+                <option value="Bulgarian">Bulgarian</option>
+                <option value="Catalan">Catalan</option>
+                <option value="Cambodian">Cambodian</option>
+                <option value="Chinese">Chinese (Mandarin)</option>
+                <option value="Croatian">Croatian</option>
+                <option value="Czech">Czech</option>
+                <option value="Danish">Danish</option>
+                <option value="Dutch">Dutch</option>
+                <option value="English">English</option>
+                <option value="Estonian">Estonian</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Finnish">Finnish</option>
+                <option value="French">French</option>
+                <option value="Georgian">Georgian</option>
+                <option value="German">German</option>
+                <option value="Greek">Greek</option>
+                <option value="Gujarati">Gujarati</option>
+                <option value="Hebrew">Hebrew</option>
+                <option value="Hindi">Hindi</option>
+                <option value="Hungarian">Hungarian</option>
+                <option value="Icelandic">Icelandic</option>
+                <option value="Indonesian">Indonesian</option>
+                <option value="Irish">Irish</option>
+                <option value="Italian">Italian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Javanese">Javanese</option>
+                <option value="Korean">Korean</option>
+                <option value="Latin">Latin</option>
+                <option value="Latvian">Latvian</option>
+                <option value="Lithuanian">Lithuanian</option>
+                <option value="Macedonian">Macedonian</option>
+                <option value="Malay">Malay</option>
+                <option value="Malayalam">Malayalam</option>
+                <option value="Maltese">Maltese</option>
+                <option value="Maori">Maori</option>
+                <option value="Marathi">Marathi</option>
+                <option value="Mongolian">Mongolian</option>
+                <option value="Nepali">Nepali</option>
+                <option value="Norwegian">Norwegian</option>
+                <option value="Persian">Persian</option>
+                <option value="Polish">Polish</option>
+                <option value="Portuguese">Portuguese</option>
+                <option value="Punjabi">Punjabi</option>
+                <option value="Quechua">Quechua</option>
+                <option value="Romanian">Romanian</option>
+                <option value="Russian">Russian</option>
+                <option value="Samoan">Samoan</option>
+                <option value="Serbian">Serbian</option>
+                <option value="Slovak">Slovak</option>
+                <option value="Slovenian">Slovenian</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Swahili">Swahili</option>
+                <option value="Swedish">Swedish </option>
+                <option value="Tamil">Tamil</option>
+                <option value="Tatar">Tatar</option>
+                <option value="Telugu">Telugu</option>
+                <option value="Thai">Thai</option>
+                <option value="Tibetan">Tibetan</option>
+                <option value="Tonga">Tonga</option>
+                <option value="Turkish">Turkish</option>
+                <option value="Ukrainian">Ukrainian</option>
+                <option value="Urdu">Urdu</option>
+                <option value="Uzbek">Uzbek</option>
+                <option value="Vietnamese">Vietnamese</option>
+                <option value="Welsh">Welsh</option>
+                <option value="Xhosa">Xhosa</option> -->
+              </select>
+            </div>
+          </div>
+
+          <button id = "filter" style = "width:match-parent" class="input btn btn-success" type = "submit" name = "filter">Filter</button>
         </form>
       </div>
       <div class="col-lg-9 viewport">
@@ -92,7 +205,7 @@
               Sorry, no tour guides match your search. Select more options from the left to see available tour guides
             {% endif %}
 
-            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] %}
+            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "None" and search_args["language"] == "Any" %}
               Many tour guides are happily waiting to help you. Just select your options from the left panel to find them.
             {% endif %}
           </h3>
@@ -101,72 +214,12 @@
           {% if suggested_guides is not none %}
             {% for suggested_guide in suggested_guides %}
               <div class="col-lg-3 guide">
-                <a href="#"><img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive"></a>
-                <a href="#" class="name">{{suggested_guide._firstname}}</a>
+                <a href="/guides/{{suggested_guide.key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
+                <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
                 <span class="reviews">23 Reviews</span>
               </div>
             {% endfor %}
           {% endif %}
-          <!-- <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/dave.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">David</a>
-            <span class="reviews">23 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/sonia.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Sonia</a>
-            <span class="reviews">12 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/nick.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Nicolas</a>
-            <spa class="reviews"n>7 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/andre.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Andre</a>
-            <span class="reviews">17 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/rach.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Rachel</a>
-            <span class="reviews">23 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/sarah.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Sarah</a>
-            <span class="reviews">12 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/paige.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Paige</a>
-            <spa class="reviews"n>7 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/tuesday.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Tuesday</a>
-            <span class="reviews">17 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/jena.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Jena</a>
-            <span class="reviews">23 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/sayla.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Sayla</a>
-            <span class="reviews">12 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/amber.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Amber</a>
-            <spa class="reviews"n>7 Reviews</span>
-          </div>
-          <div class="col-lg-3 guide">
-            <a href="#"><img src="/assets/images/alita.jpg" width="105" class="image img-rounded img-responsive"></a>
-            <a href="#" class="name">Alita</a>
-            <span class="reviews">17 Reviews</span>
-          </div> -->
         </div>
       </div>
     </div>
@@ -181,6 +234,8 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/picker.js"></script>
@@ -192,6 +247,10 @@
         $('#arrival').pickadate();
         $('#departure').pickadate();
       })
+    </script>
+
+    <script type="text/javascript">
+
     </script>
   </body>
 </html>

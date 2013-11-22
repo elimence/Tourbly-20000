@@ -1,6 +1,5 @@
 # from security import Root
 from google.appengine.ext import db
-# import Helper
 
 class Tourist(db.Model):
 	first_name	= db.StringProperty(default = "")
@@ -16,6 +15,7 @@ class Tourist(db.Model):
 	token 		= db.StringProperty()
 	created 	= db.DateTimeProperty(auto_now_add = True)
 	gender 		= db.StringProperty() 							# NB: - NEW ADDITION
+
 
 	# @classmethod
 	@staticmethod

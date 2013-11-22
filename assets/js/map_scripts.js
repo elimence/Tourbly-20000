@@ -7,12 +7,15 @@ function init() {
  // autocomplete.bindTo('bounds', map);
 	
     var destination_tag = document.getElementById('destination');
+    // var country_tag = document.getElementById("country");
+    // var state_tag = document.getElementById("state")
 	
 	// var options = {
 	// componentRestrictions: {country: 'gh'}
 	// };
 
 	var autocomplete = new google.maps.places.Autocomplete(destination_tag);
+	// var country_autocomplete = new google.maps.places.Autocomplete(country_tag);
 	
 
 	// var map,myPosition;

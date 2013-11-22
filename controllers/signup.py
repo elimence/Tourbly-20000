@@ -16,7 +16,8 @@ class Signup(Root.Handler):
         password = self.request.get("password")
         confirm_password  = self.request.get("confirm_password")
         picture_fetch = urlfetch.Fetch("http://s3.amazonaws.com/37assets/svn/765-default-avatar.png")
-        picture = picture_fetch.content
+        # picture = picture_fetch.content
+        picture = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
         all_users = Tourist.Tourist.all()
 
         if email and password and confirm_password:

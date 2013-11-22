@@ -1,6 +1,7 @@
 
 from security import Root
 from models import Tourist
+from datetime import datetime
 
 
 class Home(Root.Handler):
@@ -15,12 +16,11 @@ class Home(Root.Handler):
     	destination = self.request.get("destination")
     	arrival_date = self.request.get("arrival")
     	departure_date = self.request.get("departure")
+        current_date = datetime.now()
 
     	if destination and arrival_date and departure_date:
-            # guide = Guide.Guide(_country = "Ghana", _picture = "https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v2/yo/r/UlIqmHJn-SK.gif",
-            #     _firstname = "David", _lastname = "Thomson", _email = "david@gmail.com")
-            # guide.put()
-            # self.render("search.html", suggested_guides = suggested_guides, search_args = search_args)
-            self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date + "&departure_date=" + departure_date)
-    	else:
-    		self.render("index.html", error_message = "Please provide all details to complete search")
+            self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
+             + "&departure_date=" + departure_date)
+    	self.render("index.html", error_message = "Please provide all details to complete search")
+        
+       

@@ -13,18 +13,24 @@
   font-family: 'Roboto Slab', serif;
   color: #0088cc;
 }
-.filters .date-input {
+.filters .date-input,
+.filters .gender,
+.filters .language {
   padding-left: 15px;
   margin-bottom: 15px;
 }
-.filters .date-label {
+.filters .date-label,
+.filters .gender-label,
+.filters .language-label {
   border: 1px solid #ddd;
   border-radius: 3px;
   padding-left: 0.5em;
   padding-top: 0.1em;
   padding-bottom: 0.1em;
 }
-.filters .date-label label {
+.filters .date-label label,
+.filters .gender-label label,
+.filters .language-label label {
   font-family: 'raleway', serif;
   font-size: 1.1em;
   margin-top: 0.2em;

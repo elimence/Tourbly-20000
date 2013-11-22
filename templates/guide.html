@@ -57,15 +57,19 @@
         <div class="col-lg-3 personal">
           <div class="row id">
             <div class="col-log-12">
-              <img class="img-responsive" src="/assets/images/rach.jpg" width="300">
+              <img class="img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" width="300">
               <div class="meta">
-                <h3 class="name">Rachel &nbsp;<i class="fa fa-check-square-o verified-icon"></i></h3>
-                <p class="city">New Orleans, Louisiana, USA</p>
-                <p class="term">Member, since January 2013</p>
-                <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary">Available</span></p>
+                <h3 class="name">{{guide._firstname}} &nbsp;<i class="fa fa-check-square-o verified-icon"></i></h3>
+                <p class="city">{{guide._lives_in}}</p>
+                <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
+                <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary"> 
+                    
+                      Available
+                    
+                </span></p>
               </div>
               <div class="book">
-                <a href="#" class="btn btn-success btn-block">Book Rachel</a>
+                <a href="#" class="btn btn-success btn-block">Book {{guide._firstname}}</a>
               </div>
             </div>
           </div>
@@ -76,16 +80,31 @@
               </div>
               <div class="body">
                 <div class="stat">
-                  <i class="fa fa-thumb-tack"></i> Booked 7 Times
+                  <i class="fa fa-thumb-tack"></i> 
+                  {% if guide._times_booked == None %}
+                   Booked 0 times
+                   {% endif %}
+                   {% if guide._times_booked == "1" %}
+                    Booked Once
+                    {% endif %}
+                    {% if guide._times_booked > "1" %}
+                     Booked {{guide._times_booked}} Times
+                     {% endif %}
                 </div>
                 <div class="stat">
                   <i class="fa fa-smile-o"></i> 9 Total Reviews
                 </div>
                 <div class="stat">
-                  Speaks English &amp; French
+                  Speaks 
+                   {% for language in guide._languages %}
+                    {% if language != "" %}
+                      {{language}} &amp; 
+                    {% endif %}
+                  {%  endfor %}
+                  
                 </div>
                 <div class="stat">
-                  Lives in Accra
+                  Lives in {{guide._country}}
                 </div>
               </div>
             </div>
@@ -95,11 +114,10 @@
           <div class="row bio">
             <div class="col-lg-12">
               <div class="header">
-                <h4 class="header-text">Hello, I'm Rachel :)</h4>
+                <h4 class="header-text">Hello, I'm {{guide._firstname}} :)</h4>
               </div>
               <div class="body">
-                <p class="body-text">I enjoy live music, the theater experience, film, dance, art, local haunts, the surreal, Butoh, cooking, vegetarian food, creatures, antique objects, travel, nature, camping, thrifting, photography, costumes, community activism, culture, bicycle riding, trekking, urban gardening, reading, and observation. I've lived and traveled in Mexico, Guatemala, and Chile and had wonderful host families. I'm inspired by my eco-conscious hosts who reduce their environmental impact by recycling, reusing and conserving our resources. I love hosting and welcoming new friends to exchange and share connections. 
-I enjoy connecting with Chicago's performance art and dance community. I dabble in music making and enjoy making noise in our make shift studio. </p>
+                <p class="body-text">{{guide._elevator_pitch}} </p>
               </div>
             </div>
           </div>
