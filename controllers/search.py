@@ -33,15 +33,25 @@ def getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender, l
         suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _gender = :3 limit 12",
          destination_country, True, gender)
     elif gender == "Any":
-        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and limit 12",
-         destination_country, True)
+        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _languages = :3 limit 12",
+         destination_country, True, language)
+        # suggested_guides = getGuidesWithLanguage(suggested_guides, language)
     else:
-        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _gender = :3 limit 12",
-         destination_country, True, gender)
+        suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _gender = :3 and _languages = :4 limit 12",
+         destination_country, True, gender, language)
+
+        # suggested_guides = getGuidesWithLanguage(suggested_guides, language)
         
     return suggested_guides
 
-# def getQueryWithLanguage(suggested_guides, language):
+def getGuidesWithLanguage(suggested_guides, language):
+    actual_suggested_guides = []
+    for suggested_guide in suggested_guides:
+        if language in suggested_guide._languages:
+            # suggested_guides.append(suggested_guide)
+            actual_suggested_guides.append(suggested_guide)
+
+    return actual_suggested_guides
 
 
 class Search(Root.Handler):
