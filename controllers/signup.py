@@ -45,3 +45,4 @@ class Signup(Root.Handler):
         else:
             error = "All fields are required"
             self.render("signup.html", email = email, error = error)
+

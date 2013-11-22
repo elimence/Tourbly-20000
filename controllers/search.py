@@ -1,5 +1,6 @@
 from security import Root
 from models import Guide
+from models import Tourist
 from google.appengine.ext import db
 from google.appengine.api import urlfetch
 import urllib
@@ -14,7 +15,7 @@ def getCountryFromJson(jsonResponse):
     count = 0
     for component in components_list:
         component_type = components_list[count]["types"]
-        
+
         if component_type[0] == "country":
             country = component["long_name"]
 
@@ -24,6 +25,11 @@ def getCountryFromJson(jsonResponse):
 
 class Search(Root.Handler):
     def get(self):
+        _id = self.get_user_id()
+        if _id == -1000:
+            return self.redirect('signin')
+
+        tourist = Tourist.Tourist.get_by_id(_id)
     	destination = self.request.get("destination")
     	arrival_date = self.request.get("arrival_date")
     	departure_date = self.request.get("departure_date")
@@ -32,7 +38,7 @@ class Search(Root.Handler):
 
     	suggested_guides = None
     	if destination:
-    		request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" 
+    		request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address="
                 + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
 
     		request_json = json.loads(request)
@@ -40,6 +46,6 @@ class Search(Root.Handler):
 
     		suggested_guides = Guide.Guide.gql("where _country = :1", destination_country)
 
-        self.render("search.html", suggested_guides = suggested_guides, search_args = search_args)
-        
-        	
+        self.render("search.html", suggested_guides = suggested_guides, search_args = search_args, tourist=tourist, isLoggedIn = self.check_session("query"))
+
+

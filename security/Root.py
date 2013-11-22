@@ -15,6 +15,7 @@ import webapp2
 import datetime
 import re
 import json
+import logging
 
 from models import Tourist
 from google.appengine.api import mail
@@ -211,6 +212,10 @@ class Handler(Security, webapp2.RequestHandler):
               + datetime.timedelta(weeks=_args["validity"] | 4)).strftime('%a, %d %b %Y %H:%M:%S GMT')))
 
 
+    def create_cookie_str(self, _args):
+        return '%s=%s|%s; expires=%s' % (str(_args["name"]), str(_args["value"]), self.Hash_string(_args["value"]),(datetime.datetime.now()+ datetime.timedelta(weeks=_args["validity"] | 4)).strftime('%a, %d %b %Y %H:%M:%S GMT'))
+
+
 
     # Name - logout
     # Desc
@@ -223,7 +228,7 @@ class Handler(Security, webapp2.RequestHandler):
 
     def logout(self, cookie_list):
         for cookie in cookie_list:
-            self.response.headers.add_header('Set_Cookie', '%s=' %(cookie))
+            self.response.delete_cookie(cookie)
 
 
     # Name - get_cookie
@@ -257,7 +262,10 @@ class Handler(Security, webapp2.RequestHandler):
 
     def get_user_id(self):
         cookie = self.request.cookies.get('query', None)
-        return int(cookie.split('|')[0])
+        if cookie:
+            return int(cookie.split('|')[0])
+        else:
+            return -10000
 
 
 

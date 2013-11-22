@@ -15,6 +15,7 @@ from errors import error_500
 from controllers import home
 from controllers import guide
 from controllers import image
+from controllers import oauth
 from controllers import signin
 from controllers import signup
 from controllers import logout
@@ -43,7 +44,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/search',               handler=search.Search,              name='search'),
     webapp2.Route(r'/profile',              handler=profile.Profile,            name='profile'),
     webapp2.Route(r'/verify_email',         handler=verifyemail.VerifyEmail,    name='verify'),
-    webapp2.Route(r'/guides/<:[a-zA-Z]+>',  handler=guide.Guide,                name='guide')
+    webapp2.Route(r'/guides/<:[a-zA-Z]+>',  handler=guide.Guide,                name='guide'),
+    webapp2.Route(r'/oauth/<:[a-zA-Z]+>',   handler=oauth.Oauth,                name='oauth')
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
