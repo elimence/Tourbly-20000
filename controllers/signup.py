@@ -15,7 +15,7 @@ class Signup(Root.Handler):
         email = self.request.get("email")
         password = self.request.get("password")
         confirm_password  = self.request.get("confirm_password")
-        picture_fetch = urlfetch.Fetch("http://s3.amazonaws.com/37assets/svn/765-default-avatar.png")
+        # picture_fetch = urlfetch.Fetch("http://s3.amazonaws.com/37assets/svn/765-default-avatar.png")
         # picture = picture_fetch.content
         picture = "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
         all_users = Tourist.Tourist.all()
@@ -38,7 +38,7 @@ class Signup(Root.Handler):
                 verification_link = "http://tourbly.appspot.com/verify_email?token=" + token + "&id=" + str(tourist.key().id())
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
-                self.render("home.html", test = "You have Signed up successfully, " + tourist.email)
+                self.redirect('/serch')
             else:
                 self.render("signup.html", email = email, email_error = self.email_error_prompt(email),
                     password_error = self.password_error_prompt(password), confirm_password_error =

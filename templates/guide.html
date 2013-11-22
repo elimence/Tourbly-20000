@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.css" rel="stylesheet">
     <link href="/assets/css/global.css" rel="stylesheet" media="screen">
     <link href="/assets/css/guide.css" rel="stylesheet" media="screen">
 
@@ -35,10 +36,9 @@
             <li><a href="/places" id="places">Destinations</a></li>
             {% if isLoggedIn %}
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{tourist.email}} <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/profile">View Profile</a></li>
-                  <li><a href="#">Change Password</a></li>
+                  <li><a href="/profile">Profile</a></li>
                   <li><a href="/logout?current_page=home">Logout</a></li>
                 </ul>
               </li>
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="container guide">
       <div class="row">
         <div class="col-lg-3 personal">
@@ -62,10 +62,10 @@
                 <h3 class="name">{{guide._firstname}} &nbsp;<i class="fa fa-check-square-o verified-icon"></i></h3>
                 <p class="city">{{guide._lives_in}}</p>
                 <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
-                <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary"> 
-                    
+                <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary">
+
                       Available
-                    
+
                 </span></p>
               </div>
               <div class="book">
@@ -80,7 +80,7 @@
               </div>
               <div class="body">
                 <div class="stat">
-                  <i class="fa fa-thumb-tack"></i> 
+                  <i class="fa fa-thumb-tack"></i>
                   {% if guide._times_booked == None %}
                    Booked 0 times
                    {% endif %}
@@ -95,13 +95,13 @@
                   <i class="fa fa-smile-o"></i> 9 Total Reviews
                 </div>
                 <div class="stat">
-                  Speaks 
+                  Speaks
                    {% for language in guide._languages %}
                     {% if language != "" %}
-                      {{language}} &amp; 
+                      {{language}} &amp;
                     {% endif %}
                   {%  endfor %}
-                  
+
                 </div>
                 <div class="stat">
                   Lives in {{guide._country}}

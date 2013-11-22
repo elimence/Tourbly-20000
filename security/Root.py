@@ -85,6 +85,11 @@ class Security():
     #   : Boolean -> True if matched, False otherwise
 
     def auth_password(self, _args):
+        if _args['salt'] == None:
+            return False
+
+        logging.info('incomming')
+        logging.info(_args["salt"])
         if hmac.new(_args["salt"]+ph, str(_args["password"])).hexdigest() == _args["hashed_password"]:
             return True
         else:

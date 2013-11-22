@@ -10,7 +10,7 @@ class Profile(Root.Handler):
             tourist = Tourist.Tourist.get_by_id(tourist_id)
             self.render("profile.html", email = tourist.email, first_name = tourist.first_name,
                 last_name = tourist.last_name, country = tourist.country, state = tourist.state,
-                tourist_id = tourist_id, isLoggedIn = self.check_session("query"), tourist = tourist)
+                tourist_id = tourist_id, isLoggedIn = self.check_session("query"), tourist = tourist, profilepic=tourist.picture)
         else:
             self.redirect("/home")
 

@@ -10,6 +10,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.css" rel="stylesheet">
     <link href="/assets/css/global.css" rel="stylesheet" media="screen">
     <link href="/assets/css/signin.css" rel="stylesheet" media="screen">
 
@@ -33,10 +34,9 @@
             <li><a href="/places">Destinations</a></li>
             {% if isLoggedIn %}
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{tourist.email}} <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/profile">View Profile</a></li>
-                  <li><a href="#">Change Password</a></li>
+                  <li><a href="/profile">Profile</a></li>
                   <li><a href="/logout?current_page=profile">Logout</a></li>
                 </ul>
               </li>
@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class = "container">
       <p></p><p></p>
       <div>{{success_message}}<div/>
@@ -58,7 +58,7 @@
         <form method = "post" action = "/profile" class="form-signin" enctype="multipart/form-data">
           <p style = "color: red;">{{error}}</p>
           <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-          <span id = "picture"><img width = "100px" height = "100px" src = "/img?tourist_id={{tourist_id}}" / style = "border-radius: 5px"></span> <input id = "profile_pic" type = "file" name = "profile_pic" style = "display : none">
+          <span id = "picture"><img width = "100px" height = "100px" src = {{ profilepic}} / style = "border-radius: 5px"></span> <input id = "profile_pic" type = "file" name = "profile_pic" style = "display : none">
           <p></p>
           <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value = "{{email}}"> <span>{{email_status}}</span>
           <p style = "color: red;">{{email_error}}</p>
@@ -81,7 +81,7 @@
 
       function clickButton() {
         var fileButton = document.getElementById("profile_pic");
-        fileButton.click();   
+        fileButton.click();
       }
     </script>
 

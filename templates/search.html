@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/font-awesome.css" rel="stylesheet">
     <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/default.date.css" rel="stylesheet">
     <link href="/assets/css/default.time.css" rel="stylesheet">
@@ -37,7 +38,7 @@
             <li><a href="/places" id="places">Destinations</a></li>
             {% if isLoggedIn %}
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{tourist.email}} <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/profile">View Profile</a></li>
                   <li><a href="#">Change Password</a></li>
@@ -53,7 +54,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="container search">
       <div class="col-lg-3 filters">
         <div class="header">
@@ -85,16 +86,16 @@
             </div>
             <div class="col-lg-8 gender-select">
               <select name="gender" class="form-control" >
-                <option value="Any" 
-                {% if search_args["gender"] == "Any" %} 
+                <option value="Any"
+                {% if search_args["gender"] == "Any" %}
                   selected
                 {% endif %} >Any</option>
-                <option value="Female" 
-                {% if search_args["gender"] == "Female" %} 
+                <option value="Female"
+                {% if search_args["gender"] == "Female" %}
                   selected
                 {% endif %} >Female</option>
-                <option value="Male" 
-                {% if search_args["gender"] == "Male" %} 
+                <option value="Male"
+                {% if search_args["gender"] == "Male" %}
                   selected
                 {% endif %} >Male</option>
               </select>
@@ -108,8 +109,8 @@
               <select name="language" class="form-control">
                 <option value ="None">None</option>
                 {% for language in all_languages %}
-                  <option value = {{language}} 
-                    {% if search_args["language"] == language %} 
+                  <option value = {{language}}
+                    {% if search_args["language"] == language %}
                       selected
                     {% endif %} >
                     {{language}}
