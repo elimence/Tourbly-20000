@@ -24,7 +24,7 @@ def getCountryFromJson(jsonResponse):
     count = 0
     for component in components_list:
         component_type = components_list[count]["types"]
-        
+
         if component_type[0] == "country":
             country = component["long_name"]
 
@@ -32,7 +32,7 @@ def getCountryFromJson(jsonResponse):
 
     return country
 
-def getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender, language, 
+def getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender, language,
     destination_country):
     suggested_guides = None
 
@@ -51,7 +51,7 @@ def getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender, l
     else:
         suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 limit 12",
          destination_country, True)
-        
+
     return suggested_guides
 
 def getGuidesWithLanguage(suggested_guides, language):
@@ -66,6 +66,11 @@ def getGuidesWithLanguage(suggested_guides, language):
 
 class Search(Root.Handler):
     def get(self):
+        _id = self.get_user_id()
+        if _id == -1000:
+            return self.redirect('signin')
+
+        tourist = Tourist.Tourist.get_by_id(_id)
     	destination = self.request.get("destination")
     	arrival_date = self.request.get("arrival_date")
     	departure_date = self.request.get("departure_date")
@@ -77,7 +82,7 @@ class Search(Root.Handler):
 
         destination_country = ""
     	if destination:
-            request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address=" 
+            request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address="
                 + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
 
             request_json = json.loads(request)
@@ -88,12 +93,12 @@ class Search(Root.Handler):
 
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-            self.render("index.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
-             tourist = tourist, search_args = search_args)
+            self.render("search.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
+             tourist = tourist, search_args = search_args, all_languages = all_languages)
         else:
-            self.render("index.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
-             tourist = tourist, search_args = search_args)
-        
+            self.render("search.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
+             tourist = tourist, search_args = search_args, all_languages = all_languages)
+
     def post(self):
         destination = self.request.get("destination")
         arrival_date = self.request.get("arrival")
@@ -103,5 +108,5 @@ class Search(Root.Handler):
 
         self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
          + "&departure_date=" + departure_date + "&gender=" + gender + "&language=" + language)
-        # self.render("index.html", error_message = "Please provide all details to complete search")
-        	
+        
+

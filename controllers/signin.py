@@ -1,6 +1,8 @@
 
+import logging
 from security import Root
 from models import Tourist
+from google.appengine.ext import db
 
 
 class Signin(Root.Handler):
@@ -8,7 +10,7 @@ class Signin(Root.Handler):
         if self.check_session("query"):
             self.redirect("/home")
         else:
-            self.render("signin.html")
+            self.render("signin.html", isLoggedIn = self.check_session("query"))
 
     def post(self):
         email = self.request.get("email")
@@ -28,10 +30,11 @@ class Signin(Root.Handler):
                     self.create_session(session_vars)
                     self.create_session(session_vars2)
 
-                    if tourist.first_name == None:
-                        self.render("home.html", test = "You've been signed in successfully, " + tourist.email)
-                    else:
-                        self.render("home.html", test = "You've been signed in successfully, " + tourist.firstName)
+                    self.redirect('/search')
+                    # if tourist.first_name == None:
+                    #     self.render("home.html", test = "You've been signed in successfully, " + tourist.email)
+                    # else:
+                    #     self.render("home.html", test = "You've been signed in successfully, " + tourist.first_name)
                 else:
                     self.render("signin.html", error = "Invalid email or password")
             else:

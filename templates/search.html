@@ -59,7 +59,7 @@
         <div class="header">
           <h3 class="header-text">Refine your search</h3>
         </div>
-        <form id = "search_form" role="form" method = "post" action = "/search">
+        <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
           <div class="form-group">
             <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
           </div>
@@ -119,7 +119,7 @@
             </div>
           </div>
 
-          <button id = "filter" style = "width:match-parent" class="input btn btn-success" type = "submit" name = "filter">Filter</button>
+          <button id = "filter" class="input btn btn-success btn-block btn-lg" type = "submit" name = "filter">Filter</button>
         </form>
       </div>
       <div class="col-lg-9 viewport">
@@ -170,15 +170,17 @@
     <script src="/assets/js/picker.date.js"></script>
     <script src="/assets/js/picker.time.js"></script>
     <script src="/assets/js/legacy.js"></script>
+    <script src="/assets/js/search.js"></script>
     <script>
       $(function () {
         $('#arrival').pickadate();
         $('#departure').pickadate();
+        attachFilterButtonListener();
       })
     </script>
 
     <script type="text/javascript">
-      var search_form = document.getElementById("search_form");
+      var search_form = document.getElementById("filter-form");
 
       $(document).ready(function(){
          var clicknum = 0;
@@ -217,40 +219,16 @@
           clicknum++;
           if(clicknum == 1){
             var current_content = document.getElementById('arrival').value;
-            if (current_content != previous_content) {
-              search_form.submit();
-            }
+            $("#arrival").click(function() {
+              console.log(current_content)
+              if (current_content != previous_content) {
+                search_form.submit();
+              }
+            });
             clicknum = 0;
           }
          });
         });
-
-      function AutoSearch(id) {
-        console.log("in method")
-        var tag_id = "#" + id;
-        $(document).ready(function(){
-         var clicknum = 0;
-         var previous_content = document.getElementById(id).value;
-         $(tag_id).click(function(){
-          clicknum++;
-          if(clicknum == 1){
-            var current_content = document.getElementById(id).value;
-            if (current_content != previous_content) {
-              console.log("clicked ")
-              search_form.submit();
-            }
-            clicknum = 0;
-          }
-         });
-        });
-      }
-
-      // $(document).ready(function(){
-      //    var clicknum = 0;
-      //    $("#languages select").click(function(){
-      //        search_form.submit();
-      //    });
-      //   });
     </script>
   </body>
 </html>
