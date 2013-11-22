@@ -76,30 +76,31 @@ var usr_prf_ops = {
     gapi.client.load('oauth2', 'v2', function() {
       if (authResult['access_token']) {
         gapi.client.oauth2.userinfo.get().execute(function(resp) {
+          // console.log(resp);
           uDat.email     = resp.email;
-          uDat.verified = resp.verified_email;
+          uDat.activated = resp.verified_email;
+
+          srv_com_tel.post({
+            url   : "/oauth/signin",
+            async : "false",
+            dat   : uDat
+          }).done(function(data) {
+            console.log("SUCCESS, POST TO SERVER WITH STATUS: ");
+            console.log(data);
+
+            if(data=="notfound") {
+              window.location.replace("/signup");
+            } else {
+              document.cookie=data.split("*-*")[0];
+              document.cookie=data.split("*-*")[1];
+              location.reload();
+            }
+
+          });
         });
 
       } else if (authResult['error']) {
         console.log('There was an error: ' + authResult['error']);
-      }
-
-    });
-
-    srv_com_tel.post({
-      url   : "/oauth/signin",
-      async : "false",
-      dat   : uDat
-    }).done(function(data) {
-      console.log("SUCCESS, POST TO SERVER WITH STATUS: ");
-      console.log(data);
-
-      if(data=="notfound") {
-        window.location.replace("/signup");
-      } else {
-        document.cookie=data.split("*-*")[0];
-        document.cookie=data.split("*-*")[1];
-        location.reload();
       }
 
     });
