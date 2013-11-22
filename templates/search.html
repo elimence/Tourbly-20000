@@ -59,7 +59,7 @@
         <div class="header">
           <h3 class="header-text">Refine your search</h3>
         </div>
-        <form role="form" method = "post" action = "/search">
+        <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
           <div class="form-group">
             <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
           </div>
@@ -191,7 +191,7 @@
             </div>
           </div>
 
-          <button id = "filter" style = "width:match-parent" class="input btn btn-success" type = "submit" name = "filter">Filter</button>
+          <button id = "filter" style = "width:match-parent" class="input btn btn-success btn-block btn-lg" type = "submit" name = "filter">Filter</button>
         </form>
       </div>
       <div class="col-lg-9 viewport">
@@ -242,10 +242,12 @@
     <script src="/assets/js/picker.date.js"></script>
     <script src="/assets/js/picker.time.js"></script>
     <script src="/assets/js/legacy.js"></script>
+    <script src="/assets/js/search.js"></script>
     <script>
       $(function () {
         $('#arrival').pickadate();
         $('#departure').pickadate();
+        attachFilterButtonListener();
       })
     </script>
 
