@@ -1,5 +1,6 @@
 from security import Root
 from models import Guide
+from models import Tourist
 
 class GuideHandler(Root.Handler):
     def get(self, guide_id):
