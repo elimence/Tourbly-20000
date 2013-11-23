@@ -41,6 +41,7 @@
                   <li><a href="/profile">Profile</a></li>
                   <li><a href="/logout?current_page=home">Logout</a></li>
                 </ul>
+                <input type="hidden" id="user-email" name="user-email" value="{{ tourist.email }}" />
               </li>
             {% endif %}
             {% if not isLoggedIn %}
@@ -69,7 +70,7 @@
                 </span></p>
               </div>
               <div class="book">
-                <a href="#" class="btn btn-success btn-block btn-lg">Book {{guide._firstname}}</a>
+                <a id="bookGuide" href="#" class="btn btn-success btn-block btn-lg">Book {{guide._firstname}}</a>
               </div>
             </div>
           </div>
@@ -170,10 +171,56 @@
       </footer>
     </div>
 
+    <div id="bookModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Booking Confirmation for Nana Kay</h4>
+          </div>
+          <div class="modal-body">
+            <p>Nana Kay will notify and email address with Nana Kay. We will also send Nana Kays' contact details to your email address.</p>
+            <p>Click <strong>confirm</strong> below to proceed</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="confirmBooking" type="button" class="btn btn-primary">Confirm Booking</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="authModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Sign In to complete your Booking</h4>
+          </div>
+          <div class="modal-body">
+            <p>You must be logged in to book a tour guide. Please sign up or login below to proceed</p>
+          </div>
+          <div class="modal-footer">
+            <a id="signup-link" class="btn btn-success">Signup</a>
+            <a id="signin-link" class="btn btn-primary">Signin</a>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <!-- Bootstrap core JavaScript -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/guide.js"></script>
+    <script type="text/javascript" src="/assets/js/mandrill.js"></script>
+    <script type="text/javascript" src="/assets/js/json2.js"></script>
     <script>
+      $(function () {
+        $('#confirmBooking').on('click', bookingHandler);
+        $('#bookGuide').on('click', doBookingHandler);
+        $('#signin-link').on('click', authLoginHandler);
+        $('#signup-link').on('click', authSignupHandler);
+      })
     </script>
   </body>
 </html>
