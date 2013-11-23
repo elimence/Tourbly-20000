@@ -208,7 +208,7 @@ body {
 
 
 
- #customBtn {
+ #customBtn_M {
   display: inline-block;
   background: #dd4b39;
   color: white;
@@ -217,7 +217,7 @@ body {
   border-radius: 5px;
   white-space: nowrap;
 }
-#customBtn:hover {
+#customBtn_M:hover {
   background: #e74b37;
   cursor: pointer;
 }
