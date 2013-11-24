@@ -1,3 +1,4 @@
+var access_token = "";
 
 var userData = {
   email      : "",
@@ -14,6 +15,7 @@ var uDat = {
   verified : ""
 };
 
+
 var usr_prf_ops = {
 
   s_up_c_bks    : function(authResult) {
@@ -21,7 +23,10 @@ var usr_prf_ops = {
     gapi.client.load('oauth2', 'v2', function() {
       if (authResult['access_token']) {
         gapi.client.oauth2.userinfo.get().execute(function(resp) {
-          // console.log(resp);
+          console.log('from here and now on');
+          console.log(resp);
+          access_token = authResult['access_token'];
+          console.log(authResult['access_token']);
           userData.email     = resp.email;
           userData.activated = resp.verified_email;
         });

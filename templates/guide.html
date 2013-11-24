@@ -83,7 +83,7 @@
                 <div class="stat">
                   <i class="fa fa-thumb-tack"></i>
                   {% if guide._times_booked == None %}
-                   Booked 0 times
+                   Booked 9 times
                    {% endif %}
                    {% if guide._times_booked == "1" %}
                     Booked Once
@@ -152,6 +152,7 @@
               <div class="body">
                 {% for review in guide.reviews_set %}
                   <div class="review">
+
                   <div class="head">
                     <h3 class="reviewer">{{review._reviewer.first_name}} {{review._reviewer.last_name}}</h3><span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
                   </div>
@@ -184,7 +185,7 @@
             <h4 class="modal-title">Booking Confirmation for Nana Kay</h4>
           </div>
           <div class="modal-body">
-            <p>Nana Kay will notify and email address with Nana Kay. We will also send Nana Kays' contact details to your email address.</p>
+            <p>You contact details will be sent to your chosen guide and he will get in touch shortly. We hope you enjoy your stay. Click <b>confirm</b> to continue</p>
             <p>Click <strong>confirm</strong> below to proceed</p>
           </div>
           <div class="modal-footer">

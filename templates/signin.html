@@ -40,7 +40,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout/current_page=signin">Logout</a></li>
+                  <li><a id="logout" href="/logout/current_page=signin">Logout</a></li>
                 </ul>
               </li>
             {% endif %}
@@ -95,7 +95,7 @@
     </div><!-- /.carousel -->
 
 
-    <div class="container visible-xs hidden-sm hidden-md hidden-lg">
+    <div id="mobile" class="container visible-xs hidden-sm hidden-md hidden-lg">
       <div class="row">
         <div class="col-xs-12 mobile-signup-form">
           <form method = "post" action = "/signin" class="form-signin">
@@ -167,6 +167,7 @@
       function s_in_c_bks_loc(authResult) {
         usr_prf_ops.s_in_c_bks(authResult);
       }
+
       (function() {
         var po = document.createElement('script');
         po.type = 'text/javascript'; po.async = true;
@@ -175,24 +176,26 @@
         s.parentNode.insertBefore(po, s);
       })();
 
-      function renderW() {
-        gapi.signin.render('customBtn', {
-          'callback': 's_in_c_bks_loc',
-          'clientid': '1066634592899.apps.googleusercontent.com',
-          'cookiepolicy': 'single_host_origin',
-          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-        });
-      }
+      function render() {
+        if ($('#signup-form').is(':visible')) {
+          gapi.signin.render('customBtn', {
+            'callback': 's_in_c_bks_loc',
+            'clientid': '1066634592899.apps.googleusercontent.com',
+            'cookiepolicy': 'single_host_origin',
+            'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+          });
+        }
 
-      function renderM() {
-        gapi.signin.render('customBtn_M', {
-          'callback': 's_in_c_bks_loc',
-          'clientid': '1066634592899.apps.googleusercontent.com',
-          'cookiepolicy': 'single_host_origin',
-          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-        });
+        if ($('#mobile').is(':visible')) {
+          gapi.signin.render('customBtn_M', {
+            'callback': 's_in_c_bks_loc',
+            'clientid': '1066634592899.apps.googleusercontent.com',
+            'cookiepolicy': 'single_host_origin',
+            'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+          });
+        }
       }
 
     </script>
