@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tourbly - Login</title>
+    <title>Tourbly - Add Review</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
@@ -61,15 +61,14 @@
           <p style = "margin-top:40px;"></p>
         <form method = "post" class="form-signin" enctype="multipart/form-data">
           <p style = "color: red;">{{error}}</p>
-          <h2 class="form-heading visible-xs visible-lg visible-sm visible-md">Add a tour guide.</h2>
+          <h2 class="form-heading visible-xs visible-lg visible-sm visible-md">Add a review.</h2>
           <p></p>
-          <input type="text" class="form-control" placeholder="Email" autofocus name = "email" value = "{{email}}"> <span>{{email_status}}</span>
           <p style = "color: red;">{{email_error}}</p>
           <input type="text" class="form-control" placeholder="Reviewer id" name = "reviewer_id" value = "{{reviewer_id}}">
           <p style = "color: red;">{{first_name_error}}</p>
           <input type="text" class="form-control" placeholder="Reviewee id" name = "reviewee_id" value = "{{reviewee_id}}">
           <p style = "color: red;">{{last_name_error}}</p>
-          <input type="text" class="form-control" placeholder="Rating (Eg. 2,3,4)" name = "ratiing" value = "{{country}}">
+          <input type="text" class="form-control" placeholder="Rating (Eg. 2,3,4)" name = "rating" value = "{{country}}">
           <textarea class="form-control" placeholder="Your review here" name = "review" > {{review}}</textarea>
           <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Add Review</button>
         </form>

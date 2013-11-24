@@ -93,7 +93,16 @@
                      {% endif %}
                 </div>
                 <div class="stat">
-                  <i class="fa fa-smile-o"></i> 9 Total Reviews
+                  <i class="fa fa-smile-o"></i> 
+                  {% if guide.reviews_set.count() == 0 %}
+                    No Reviews
+                  {% endif %}
+                  {% if guide.reviews_set.count() == 1 %} 
+                    1 Total Review
+                  {% endif %}
+                  {% if guide.reviews_set.count() >1 %}
+                   {{guide.reviews_set.count()}} Total Reviews
+                  {% endif %}
                 </div>
                 <div class="stat">
                   Speaks
@@ -128,33 +137,29 @@
             </div> -->
             <div class="col-lg-12">
               <div class="header">
-                <h3 class="header-text">3 Reviews <i class="fa fa-thumbs-o-up blue-icon"></i></h3>
+                <h3 class="header-text">
+                   {% if guide.reviews_set.count() == 0 %}
+                   No Reviews
+                   {% endif %}
+                   {% if guide.reviews_set.count() == 1 %}
+                   1 Review
+                   {% endif %}
+                   {% if guide.reviews_set.count() > 1 %}
+                    {{guide.reviews_set.count()}}
+                   {% endif %} 
+                  <i class="fa fa-thumbs-o-up blue-icon"></i></h3>
               </div>
               <div class="body">
-                <div class="review">
+                {% for review in guide.reviews_set %}
+                  <div class="review">
                   <div class="head">
-                    <h3 class="reviewer">Samuel Ako</h3><span class="review-date"><i class="fa fa-clock-o"></i> 6 March</span>
+                    <h3 class="reviewer">{{review._reviewer.first_name}} {{review._reviewer.last_name}}</h3><span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
                   </div>
                   <div class="body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec dui leo.</p>
+                    <p>{{review._comment}}</p>
                   </div>
                 </div>
-                <div class="review">
-                  <div class="head">
-                    <h3 class="reviewer">Osam Sarsah</h3><span class="review-date"><i class="fa fa-clock-o"></i> 13 May</span>
-                  </div>
-                  <div class="body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec dui leo. Nullam ut tellus urna, imperdiet accumsan nisl. Maecenas volutpat eros in odio posuere nec adipiscing turpis malesuada. Etiam vel felis ac ante bibendum mattis. Donec pulvinar luctus nibh hendrerit iaculis. Integer euismod dolor quis turpis dignissim ultrices bibendum arcu iaculis. Morbi semper sem non quam scelerisque rhoncus.</p>
-                  </div>
-                </div>
-                <div class="review">
-                  <div class="head">
-                    <h3 class="reviewer">Albert Fiati</h3><span class="review-date"><i class="fa fa-clock-o"></i> 6 March</span>
-                  </div>
-                  <div class="body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nec dui leo.</p>
-                  </div>
-                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
