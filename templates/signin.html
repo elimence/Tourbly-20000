@@ -71,6 +71,7 @@
                     <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
                     <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email">
                     <input type="password" class="form-control" placeholder="Enter your password" name = "password">
+                    <input name = "referer" type = "hidden" value = "{{referer}}">
                     <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
 
                     <div class="hr-with-words">
@@ -97,11 +98,12 @@
     <div class="container visible-xs hidden-sm hidden-md hidden-lg">
       <div class="row">
         <div class="col-xs-12 mobile-signup-form">
-          <form class="form-signin">
+          <form method = "post" action = "/signin" class="form-signin">
             <p style = "color: red;">{{error}}</p>
             <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
             <input type="text" class="form-control" placeholder="Your Email" autofocus>
             <input type="password" class="form-control" placeholder="Enter your password">
+            <input type = "text" name = "referer" value = "{{referer}}" >
             <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
 
             <div class="hr-with-words">

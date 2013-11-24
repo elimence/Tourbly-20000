@@ -6,12 +6,16 @@ from google.appengine.api import urlfetch
 
 class Signup(Root.Handler):
     def get(self):
+        referer = self.request.referer
+        if referer:
+            referer = referer[referer.find("/", 8) : ]
         if self.check_session("query"):
             self.redirect("/home")
         else:
-            self.render("signup.html", isLoggedIn = self.check_session("query"))
+            self.render("signup.html", isLoggedIn = self.check_session("query"), referer = referer)
 
     def post(self):
+        referer = self.request.get("referer")
         email = self.request.get("email")
         password = self.request.get("password")
         confirm_password  = self.request.get("confirm_password")
@@ -38,7 +42,11 @@ class Signup(Root.Handler):
                 verification_link = "http://gcdc2013-tourbly.appspot.com/verify_email?token=" + token + "&id=" + str(tourist.key().id())
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
-                self.redirect('/search')
+
+                if referer == "/home":
+                    self.redirect("/search")
+                else:
+                    self.redirect(referer)
             else:
                 self.render("signup.html", email = email, email_error = self.email_error_prompt(email),
                     password_error = self.password_error_prompt(password), confirm_password_error =
