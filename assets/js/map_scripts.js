@@ -2,11 +2,11 @@
 function init() {
 	
     var destination_tag = document.getElementById('destination');
-	// var options = {
-	// componentRestrictions: {country: 'gh'}
-	// };
+	var options = {
+	componentRestrictions: {country: 'gh'}
+	};
 	var place;
-	var autocomplete = new google.maps.places.Autocomplete(destination_tag);
+	var autocomplete = new google.maps.places.Autocomplete(destination_tag, options);
 	
 	var previous_place = document.getElementById("destination").value;
 	google.maps.event.addListener(autocomplete, 'place_changed', function() {
