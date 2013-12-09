@@ -3,7 +3,7 @@ function init() {
 	
     var destination_tag = document.getElementById('destination');
 	var options = {
-	componentRestrictions: {country: 'au'}
+	componentRestrictions: {country: 'gh'}
 	};
 	var place;
 	var autocomplete = new google.maps.places.Autocomplete(destination_tag, options);
