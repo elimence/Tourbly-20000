@@ -106,7 +106,7 @@
             </div>
             <div class="col-lg-8 language-select">
               <select id = "languages" name="language" class="form-control">
-                <option value ="None">None</option>
+                <option value ="Any">Any</option>
                 {% for language in all_languages %}
                   <option value = {{language}}
                     {% if search_args["language"] == language %}
@@ -129,7 +129,7 @@
               Showing available tour guides for provided options
             {% endif %}
 
-            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "None" and search_args["language"] == "Any" %}
+            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "Any" and search_args["language"] == "Any" %}
               Many tour guides are happily waiting to help you. Just select your options from the left panel to find them.
             {% endif %}
 
@@ -145,7 +145,17 @@
               <div class="col-lg-3 guide">
                 <a href="/guides/{{suggested_guide.key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
                 <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
-                <span class="reviews">23 Reviews</span>
+                <span class="reviews">
+                  {% if suggested_guide.reviews_set.count() == 0 %}
+                    No Reviews
+                  {% endif %}
+                  {% if suggested_guide.reviews_set.count() == 1 %} 
+                    1 Total Review
+                  {% endif %}
+                  {% if suggested_guide.reviews_set.count() >1 %}
+                   {{suggested_guide.reviews_set.count()}} Total Reviews
+                  {% endif %}
+                </span>
               </div>
             {% endfor %}
           {% endif %}

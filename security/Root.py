@@ -359,6 +359,22 @@ class Handler(Security, webapp2.RequestHandler):
             return ""
 
 
+    # Name - name_error_prompt
+    # Desc
+    #   To get the right error prompt to be displayed to the user when name is enterd for review
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   name : Name entered by user for review
+    # returns
+    #   : String -> Error prompt to the user
+
+    def name_error_prompt(self, name):
+        if name == "":
+            return "Please enter your name"
+        else:
+            return ""
+
+
     # Name - email_error_prompt
     # Desc
     #   To get the right error prompt to be displayed to the user when email is enterd for signup

@@ -36,16 +36,16 @@ def getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender, l
     destination_country):
     suggested_guides = None
 
-    if gender == "Any" and language == "None":
+    if gender == "Any" and language == "Any":
         suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 limit 12",
          destination_country, True)
-    elif language == "None":
+    elif language == "Any":
         suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _gender = :3 limit 12",
          destination_country, True, gender)
     elif gender == "Any":
         suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _languages = :3 limit 12",
          destination_country, True, language)
-    elif gender != "Any" and gender != "" and language != "None" and language != "":
+    elif gender != "Any" and gender != "" and language != "Any" and language != "":
         suggested_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 and _gender = :3 and _languages = :4 limit 12",
          destination_country, True, gender, language)
     else:
