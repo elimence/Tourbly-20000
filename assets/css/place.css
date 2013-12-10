@@ -1,0 +1,146 @@
+.places-intro-banner {
+  border: 1px solid transparent;
+  background-image: url('../images/kruger.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  color: #fff;
+}
+.places-intro-banner .banner-caption {
+  border: 0px solid #f00;
+  width: 88.5%;
+  margin: 23em auto 2em auto;
+}
+.places-intro-banner .lead {
+  text-shadow: 0 1px 0px #000;
+}
+.places-intro-banner .caption-header {
+  font-size: 3.3em;
+  text-shadow: 0 1px 3px #000;
+  font-family: "Libre Baskerville";
+  color: #fff;
+}
+
+
+
+
+.place-details {
+  margin-top: 2em;
+  border: 0px solid #bbb;
+}
+
+.place-details .description {}
+.place-details .description .lead {
+  font-size: 19px;
+  line-height: 1.5;
+}
+.place-details .description .tag-label {
+  display: inline-block;
+  margin-bottom: 0.01em;
+  margin-left: 0.2em;
+  margin-top: 0.6em;
+}
+.place-details .location {}
+.place-details .location .lead,
+.place-details .guides .lead {
+  font-size: 19px;
+}
+
+#map_canvas {
+  height: 300px;
+}
+
+.tooltip-heading,
+.tooltip-sub-heading {
+  margin: 0;
+}
+.tooltip-sub-heading {
+  font-family: Helvetica, Arial, sans-serif;
+  color: #f9c954;
+}
+
+.place-details .guides {}
+
+
+
+
+/* Responsive Styles */
+/* Xtra Small */
+@media (max-width: 767px) {
+  .place-details .guides {
+    text-align: center;
+  }
+  .place-details .guides .guide-div {
+    margin-bottom: 1em;
+  }
+}
+/*@media (max-width: 320px) {
+  .places-intro-banner .banner-caption {
+    margin: 11em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 2.0em;
+  }
+  .places-intro-banner .search-box form .input {
+    width: 100%;
+  }
+  .places-intro-banner .search-box form button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}*/
+
+@media (min-width: 240px) and (max-width: 319px) {
+  .places-intro-banner .banner-caption {
+    margin: 16em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 2.5em;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 354px) {
+  .places-intro-banner .banner-caption {
+    /*margin: 11em auto 2em auto;*/
+  }
+  .places-intro-banner .caption-header {
+    font-size: 2.5em;
+  }
+}
+
+@media (min-width: 354px) and (max-width: 599px) {
+  .places-intro-banner .banner-caption {
+    margin: 21em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 2.3em;
+  }
+}
+/* Medium */
+@media (max-width: 1199px) {
+  .place-details .description .tags {
+    margin-top: 1.6em;
+    /*color: #f00;*/
+  }
+}
+
+
+
+/*@media (min-width: 600px) and (max-width: 971px) {
+  .places-intro-banner .banner-caption {
+    margin: 12em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 3.0em;
+  }
+  .places-intro-banner .search-box form .input {
+    width: 100%;
+  }
+  .places-intro-banner .search-box form button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+*/

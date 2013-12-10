@@ -6,13 +6,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tourbly - Login</title>
+    <title>Tourbly - Amazing Destinations</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/font-awesome.css" rel="stylesheet">
     <link href="/assets/css/global.css" rel="stylesheet" media="screen">
-    <link href="/assets/css/signin.css" rel="stylesheet" media="screen">
+    <link href="/assets/css/places.css" rel="stylesheet" media="screen">
 
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville" rel="stylesheet" type="text/css">
@@ -50,13 +50,122 @@
       </div>
     </div>
 
-    {% for place in places %}
-      <p>place.name</P>
-    {% endfor %}
+    <div class="container-fluid places-intro-banner">
+      <div class="banner-caption">
+        <h1 class="caption-header">Discover amazing cities.</h1>
+        <div class="search-box">
+          <form role="form">
+            <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
+            <button type="submit" class="btn btn-success" id="submit-btn">Go</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tourbly Places Gallery -->
+    <div class="container places">
+      <div class="row header">
+        <h2 class="heading">Tourbly Places</h2>
+        <p class="lead sub-heading">Showing Results for All Destinations.</p>
+      </div>
+      <div class="row body">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_kruger.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Kruger National Park</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_waterfront.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">V&amp;A Waterfront</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_capetown.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Capetown</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/shibuya.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Shibuya</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/redhook.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Redhook</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/harajuku.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Harajuku</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/ginza.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Ginza</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/kitazawa.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Kitazawa</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rogue.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Rogue</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_singita.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Singita Boulders Lodge</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_lionsands.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Lion Sands Capetown</h3>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_zebra.jpg" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">Zebra Fontain</h3>
+          </div>
+        </div>
+      </div><!-- /.row -->
+    </div><!-- /.container -->
+
+    <div class="container paging">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="pager">
+            <li class="previous"><a href="#">&larr; Go Back</a></li>
+            <li class="next"><a href="#">Show Me More &rarr;</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="container footer">
+      <hr class="footer-divider">
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a> &middot; <a href="https://plus.google.com/114524818757221632119" rel="publisher">Google+</a></p>
+      </footer>
+    </div>
 
     <!-- Bootstrap core JavaScript -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/holder.js"></script>
   </body>
 </html>

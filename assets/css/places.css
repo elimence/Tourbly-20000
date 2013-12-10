@@ -1,0 +1,197 @@
+.places-intro-banner {
+  border: 1px solid transparent;
+  margin-top: 50px;
+  background-image: url('../images/kruger.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*background-attachment: fixed;*/
+  /*background-position: 0 -150px;*/
+  height: 500px;
+  /*max-height: 500px;*/
+  text-align: center;
+}
+.places-intro-banner .banner-caption {
+  border: 0px solid #f00;
+  width: 70%;
+  margin: 19em auto 2em auto;
+}
+.places-intro-banner .caption-header {
+  font-size: 3.3em;
+  text-shadow: 0 1px 7px #000;
+  font-family: "Libre Baskerville";
+  color: #fff;
+}
+.places-intro-banner .search-box {
+  border: 0px solid #555;
+  width: 100%;
+  padding: 0.5em;
+  background-color: rgba(0,0,0,0.15);
+  box-shadow: 0px 0px 1px #000;
+  border-radius: 4px;
+}
+.places-intro-banner .search-box form .input {
+  display: inline-block;
+  border-radius: 2px;
+  width: 81.5%;
+  font-size: 1.2em;
+}
+.places-intro-banner .search-box form button {
+  display: inline-block;
+  width: 17%;
+  margin-left: 6.0px;
+  font-size: 1.1em;
+  letter-spacing: 0.08em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Pad the edges of the mobile views a bit */
+.places {
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 0px solid #f00;
+}
+.places .header,
+.quickstarts .header {
+  border: 0px solid #bbb;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.places .header .heading,
+.quickstarts .quickstart-col .section-header {
+  color: #393c3d;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1.2;
+  text-rendering: optimizelegibility;
+  margin-bottom: 5px;
+  color: #0088cc;
+}
+.places .header .sub-heading {
+  font-size: 1.3em;
+}
+
+.places .body {
+  border: 0px solid #bbb;
+}
+
+.places .place-img-holder {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 1.25%;
+  padding-right: 1.25%;
+  border: 0px solid #f00;
+}
+.places .place-img-holder img {
+  opacity: 0.9;
+}
+.places .place-img-holder img:hover {
+  opacity: 1.0;
+}
+.places .place-text-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 3.9%;
+  padding: 0.8em;
+}
+.places .place-text-overlay .caption {
+  font-family: "Libre Baskerville";
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 1px 7px #000;
+}
+
+/* Responsive Styles */
+/* Xtra Small */
+@media (max-width: 972px) {
+  .places-intro-banner .caption-header {
+    /*color: #f00;*/
+    /*display: none;*/
+  }
+  .places-intro-banner .search-box form .input {
+    width: 84.5%;
+  }
+  .places-intro-banner .search-box form button {
+    width: 14%;
+  }
+}
+@media (max-width: 320px) {
+  .places-intro-banner .banner-caption {
+    margin: 11em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 2.0em;
+  }
+  .places-intro-banner .search-box form .input {
+    width: 100%;
+  }
+  .places-intro-banner .search-box form button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 354px) {
+  .places-intro-banner .banner-caption {
+    margin: 11em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 2.0em;
+  }
+  .places-intro-banner .search-box form .input {
+    width: 100%;
+  }
+  .places-intro-banner .search-box form button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 354px) and (max-width: 600px) {
+  .places-intro-banner .banner-caption {
+    margin: 12em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 2.3em;
+  }
+  .places-intro-banner .search-box form .input {
+    width: 100%;
+  }
+  .places-intro-banner .search-box form button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 971px) {
+  .places-intro-banner .banner-caption {
+    margin: 12em auto 2em auto;
+  }
+  .places-intro-banner .caption-header {
+    font-size: 3.0em;
+  }
+  .places-intro-banner .search-box form .input {
+    width: 100%;
+  }
+  .places-intro-banner .search-box form button {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}

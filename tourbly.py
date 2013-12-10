@@ -53,7 +53,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/loader',                   handler=loader.Loader,              name='loader'),
     webapp2.Route(r'/admin/guides/add_guide',   handler=add_guide.AddGuide,         name='add_guide'),
     webapp2.Route(r'/admin/places/add_place',   handler=add_place.AddPlace,         name='add_place'),
-    webapp2.Route(r'/admin/reviews/add_review', handler=add_review.AddReview,       name='add_review')
+    webapp2.Route(r'/admin/reviews/add_review', handler=add_review.AddReview,       name='add_review'),
+    webapp2.Route(r'/showplaceprofile',         handler=places.ShowPlace,           name='place_profile')
 
 
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
