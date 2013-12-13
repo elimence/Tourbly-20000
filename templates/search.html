@@ -57,7 +57,7 @@
     <div class="container search">
       <div class="col-lg-3 filters">
         <div class="header">
-          <h3 class="header-text">Refine your search</h3>
+          <h3 class="header-text">Find a Tour Guide</h3>
         </div>
         <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
           <div class="form-group">
@@ -65,23 +65,27 @@
           </div>
           <div class="row date-input">
             <div class="col-lg-4 date-label">
-              <label for="">Arriving</label>
+              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Arriving</label>
+              <label for="" class="visible-xs visible-md visible-sm hidden-lg">When are you arriving?</label>
             </div>
             <div class="col-lg-8 datepicker">
-              <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Date of Arrival" value="{{search_args['arrival_date']}}">
+              <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Pick Date of Arrival" value="{{search_args['arrival_date']}}">
             </div>
           </div>
           <div class="row date-input">
             <div class="col-lg-4 date-label">
-              <label for="">Leaving</label>
+              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Leaving</label>
+              <label for="" class="visible-xs visible-md visible-sm hidden-lg">When are you leaving?</label>
             </div>
             <div class="col-lg-8 datepicker">
-              <input id="departure" name="departure" class="form-control input" type="text" placeholder="Date of Departure" value="{{search_args['departure_date']}}">
+              <input id="departure" name="departure" class="form-control input" type="text" placeholder="Pick Date of Departure" value="{{search_args['departure_date']}}">
             </div>
           </div>
           <div class="row gender">
             <div class="col-lg-4 gender-label">
-              <label for="">Gender</label>
+              <!-- <label for="">Gender</label> -->
+              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Gender</label>
+              <label for="" class="visible-xs visible-md visible-sm hidden-lg">Select your preferred gender</label>
             </div>
             <div class="col-lg-8 gender-select">
               <select id = "gender" name="gender" class="form-control" >
@@ -102,7 +106,9 @@
           </div>
           <div class="row language">
             <div class="col-lg-4 language-label">
-              <label for="">Language</label>
+              <!-- <label for="">Language</label> -->
+              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Language</label>
+              <label for="" class="visible-xs visible-md visible-sm hidden-lg">Select your preferred language</label>
             </div>
             <div class="col-lg-8 language-select">
               <select id = "languages" name="language" class="form-control">
@@ -119,24 +125,23 @@
             </div>
           </div>
 
-          <button id = "filter" class="input btn btn-success btn-block btn-lg" type = "submit" name = "filter">Filter</button>
+          <button id = "filter" class="input btn btn-success btn-block btn-lg" type = "submit" name = "filter">Search</button>
         </form>
       </div>
       <div class="col-lg-9 viewport">
         <div class="row header">
           <h3 class="header-text">
             {% if suggested_guides is not none and suggested_guides.count() > 0 %}
-              Showing available tour guides for provided options
+              Showing available tour guides
             {% endif %}
 
             {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "Any" and search_args["language"] == "Any" %}
-              Many tour guides are happily waiting to help you. Just select your options from the left panel to find them.
+              Choose your preferences to browse available tour guides.
             {% endif %}
 
             {% if suggested_guides is not none and suggested_guides.count() == 0 %}
-              Sorry, no tour guides match your search. Select more options from the left to see available tour guides
+              Choose your preferences to browse available tour guides.
             {% endif %}
-
           </h3>
         </div>
         <div class="row body guides">
