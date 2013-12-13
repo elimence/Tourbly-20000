@@ -86,7 +86,7 @@
   margin-bottom: 0.5em;
   font-weight: bold;
   font-size: 1.8em;
-  color: #51B451;
+  color: #3C97B4;
   font-family: 'Roboto Slab';
 }
 .bio .body {
@@ -112,14 +112,14 @@
 }
 .reviews .header {
   border-bottom: 1px solid #eee;
-  padding: 1em;
+  padding: 1em 1em 0.5em 1em;
 }
 .reviews .header .header-text {
   margin: 0;
   font-weight: bold;
   margin-left: 0.4em;
   font-family: 'Roboto Slab';
-  color: #51B451;
+  color: #3C97B4;
 }
 .reviews .review {
   border-bottom: 1px solid #eee;
@@ -132,12 +132,13 @@
   font-family: 'Sintony', sans-serif;
   margin: 0;
   /*color: #3f729b;*/
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: bold;
-  margin-right: 1em;
+  margin-right: 0.7em;
+  color: #222;
 }
 .reviews .review .head .review-date{
-  font-family: 'Gabriela', serif;
+  /*font-family: 'Gabriela', serif;*/
   font-weight: bold;
   color: #999;
   font-size: 1.3em;
@@ -150,4 +151,35 @@
 }
 .blue-icon {
   /*color: #038DD3;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 800px) {
+  .guide {
+    text-align: center;
+  }
+  .guide #guide-picture {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .guide .personal {
+    text-align: center;
+  }
+  .reviews .review .body p {
+    text-align: center;
+  }
+  .other {
+    margin-top: 2em;
+  }
 }
