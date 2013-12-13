@@ -43,4 +43,4 @@ class GuideHandler(Root.Handler):
 
 class GuideApplicationForm(Root.Handler):
     def get(self):
-        self.write('New guide application form')
+        self.render("guide_signup_form.html")
