@@ -12,11 +12,8 @@
     <!-- Bootstrap core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/assets/css/default.css" rel="stylesheet">
-    <link href="/assets/css/default.date.css" rel="stylesheet">
-    <link href="/assets/css/default.time.css" rel="stylesheet">
     <link href="/assets/css/global.css" rel="stylesheet" media="screen">
-    <link href="/assets/css/search.css" rel="stylesheet" media="screen">
+    <link href="/assets/css/guide_signup_form.css" rel="stylesheet" media="screen">
 
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville|Exo" rel="stylesheet" type="text/css">
@@ -55,7 +52,27 @@
     </div>
 
     <div class="container guide-signup-form">
-      <h2>Welcome.</h2>
+      <div class="row header">
+        <h1 class="header-text">Want to host Tourbly guests? Get started.</h1>
+      </div>
+      <div class="row body">
+        <form role="form" name="new-guide-signup-form" method="POST" action="">
+          <div class="form-group">
+            <input type="text" class="form-control input" id="full-name" name="full-name" placeholder="Your Full Name">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control input" id="country" name="country" placeholder="Your Nationality">
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address">
+            <span class="help-block">We will send a verification link to this email address with further instructions.</span>
+          </div>
+          <button type="submit" class="btn btn-info btn-block btn-lg">Get Started</button>
+        </form>
+      </div>
+      <!-- <div class="row footer">
+        <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+      </div> -->
     </div>
 
     <!-- Footer -->

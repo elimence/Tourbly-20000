@@ -1,0 +1,22 @@
+.guide-signup-form {
+  margin-top: 90px;
+  margin-bottom: 10px;
+  width: 89%;
+  border: 0px solid #bbb;
+}
+
+.guide-signup-form .header .header-text {
+  margin: 0 0 0.5em 0;
+  color: #B8AA16;
+}
+.guide-signup-form form .input {
+  padding: 1em 0.6em 1.1em 0.6em;
+  font-size: 1.5em;
+}
+
+/*Responsive Styling*/
+@media (max-width: 320px) {
+  .guide-signup-form .header .header-text {
+    font-size: 2.0em;
+  }
+}
