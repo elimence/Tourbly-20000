@@ -58,10 +58,10 @@
         <div class="col-lg-3 personal">
           <div class="row id">
             <div class="col-log-12">
-              <img class="img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" width="300">
+              <img id="guide-picture" class="img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" width="300">
               <div class="meta">
                 <h3 class="name">{{guide._firstname}} &nbsp;<i class="fa fa-check-square-o verified-icon"></i></h3>
-                <p class="city">{{guide._lives_in}}</p>
+                <p class="city">Lives in {{guide._lives_in}}</p>
                 <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
                 <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary">
 
@@ -132,54 +132,53 @@
             </div>
           </div>
           <div class="row reviews">
-            <!-- <div class="col-lg-12 reviews-separator">
-              <i class="fa fa-thumbs-o-up"></i>
-            </div> -->
             <div class="col-lg-12">
               <div class="header">
                 <h3 class="header-text">
-                   {% if guide.reviews_set.count() == 0 %}
-                   No Reviews
-                   {% endif %}
-                   {% if guide.reviews_set.count() == 1 %}
-                   1 Review
-                   {% endif %}
-                   {% if guide.reviews_set.count() > 1 %}
-                    {{guide.reviews_set.count()}} Reviews
-                   {% endif %} 
-                  <i class="fa fa-thumbs-o-up blue-icon"></i></h3>
+                  {% if guide.reviews_set.count() == 0 %}
+                  No Reviews
+                  {% endif %}
+                  {% if guide.reviews_set.count() == 1 %}
+                  1 Review
+                  {% endif %}
+                  {% if guide.reviews_set.count() > 1 %}
+                  {{guide.reviews_set.count()}} Reviews
+                  {% endif %} 
+                  <i class="fa fa-thumbs-o-up blue-icon"></i>
+                </h3>
               </div>
-                
-                {% if tourist %}
-                  <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
-                    <h2 class="form-heading visible-xs visible-lg visible-sm visible-md">Leave a review</h2>
-                    <p style = "color: red;">{{error}}</p>
-                    {% if not tourist.first_name %}
-                      <p style = "color: red;">{{name_error}}</p>
-                      <input type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
-                    {% endif %}
-                    <p style = "color: red;">{{comments_error}}</p>
-                    <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:100px">{{comments}}</textarea>            
-                    <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
-
-                  </form>
-                {% endif %}
-
               <div class="body">
                 {% for review in guide.reviews_set|sort(attribute = "_created_at", reverse = true) %}
                   <div class="review">
-
-                  <div class="head">
-                    <h3 class="reviewer">{{review._reviewer.first_name}} {{review._reviewer.last_name}}</h3><span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
-                  </div>
+                    <div class="head">
+                      <h3 class="reviewer">{{review._reviewer.first_name}} {{review._reviewer.last_name}}</h3><span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
+                    </div>
                   <div class="body">
                     <p>{{review._comment | nl2br | safe}}</p>
                   </div>
                 </div>
+
                 {% endfor %}
               </div>
             </div>
           </div>
+          {% if tourist %}
+            <div class="row new-review">
+              <div class="col-lg-12">
+                <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
+                  <h2 class="form-heading visible-xs visible-lg visible-sm visible-md" style="font-family: 'Roboto Slab'; margin-left: 0.9em; font-size: 25px; font-weight: bold; color: #3C97B4;">Leave a review</h2>
+                  <p style = "color: red;">{{error}}</p>
+                  {% if not tourist.first_name %}
+                    <p style = "color: red;">{{name_error}}</p>
+                    <input type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
+                  {% endif %}
+                  <p style = "color: red;">{{comments_error}}</p>
+                  <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
+                  <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
+                </form>
+              </div>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

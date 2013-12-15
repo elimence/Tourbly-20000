@@ -38,3 +38,13 @@ body {
 .show-outline {
   border: 1px solid #bbb;
 }
+.error-label {
+  color: #f90;
+  text-align: center;
+  margin: 0;
+  position: relative;
+  bottom: 0.6em;
+}
+.mobile-error-label {
+  color: #f00;
+}
