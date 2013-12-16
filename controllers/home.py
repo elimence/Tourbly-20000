@@ -22,5 +22,3 @@ class Home(Root.Handler):
             self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
              + "&departure_date=" + departure_date)
     	self.render("index.html", error_message = "Please provide all details to complete search")
-        
-       

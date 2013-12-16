@@ -1,250 +1,193 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Reliable tour guides to your favorite destinations</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
+{% extends "layout.html" %}
+{% block title %}Find a tour guide{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
     <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/default.date.css" rel="stylesheet">
     <link href="/assets/css/default.time.css" rel="stylesheet">
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
     <link href="/assets/css/search.css" rel="stylesheet" media="screen">
-
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville|Exo" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body onload = "init()">
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li><a href="/places" id="places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout?current_page=home">Logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li><a href="/signup" id="signup">Signup</a></li>
-              <li class="active"><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
-        </div>
+{% endblock %}
+{% block content %}
+  <div class="container search">
+    <div class="col-lg-3 filters">
+      <div class="header">
+        <h3 class="header-text">Find a Tour Guide</h3>
       </div>
+      <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
+        <div class="form-group">
+          <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
+        </div>
+        <div class="row date-input">
+          <div class="col-lg-4 date-label">
+            <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Arriving</label>
+            <label for="" class="visible-xs visible-md visible-sm hidden-lg">When are you arriving?</label>
+          </div>
+          <div class="col-lg-8 datepicker">
+            <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Pick Date of Arrival" value="{{search_args['arrival_date']}}">
+          </div>
+        </div>
+        <div class="row date-input">
+          <div class="col-lg-4 date-label">
+            <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Leaving</label>
+            <label for="" class="visible-xs visible-md visible-sm hidden-lg">When are you leaving?</label>
+          </div>
+          <div class="col-lg-8 datepicker">
+            <input id="departure" name="departure" class="form-control input" type="text" placeholder="Pick Date of Departure" value="{{search_args['departure_date']}}">
+          </div>
+        </div>
+        <div class="row gender">
+          <div class="col-lg-4 gender-label">
+            <!-- <label for="">Gender</label> -->
+            <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Gender</label>
+            <label for="" class="visible-xs visible-md visible-sm hidden-lg">Select your preferred gender</label>
+          </div>
+          <div class="col-lg-8 gender-select">
+            <select id = "gender" name="gender" class="form-control" >
+              <option value="Any"
+              {% if search_args["gender"] == "Any" %}
+                selected
+              {% endif %} >Any</option>
+              <option value="Female"
+              {% if search_args["gender"] == "Female" %}
+                selected
+              {% endif %} >Female</option>
+              <option value="Male"
+              {% if search_args["gender"] == "Male" %}
+                selected
+              {% endif %} >Male</option>
+            </select>
+          </div>
+        </div>
+        <div class="row language">
+          <div class="col-lg-4 language-label">
+            <!-- <label for="">Language</label> -->
+            <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Language</label>
+            <label for="" class="visible-xs visible-md visible-sm hidden-lg">Select your preferred language</label>
+          </div>
+          <div class="col-lg-8 language-select">
+            <select id = "languages" name="language" class="form-control">
+              <option value ="Any">Any</option>
+              {% for language in all_languages %}
+                <option value = {{language}}
+                  {% if search_args["language"] == language %}
+                    selected
+                  {% endif %} >
+                  {{language}}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <button id = "filter" class="input btn btn-success btn-block btn-lg" type = "submit" name = "filter">Search</button>
+      </form>
     </div>
-
-    <div class="container search">
-      <div class="col-lg-3 filters">
-        <div class="header">
-          <h3 class="header-text">Find a Tour Guide</h3>
-        </div>
-        <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
-          <div class="form-group">
-            <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
-          </div>
-          <div class="row date-input">
-            <div class="col-lg-4 date-label">
-              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Arriving</label>
-              <label for="" class="visible-xs visible-md visible-sm hidden-lg">When are you arriving?</label>
-            </div>
-            <div class="col-lg-8 datepicker">
-              <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Pick Date of Arrival" value="{{search_args['arrival_date']}}">
-            </div>
-          </div>
-          <div class="row date-input">
-            <div class="col-lg-4 date-label">
-              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Leaving</label>
-              <label for="" class="visible-xs visible-md visible-sm hidden-lg">When are you leaving?</label>
-            </div>
-            <div class="col-lg-8 datepicker">
-              <input id="departure" name="departure" class="form-control input" type="text" placeholder="Pick Date of Departure" value="{{search_args['departure_date']}}">
-            </div>
-          </div>
-          <div class="row gender">
-            <div class="col-lg-4 gender-label">
-              <!-- <label for="">Gender</label> -->
-              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Gender</label>
-              <label for="" class="visible-xs visible-md visible-sm hidden-lg">Select your preferred gender</label>
-            </div>
-            <div class="col-lg-8 gender-select">
-              <select id = "gender" name="gender" class="form-control" >
-                <option value="Any"
-                {% if search_args["gender"] == "Any" %}
-                  selected
-                {% endif %} >Any</option>
-                <option value="Female"
-                {% if search_args["gender"] == "Female" %}
-                  selected
-                {% endif %} >Female</option>
-                <option value="Male"
-                {% if search_args["gender"] == "Male" %}
-                  selected
-                {% endif %} >Male</option>
-              </select>
-            </div>
-          </div>
-          <div class="row language">
-            <div class="col-lg-4 language-label">
-              <!-- <label for="">Language</label> -->
-              <label for="" class="visible-lg hidden-md hidden-sm hidden-xs">Language</label>
-              <label for="" class="visible-xs visible-md visible-sm hidden-lg">Select your preferred language</label>
-            </div>
-            <div class="col-lg-8 language-select">
-              <select id = "languages" name="language" class="form-control">
-                <option value ="Any">Any</option>
-                {% for language in all_languages %}
-                  <option value = {{language}}
-                    {% if search_args["language"] == language %}
-                      selected
-                    {% endif %} >
-                    {{language}}
-                  </option>
-                {% endfor %}
-              </select>
-            </div>
-          </div>
-
-          <button id = "filter" class="input btn btn-success btn-block btn-lg" type = "submit" name = "filter">Search</button>
-        </form>
-      </div>
-      <div class="col-lg-9 viewport">
-        <div class="row header">
-          <h3 class="header-text">
-            {% if suggested_guides is not none and suggested_guides.count() > 0 %}
-              Showing available tour guides
-            {% endif %}
-
-            {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "Any" and search_args["language"] == "Any" %}
-              Choose your preferences to browse available tour guides.
-            {% endif %}
-
-            {% if suggested_guides is not none and suggested_guides.count() == 0 %}
-              Choose your preferences to browse available tour guides.
-            {% endif %}
-          </h3>
-        </div>
-        <div class="row body guides">
-          {% if suggested_guides is not none %}
-            {% for suggested_guide in suggested_guides %}
-              <div class="col-lg-3 guide">
-                <a href="/guides/{{suggested_guide.key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
-                <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
-                <span class="reviews">
-                  {% if suggested_guide.reviews_set.count() == 0 %}
-                    No Reviews
-                  {% endif %}
-                  {% if suggested_guide.reviews_set.count() == 1 %} 
-                    1 Total Review
-                  {% endif %}
-                  {% if suggested_guide.reviews_set.count() >1 %}
-                   {{suggested_guide.reviews_set.count()}} Total Reviews
-                  {% endif %}
-                </span>
-              </div>
-            {% endfor %}
+    <div class="col-lg-9 viewport">
+      <div class="row header">
+        <h3 class="header-text">
+          {% if suggested_guides is not none and suggested_guides.count() > 0 %}
+            Showing available tour guides
           {% endif %}
-        </div>
+
+          {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "Any" and search_args["language"] == "Any" %}
+            Choose your preferences to browse available tour guides.
+          {% endif %}
+
+          {% if suggested_guides is not none and suggested_guides.count() == 0 %}
+            Choose your preferences to browse available tour guides.
+          {% endif %}
+        </h3>
+      </div>
+      <div class="row body guides">
+        {% if suggested_guides is not none %}
+          {% for suggested_guide in suggested_guides %}
+            <div class="col-lg-3 guide">
+              <a href="/guides/{{suggested_guide.key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
+              <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
+              <span class="reviews">
+                {% if suggested_guide.reviews_set.count() == 0 %}
+                  No Reviews
+                {% endif %}
+                {% if suggested_guide.reviews_set.count() == 1 %} 
+                  1 Total Review
+                {% endif %}
+                {% if suggested_guide.reviews_set.count() >1 %}
+                 {{suggested_guide.reviews_set.count()}} Total Reviews
+                {% endif %}
+              </span>
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
     </div>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+  <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
+  <script src="/assets/js/picker.js"></script>
+  <script src="/assets/js/picker.date.js"></script>
+  <script src="/assets/js/picker.time.js"></script>
+  <script src="/assets/js/legacy.js"></script>
+  <script src="/assets/js/search.js"></script>
+  <script>
+    $(function () {
+      $('#arrival').pickadate();
+      $('#departure').pickadate();
+      attachFilterButtonListener();
+    })
+  </script>
 
-    <!-- Footer -->
-    <div class="container footer">
-      <hr class="footer-divider">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-    </div>
+  <script type="text/javascript">
+    var search_form = document.getElementById("filter-form");
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-    <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/picker.js"></script>
-    <script src="/assets/js/picker.date.js"></script>
-    <script src="/assets/js/picker.time.js"></script>
-    <script src="/assets/js/legacy.js"></script>
-    <script src="/assets/js/search.js"></script>
-    <script>
-      $(function () {
-        $('#arrival').pickadate();
-        $('#departure').pickadate();
-        attachFilterButtonListener();
-      })
-    </script>
+    $(document).ready(function(){
+       var clicknum = 0;
+       var previous_content = document.getElementById("gender").value;
+       $("#gender").click(function(){
+        clicknum++;
+        if(clicknum == 1){
+          var current_content = document.getElementById('gender').value;
+          if (current_content != previous_content) {
+            search_form.submit();
+          }
+          clicknum = 0;
+        }
+       });
+      });
 
-    <script type="text/javascript">
-      var search_form = document.getElementById("filter-form");
+    $(document).ready(function(){
+       var clicknum = 0;
+       var previous_content = document.getElementById("languages").value;
+       $("#languages").click(function(){
+        clicknum++;
+        if(clicknum == 1){
+          var current_content = document.getElementById('languages').value;
+          if (current_content != previous_content) {
+            search_form.submit();
+          }
+          clicknum = 0;
+        }
+       });
+      });
 
-      $(document).ready(function(){
-         var clicknum = 0;
-         var previous_content = document.getElementById("gender").value;
-         $("#gender").click(function(){
-          clicknum++;
-          if(clicknum == 1){
-            var current_content = document.getElementById('gender').value;
+    $(document).ready(function(){
+       var clicknum = 0;
+       var previous_content = document.getElementById("arrival").value;
+       $("#arrival").click(function(){
+        clicknum++;
+        if(clicknum == 1){
+          var current_content = document.getElementById('arrival').value;
+          $("#arrival").click(function() {
+            console.log(current_content)
             if (current_content != previous_content) {
               search_form.submit();
             }
-            clicknum = 0;
-          }
-         });
-        });
-
-      $(document).ready(function(){
-         var clicknum = 0;
-         var previous_content = document.getElementById("languages").value;
-         $("#languages").click(function(){
-          clicknum++;
-          if(clicknum == 1){
-            var current_content = document.getElementById('languages').value;
-            if (current_content != previous_content) {
-              search_form.submit();
-            }
-            clicknum = 0;
-          }
-         });
-        });
-
-      $(document).ready(function(){
-         var clicknum = 0;
-         var previous_content = document.getElementById("arrival").value;
-         $("#arrival").click(function(){
-          clicknum++;
-          if(clicknum == 1){
-            var current_content = document.getElementById('arrival').value;
-            $("#arrival").click(function() {
-              console.log(current_content)
-              if (current_content != previous_content) {
-                search_form.submit();
-              }
-            });
-            clicknum = 0;
-          }
-         });
-        });
-    </script>
-  </body>
-</html>
+          });
+          clicknum = 0;
+        }
+       });
+      });
+  </script>
+{% endblock %}

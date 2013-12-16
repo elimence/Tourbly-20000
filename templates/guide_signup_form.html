@@ -1,93 +1,33 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Reliable tour guides to your favorite destinations</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
+{% extends "layout.html" %}
+{% block title %}Add a Review{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
     <link href="/assets/css/guide_signup_form.css" rel="stylesheet" media="screen">
-
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville|Exo" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body onload = "init()">
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
+{% endblock %}
+{% block content %}
+  <div class="container guide-signup-form">
+    <div class="row header">
+      <h1 class="header-text">Want to host Tourbly guests? Get started.</h1>
+    </div>
+    <div class="row body">
+      <form role="form" name="new-guide-signup-form" method="POST" action="">
+        <div class="form-group">
+          <input type="text" class="form-control input" id="full-name" name="full-name" placeholder="Your Full Name">
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li><a href="/places" id="places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout?current_page=home">Logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li><a href="/signup" id="signup">Signup</a></li>
-              <li class="active"><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
+        <div class="form-group">
+          <input type="text" class="form-control input" id="country" name="country" placeholder="Your Nationality">
         </div>
-      </div>
+        <div class="form-group">
+          <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address">
+          <span class="help-block">We will send a verification link to this email address with further instructions.</span>
+        </div>
+        <button type="submit" class="btn btn-info btn-block btn-lg">Get Started</button>
+      </form>
     </div>
-
-    <div class="container guide-signup-form">
-      <div class="row header">
-        <h1 class="header-text">Want to host Tourbly guests? Get started.</h1>
-      </div>
-      <div class="row body">
-        <form role="form" name="new-guide-signup-form" method="POST" action="">
-          <div class="form-group">
-            <input type="text" class="form-control input" id="full-name" name="full-name" placeholder="Your Full Name">
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control input" id="country" name="country" placeholder="Your Nationality">
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address">
-            <span class="help-block">We will send a verification link to this email address with further instructions.</span>
-          </div>
-          <button type="submit" class="btn btn-info btn-block btn-lg">Get Started</button>
-        </form>
-      </div>
-      <!-- <div class="row footer">
-        <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-      </div> -->
-    </div>
-
-    <!-- Footer -->
-    <div class="container footer">
-      <hr class="footer-divider">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-    </div>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script>
-    </script>
-  </body>
-</html>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script>
+  </script>
+{% endblock %}
