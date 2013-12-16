@@ -31,7 +31,10 @@ template_dir = os.path.join(os.path.dirname(__file__), '../templates')
 jinja_env    = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 
 
-
+def nl2br(value): 
+     return value.replace('\n','<br>\n')
+ 
+jinja_env.filters['nl2br'] = nl2br
 
 
 ## => Implements various utility functions for handling security operations

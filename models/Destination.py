@@ -6,11 +6,13 @@ class Destination(db.Model, Root.Handler):
 	name = db.StringProperty(required = True)
 	latlng = db.StringProperty(required = True)
 	description = db.TextProperty(required = True)
+	tag_line = db.StringProperty()
 	region = db.StringProperty()
 	city = db.StringProperty()
 	direction = db.TextProperty()
 	times_visited = db.IntegerProperty()
 	pictures = db.ListProperty(db.Blob)
+	# tags = db.StringListproperty()
 
 	@classmethod
 	def addDestination(cls, name, latlng, description):

@@ -153,10 +153,11 @@
                     <div class="head">
                       <h3 class="reviewer">{{review._reviewer.first_name}} {{review._reviewer.last_name}}</h3><span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
                     </div>
-                    <div class="body">
-                      <p>{{review._comment}}</p>
-                    </div>
+                  <div class="body">
+                    <p>{{review._comment | nl2br | safe}}</p>
                   </div>
+                </div>
+
                 {% endfor %}
               </div>
             </div>
