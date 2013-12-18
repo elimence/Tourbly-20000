@@ -2,13 +2,17 @@ from security import Root
 from models import Destination
 from google.appengine.ext import db
 
+from google.appengine.api import urlfetch
+import urllib
+import json
+
 class AddPlace(Root.Handler):
 	def get(self):
 		self.render("add_place.html")
 
 	def post(self):
 		destination_name = self.request.get("destination_name")
-		country = "Ghana"
+		destination_map_name = self.request.get("map_name")
 		region = "Ashanti"
 		city = "Bonwire"
 		tagline = self.request.get("tag_line")
@@ -20,10 +24,16 @@ class AddPlace(Root.Handler):
 
 		tags = destination_tags.split(",")
 
-		value_args = {"destination_name" : destination_name, country : "Ghana", "region" : region,
-		"city" : city, "tagline" : tagline, "picture" : picture, "description" : description,
-		"latlng" : latlng, "tags" : destination_tags}
+		country = ""
+		if destination_map_name:
+			request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address="
+				+ urllib.quote(destination_map_name.encode("utf-8")) + "&sensor=true").content
 
+			request_json = json.loads(request)
+			country = self.getCountryFromJson(request_json)
+		value_args = {"destination_name" : destination_name, country : country, "region" : region,
+		"city" : city, "tagline" : tagline, "picture" : picture, "description" : description,
+		"latlng" : latlng, "tags" : destination_tags, "map_name" : destination_map_name }
 		if destination_name and latlng and description:
 			place = Destination.Destination(name = destination_name, country = country, region = region,
 				city = city, tagline = tagline, picture_urls = [picture], description = description, latlng = latlng,

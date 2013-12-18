@@ -133,7 +133,34 @@ class Security():
         + ''.join(random.choice(string.letters) for i in range(8))
 
 
+# implements various utility functions that are common to many controllers
+class Utility():
 
+    # Name - getCountryFromJson
+    # Desc
+    #   To get the country from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the country
+    # returns
+    #   : String -> A particular country
+
+    def getCountryFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        components_list = reponseResults[0]["address_components"]
+        # return components_list[0]["types"][0][0]
+        country = ""
+
+        count = 0
+        for component in components_list:
+            component_type = components_list[count]["types"]
+
+            if component_type[0] == "country":
+                country = component["long_name"]
+
+            count += 1
+
+        return country
 
 
 
@@ -145,7 +172,7 @@ PASS_RE = re.compile(r"^.{6,20}$")
 
 
 # => Request handler extended with class Security and misc functionality
-class Handler(Security, webapp2.RequestHandler):
+class Handler(Security, Utility, webapp2.RequestHandler):
 
     def w(cls,*a, **kw):
         Handler.response.out.write(*a, **kw)
@@ -501,32 +528,5 @@ class Handler(Security, webapp2.RequestHandler):
         return countries_array[1][1]["name"]
 
 
-# implements various utility functions that are common to many controllers
-class Utility():
 
-    # Name - getCountryFromJson
-    # Desc
-    #   To get the country from a geocoding response
-    # params
-    #   self           : Ref    -> reference to object instance
-    #   jsonResponse : geocoding response with all data related to a particular address including the country
-    # returns
-    #   : String -> A particular country
-
-    def getCountryFromJson(self, jsonResponse):
-        reponseResults = jsonResponse["results"]
-        components_list = reponseResults[0]["address_components"]
-        # return components_list[0]["types"][0][0]
-        country = ""
-
-        count = 0
-        for component in components_list:
-            component_type = components_list[count]["types"]
-
-            if component_type[0] == "country":
-                country = component["long_name"]
-
-            count += 1
-
-        return country
 

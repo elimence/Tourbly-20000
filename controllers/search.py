@@ -64,7 +64,7 @@ def getGuidesWithLanguage(suggested_guides, language):
     return actual_suggested_guides
 
 
-class Search(Root.Handler, Root.Utility):
+class Search(Root.Handler):
     def get(self):
         _id = self.get_user_id()
         if _id == -1000:
