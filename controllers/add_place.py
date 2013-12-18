@@ -20,7 +20,7 @@ class AddPlace(Root.Handler):
 
 		tags = destination_tags.split(",")
 
-		value_args = {"destination_name" : destination_name, "country" : country, "region" : region,
+		value_args = {"destination_name" : destination_name, country : "Ghana", "region" : region,
 		"city" : city, "tagline" : tagline, "picture" : picture, "description" : description,
 		"latlng" : latlng, "tags" : destination_tags}
 

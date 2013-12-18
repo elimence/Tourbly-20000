@@ -66,7 +66,9 @@
       <div class="row description">
         <div class="col-lg-8">
           <p class="lead">{{place.description | nl2br | safe}}</p>
-        <a href="#guides" class="btn btn-success">See Availabe Tour Guides</a>
+          {% if available_guides != None and available_guides.count() != 0 %}
+            <a href="#guides" class="btn btn-success">See Availabe Tour Guides</a>
+          {% endif %}
         </div>
         <div class="col-lg-4 tags">
           <h4 style="margin-top: 5px;">Other tourists say...</h4>
@@ -84,26 +86,32 @@
           <div id="map_canvas" style=""></div>
         </div>
       </div>
-      <div id="guides" class="row guides">
-        <div class="col-lg-12">
-          <h3>Available tour guides</h3>
-          <p class="lead">Hello there! We're here to help :) Click to see <a href="">all available guides</a></p> 
-          <!-- <p class="lead"><a href="">See all available guides</a></p>  -->
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/guides_pics/sonia.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sonia Arquette</h3><p class='lead tooltip-sub-heading'>16 Reviews</p></a>">
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/guides_pics/sarah.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sarah Miller</h3><p class='lead tooltip-sub-heading'>22 Reviews</p></a>">
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/guides_pics/sayla.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sayla Rivera</h3><p class='lead tooltip-sub-heading'>9 Reviews</p></a>">
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/guides_pics/rach.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Rachel Sommers</h3><p class='lead tooltip-sub-heading'>6 Reviews</p></a>">
+
+      {% if available_guides != none and available_guides.count() != 0 %}
+        <div id="guides" class="row guides">
+          <div class="col-lg-12">
+            <h3>Available tour guides</h3>
+            <p class="lead">Hello there! We're here to help :) Click to see <a href="">all available guides</a></p> 
+            <!-- <p class="lead"><a href="">See all available guides</a></p>  -->
+          </div>
+          {% for available_guide in available_guides %}
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
+            <a href="/guides/{{available_guide.key().id()}}"><img src="/assets/images/guides_pics/{{available_guide._picture}}" class="image-tooltip img-circle" title="<h3 collapses='tooltip-heading'>{{available_guide._firstname}} {{available_guide._lastname}}</h3><p class='lead tooltip-sub-heading'>
+              {% if available_guide.reviews_set.count() == 0 %}
+                  No Reviews
+                  {% endif %}
+              {% if available_guide.reviews_set.count() == 1 %}
+              1 Review
+              {% endif %}
+              {% if available_guide.reviews_set.count() > 1 %}
+                {{available_guide.reviews_set.count()}} Reviews
+              {% endif %} 
+            </p></a>">
+          </div>
+          {% endfor %}
         </div>
       </div>
-    </div>
+    {% endif %}
 
     <!-- Footer -->
     <div class="container footer">

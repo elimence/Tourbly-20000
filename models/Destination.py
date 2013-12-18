@@ -7,7 +7,7 @@ class Destination(db.Model, Root.Handler):
 	latlng = db.StringProperty(required = True)
 	description = db.TextProperty(required = True)
 	tagline = db.StringProperty()
-	country = db.StringProperty
+	country = db.StringProperty()
 	region = db.StringProperty()
 	city = db.StringProperty()
 	direction = db.TextProperty()
