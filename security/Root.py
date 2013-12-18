@@ -366,7 +366,7 @@ class Handler(Security, webapp2.RequestHandler):
     # Desc
     #   To get the right error prompt to be displayed to the user when name is enterd for review
     # params
-    #   self           : Ref    -> reference to object instance
+    #   self : Ref    -> reference to object instance
     #   name : Name entered by user for review
     # returns
     #   : String -> Error prompt to the user
@@ -499,4 +499,34 @@ class Handler(Security, webapp2.RequestHandler):
         # for i = 1; i <= len(countries_array[1]); i ++ :
         #     countries.add(countries_array[1])
         return countries_array[1][1]["name"]
+
+
+# implements various utility functions that are common to many controllers
+class Utility():
+
+    # Name - getCountryFromJson
+    # Desc
+    #   To get the country from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the country
+    # returns
+    #   : String -> A particular country
+
+    def getCountryFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        components_list = reponseResults[0]["address_components"]
+        # return components_list[0]["types"][0][0]
+        country = ""
+
+        count = 0
+        for component in components_list:
+            component_type = components_list[count]["types"]
+
+            if component_type[0] == "country":
+                country = component["long_name"]
+
+            count += 1
+
+        return country
 

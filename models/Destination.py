@@ -6,13 +6,15 @@ class Destination(db.Model, Root.Handler):
 	name = db.StringProperty(required = True)
 	latlng = db.StringProperty(required = True)
 	description = db.TextProperty(required = True)
-	tag_line = db.StringProperty()
+	tagline = db.StringProperty()
+	country = db.StringProperty
 	region = db.StringProperty()
 	city = db.StringProperty()
 	direction = db.TextProperty()
 	times_visited = db.IntegerProperty()
+	picture_urls = db.StringListProperty()
 	pictures = db.ListProperty(db.Blob)
-	# tags = db.StringListproperty()
+	tags = db.StringListProperty()
 
 	@classmethod
 	def addDestination(cls, name, latlng, description):
@@ -30,7 +32,7 @@ class Destination(db.Model, Root.Handler):
 		return cls.filter("name=", name).get()
 
 	@classmethod
-	def getAllDestination(cls):
+	def getAllDestinations(cls):
 		return cls.all()
 
 	@staticmethod

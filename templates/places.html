@@ -66,10 +66,25 @@
     <div class="container places">
       <div class="row header">
         <h2 class="heading">Tourbly Places</h2>
-        <p class="lead sub-heading">Showing Results for All Destinations.</p>
+        {% if places.count() != 0  %}
+          <p class="lead sub-heading">Showing Results for Destinations.</p>
+        {% endif %}
+        {% if places.count() == 0 %}
+          <p class="lead sub-heading">There are currently no destinations.</p>
+        {% endif %}
       </div>
       <div class="row body">
+
+        {% for place in places %}
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+          <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src= "/assets/images/places_pics/{{place.picture_urls[0]}}" data-src="" alt=""></a>
+          <div class="place-text-overlay">
+            <h3 class="caption">{{place.name}}</h3>
+          </div>
+        </div>
+          {% endfor %}
+
+        <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
           <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_kruger.jpg" data-src="" alt=""></a>
           <div class="place-text-overlay">
             <h3 class="caption">Kruger National Park</h3>
@@ -140,7 +155,7 @@
           <div class="place-text-overlay">
             <h3 class="caption">Zebra Fontain</h3>
           </div>
-        </div>
+        </div> -->
       </div><!-- /.row -->
     </div><!-- /.container -->
 
@@ -148,8 +163,10 @@
       <div class="row">
         <div class="col-lg-12">
           <ul class="pager">
-            <li class="previous"><a href="#">&larr; Go Back</a></li>
-            <li class="next"><a href="#">Show Me More &rarr;</a></li>
+            {% if places.count() != 0 %}
+              <li class="previous"><a href="#">&larr; Go Back</a></li>
+              <li class="next"><a href="#">Show Me More &rarr;</a></li>
+              {% endif %}
           </ul>
         </div>
       </div>

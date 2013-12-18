@@ -64,7 +64,7 @@ def getGuidesWithLanguage(suggested_guides, language):
     return actual_suggested_guides
 
 
-class Search(Root.Handler):
+class Search(Root.Handler, Root.Utility):
     def get(self):
         _id = self.get_user_id()
         if _id == -1000:
@@ -86,7 +86,7 @@ class Search(Root.Handler):
                 + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
 
             request_json = json.loads(request)
-            destination_country = getCountryFromJson(request_json)
+            destination_country = self.getCountryFromJson(request_json)
 
         suggested_guides = getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender,
          language, destination_country)

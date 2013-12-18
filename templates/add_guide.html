@@ -57,7 +57,7 @@
     <div class = "container">
       <p></p><p></p>
       <div>{{success_message}}<div/>
-      <div class="col-lg-4 col-md-4 col-sm-4 form">
+      <div class="row new-review">
         <p style = "color: green;">{{success_message}}<p/>
           <p style = "margin-top:40px;"></p>
         <form method = "post" class="form-signin" enctype="multipart/form-data">
@@ -72,7 +72,10 @@
           <input type="text" class="form-control" placeholder="Last Name" name = "last_name" value = "{{last_name}}">
           <input type="text" class="form-control" placeholder="Phone Number" name = "phone_number" value = "{{phone_number}}">
           <p style = "color: red;">{{last_name_error}}</p>
-          <input id = "country" type="text" class="form-control" placeholder="Country" name = "country" value = "{{country}}">
+          <select name = "country">
+            <option value = "">Select country</option>
+            <option value = "Ghana">Ghana</option>
+          </select>
           <p style = "color: red;">{{country_error}}</p>
           <input id = "destination" type="text" class="form-control" placeholder="Your State or where you live" name = "state" value = "{{state}}">
           <p style = "color: red;">{{state_error}}</p>

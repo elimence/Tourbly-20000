@@ -54,36 +54,31 @@
       </div>
     </div>
 
-    <div class="container-fluid places-intro-banner">
+    <div class="container-fluid places-intro-banner" style = "background-image: url(../assets/images/places_pics/{{place.picture_urls[0]}});">
       <div class="banner-caption">
-        <h1 class="caption-header">Kruger National Park</h1>
-        <p class="lead">A Wildlife Sanctuary. Discover nature's beauty beyond your wildest imagination.</p>
+        <h1 class="caption-header">{{place.name}}</h1>
+        <p id = "tagline" class="lead">{{place.tagline}}</p>
       </div>
     </div>
 
     <div class="container place-details">
+      <span id = "latlng" style = "display: none">als;fjks</span>
       <div class="row description">
         <div class="col-lg-8">
-          <p class="lead">As far as holiday and safari destinations go, the Kruger National Park is well established as one of the foremost wildlife sanctuaries in the world. Measuring up at an impressive 18,989 square kilometers, the park is the largest in South Africa, and is considered a must-see safari destination by many of the guests who book there. 
-With multiple reserves in the area, extensive and varied ecosystems, a wider selection of mammal species than anywhere else in Africa, a large range of accommodation options, many game viewing opportunities and optimum positioning amidst the attractive bushveld of the Limpopo and Mpumalanga provinces, the Greater Kruger Park is a complete safari destination. </p>
+          <p class="lead">{{place.description | nl2br | safe}}</p>
         <a href="#guides" class="btn btn-success">See Availabe Tour Guides</a>
         </div>
         <div class="col-lg-4 tags">
           <h4 style="margin-top: 5px;">Other tourists say...</h4>
-          <h4 class="tag-label"><span class="label label-info">Safari Escape</span></h4>
-          <h4 class="tag-label"><span class="label label-info">Refreshing</span></h4>
-          <h4 class="tag-label"><span class="label label-info">Amazing Scenery</span></h4>
-          <h4 class="tag-label"><span class="label label-info">Great Dining</span></h4>
-          <h4 class="tag-label"><span class="label label-info">Comfortable</span></h4>
-          <h4 class="tag-label"><span class="label label-info">Beautiful</span></h4>
-          <h4 class="tag-label"><span class="label label-info">Resort</span></h4>
-          <h4 class="tag-label"><span class="label label-info">Adventure</span></h4>
+          {% for tag in place.tags %}
+            <h4 class="tag-label"><span class="label label-info">{{tag}}</span></h4>
+          {% endfor %}
         </div>
       </div>
       <div class="row location">
         <div class="col-lg-12">
           <h3>On the map</h3>
-          <p class="lead">Kruger National Park is the <a href="https://www.google.com/maps/preview#!q=limpopo">Limpopo Province</a> in the North Eastern part of <a href="https://www.google.com/maps/preview#!q=south+africa" target="_blank">South Africa</a>.</p>
+          <p class="lead">{{place.direction}}</p>
         </div>
         <div class="col-lg-12">
           <div id="map_canvas" style=""></div>
@@ -96,16 +91,16 @@ With multiple reserves in the area, extensive and varied ecosystems, a wider sel
           <!-- <p class="lead"><a href="">See all available guides</a></p>  -->
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/sonia.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sonia Arquette</h3><p class='lead tooltip-sub-heading'>16 Reviews</p></a>">
+          <a href="#"><img src="/assets/images/guides_pics/sonia.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sonia Arquette</h3><p class='lead tooltip-sub-heading'>16 Reviews</p></a>">
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/sarah.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sarah Miller</h3><p class='lead tooltip-sub-heading'>22 Reviews</p></a>">
+          <a href="#"><img src="/assets/images/guides_pics/sarah.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sarah Miller</h3><p class='lead tooltip-sub-heading'>22 Reviews</p></a>">
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/sayla.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sayla Rivera</h3><p class='lead tooltip-sub-heading'>9 Reviews</p></a>">
+          <a href="#"><img src="/assets/images/guides_pics/sayla.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sayla Rivera</h3><p class='lead tooltip-sub-heading'>9 Reviews</p></a>">
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-          <a href="#"><img src="/assets/images/rach.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Rachel Sommers</h3><p class='lead tooltip-sub-heading'>6 Reviews</p></a>">
+          <a href="#"><img src="/assets/images/guides_pics/rach.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Rachel Sommers</h3><p class='lead tooltip-sub-heading'>6 Reviews</p></a>">
         </div>
       </div>
     </div>
@@ -128,9 +123,12 @@ With multiple reserves in the area, extensive and varied ecosystems, a wider sel
     <script type="text/javascript" src="/assets/js/jquery.tooltipster.min.js"></script>
     <script type="text/javascript">
       function initialize() {
+        var latlngString = document.getElementById("latlng").innerHTML
+        console.log()
+        latlng = latlngString.split(",")
         var myOptions = {
           zoom: 8,
-          center: new google.maps.LatLng(-24.00820793812158, 31.556854248046875),
+          center: new google.maps.LatLng(latlng[0], latlng[1]),
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
@@ -138,7 +136,7 @@ With multiple reserves in the area, extensive and varied ecosystems, a wider sel
 
         // Add a marker
         var options = {
-          position: new google.maps.LatLng(-24.00820793812158, 31.556854248046875)
+          position: new google.maps.LatLng(latlng[0], latlng[1])
         };
         marker = new google.maps.Marker(options);
         marker.setMap(map);
@@ -157,3 +155,8 @@ With multiple reserves in the area, extensive and varied ecosystems, a wider sel
     </script>
   </body>
 </html>
+
+
+
+<!-- As far as holiday and safari destinations go, the Kruger National Park is well established as one of the foremost wildlife sanctuaries in the world. Measuring up at an impressive 18,989 square kilometers, the park is the largest in South Africa, and is considered a must-see safari destination by many of the guests who book there. 
+With multiple reserves in the area, extensive and varied ecosystems, a wider selection of mammal species than anywhere else in Africa, a large range of accommodation options, many game viewing opportunities and optimum positioning amidst the attractive bushveld of the Limpopo and Mpumalanga provinces, the Greater Kruger Park is a complete safari destination.  -->

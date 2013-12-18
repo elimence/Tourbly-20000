@@ -57,7 +57,7 @@
     <div class = "container">
       <p></p><p></p>
       <div>{{success_message}}<div/>
-      <div class="col-lg-4 col-md-4 col-sm-4 form">
+      <div class="row new-review">
         <p style = "color: green;">{{success_message}}<p/>
           <p style = "margin-top:40px;"></p>
         <form method = "post" class="form-signin" enctype="multipart/form-data">
@@ -65,28 +65,18 @@
           <h2 class="form-heading visible-xs visible-lg visible-sm visible-md">Add a destination.</h2>
           <!-- <span id = "picture"><img width = "100px" height = "100px" src = "/img?tourist_id={{tourist_id}}" / style = "border-radius: 5px"></span> <input id = "profile_pic" type = "file" name = "profile_pic" style = "display : none"> -->
           <p></p>
-          <input type="text" class="form-control" placeholder="Email" autofocus name = "email" value = "{{email}}"> <span>{{email_status}}</span>
-          <p style = "color: red;">{{email_error}}</p>
-          <input type="text" class="form-control" placeholder="First Name" name = "first_name" value = "{{first_name}}">
-          <p style = "color: red;">{{first_name_error}}</p>
-          <input type="text" class="form-control" placeholder="Last Name" name = "last_name" value = "{{last_name}}">
-          <input type="text" class="form-control" placeholder="Phone Number" name = "phone_number" value = "{{phone_number}}">
-          <p style = "color: red;">{{last_name_error}}</p>
-          <input id = "country" type="text" class="form-control" placeholder="Country" name = "country" value = "{{country}}">
-          <p style = "color: red;">{{country_error}}</p>
-          <input id = "destination" type="text" class="form-control" placeholder="Your State or where you live" name = "state" value = "{{state}}">
-          <p style = "color: red;">{{state_error}}</p>
-          <input type="text" class="form-control" placeholder="Picture name" name = "picture" value = "{{picture}}">
-          <select name = "gender">
-            <option value = "Male">Male</option>
-            <option value = "Female">Female</option>
-          </select>
-          <input id = "dob" type="text" class="form-control" placeholder="Date of birth" name = "dob" value = "{{dob}}">
-          <input type="text" class="form-control" placeholder="main language spoken or understood" name = "language1" value = "{{language1}}">
-          <input type="text" class="form-control" placeholder="Additional language spoken or understood" name = "language2" value = "{{language2}}">
-          <input type="text" class="form-control" placeholder="Additional language spoken or understood" name = "language3" value = "{{language3}}">
-          <textarea class="form-control" placeholder="A brief description about yourself" name = "elevator_pitch" > {{elevator_pitch}}</textarea>
-          <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Add Guide</button>
+          <input type="text" class="form-control" placeholder="Destination Name" autofocus name = "destination_name" value = "{{destination_name}}"> <span>{{email_status}}</span>
+          <p style = "color: red;">{{destination_name_error}}</p>
+          <input type="text" class="form-control" placeholder="Destination name on map" name = "map_name" value = "{{map_name}}">
+          <p style = "color: red;">{{map_name_error}}</p>
+          <input type="text" class="form-control" placeholder="Destination tag line" name = "tag_line" value = "{{tag_line}}">
+          <input id = "picture" type="text" class="form-control" placeholder="Name of destination picture with extension" name = "picture" value = "{{picture}}">
+          <p style = "color: red;">{{picture_error}}</p>
+          <input type="text" class="form-control" placeholder="Add destination tags separated by commas" name = "tags" value = "{{tags}}">
+          <textarea type = "text" class = "form-control" name = "direction" placeholder = "Direction" style = "height: 100px; margin-top: 10px">{{direction}}</textarea>
+          <textarea type = "text" class="form-control" name = "description" placeholder="Description about the destination" style = "height: 300px; margin-top: 10px;"> {{description}}</textarea>
+          <p style = "color: red;">{{description_error}}</p>
+          <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Add Destination</button>
         </form>
       </div>
     </div>
