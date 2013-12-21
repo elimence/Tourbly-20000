@@ -1,203 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Signup</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
+{% extends "layout.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
     <link href="/assets/css/signup.css" rel="stylesheet" media="screen">
+{% endblock %}
+{% block content %}
+  <div id="signup-form" class="carousel slide hidden-xs">
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="/assets/images/rogue.jpg" alt="First slide" class="img-responsive carousel-image" width="1365">
+        <div class="container">
+          <div class="carousel-caption cities-slide-caption">
+            <div class="row signup-form-holder">
+              <div class="col-lg-7 col-md-7 col-sm-7 hidden-xs side-text">
+                <h1 class="heading">Discover beautiful scenery, culture &amp; lifestyles.</h1>
+                <p class="lead">We connect you with friendly &amp; reliable tour guides to over 100 tourist destinations accross west Africa. We guarantee you a safe and exciting experience.</p>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-4 form">
+                <form method = "post" action = "/signup" class="form-signin">
+                  <p class="lead error-label">{{error}}</p>
+                  <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
+                  <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value = "{{email}}">
+                  <p class="lead error-label">{{email_error}}</p>
+                  <input type="password" class="form-control" placeholder="Create a Password" name = "password">
+                  <p class="lead error-label">{{password_error}}</p>
+                  <input type="password" class="form-control" placeholder="Confirm Your Password" name = "confirm_password">
+                  <p class="lead error-label">{{confirm_password_error}}</p>
+                  <input name = "referer" type = "hidden" value = "{{referer}}" >
+                  <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Sign up for Tourbly</button>
 
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville" rel="stylesheet" type="text/css">
+                  <div class="hr-with-words">
+                    <span class="bigor">or</span>
+                  </div>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-
-
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li><a href="/places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a id="logout" href="/logout?current_page=signup">Logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li class="active"><a href="/signup" id="signup">Signup</a></li>
-              <li><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div id="signup-form" class="carousel slide hidden-xs">
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="/assets/images/rogue.jpg" alt="First slide" class="img-responsive carousel-image" width="1365">
-          <div class="container">
-            <div class="carousel-caption cities-slide-caption">
-              <div class="row signup-form-holder">
-                <div class="col-lg-7 col-md-7 col-sm-7 hidden-xs side-text">
-                  <h1 class="heading">Discover beautiful scenery, culture &amp; lifestyles.</h1>
-                  <p class="lead">We connect you with friendly &amp; reliable tour guides to over 100 tourist destinations accross west Africa. We guarantee you a safe and exciting experience.</p>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 form">
-                  <form method = "post" action = "/signup" class="form-signin">
-                    <p class="lead error-label">{{error}}</p>
-                    <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-                    <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value = "{{email}}">
-                    <p class="lead error-label">{{email_error}}</p>
-                    <input type="password" class="form-control" placeholder="Create a Password" name = "password">
-                    <p class="lead error-label">{{password_error}}</p>
-                    <input type="password" class="form-control" placeholder="Confirm Your Password" name = "confirm_password">
-                    <p class="lead error-label">{{confirm_password_error}}</p>
-                    <input name = "referer" type = "hidden" value = "{{referer}}" >
-                    <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Sign up for Tourbly</button>
-
-                    <div class="hr-with-words">
-                      <span class="bigor">or</span>
+                  <div id="gSignInWrapper">
+                    <div id="customBtn" class="customGPlusSignIn">
+                      <span class="icon"></span>
+                      <span class="buttonText">Sign up with Google</span>
                     </div>
+                  </div>
 
-                    <div id="gSignInWrapper">
-                      <div id="customBtn" class="customGPlusSignIn">
-                        <span class="icon"></span>
-                        <span class="buttonText">Sign up with Google</span>
-                      </div>
-                    </div>
+                </form>
 
-                  </form>
-
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div><!-- /.carousel -->
-    <div id="mobile" class="container visible-xs hidden-sm hidden-md hidden-lg">
-      <div class="row">
-        <div class="col-xs-12 mobile-signup-form">
-          <form class="form-signin">
-            <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-            <input type="text" class="form-control" placeholder="Pick a Username" autofocus>
-            <input type="text" class="form-control" placeholder="Your email">
-            <input type="password" class="form-control" placeholder="Create a Password">
-            <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign up for Tourbly</button>
+    </div>
+  </div><!-- /.carousel -->
+  <div id="mobile" class="container visible-xs hidden-sm hidden-md hidden-lg">
+    <div class="row">
+      <div class="col-xs-12 mobile-signup-form">
+        <form class="form-signin">
+          <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
+          <input type="text" class="form-control" placeholder="Pick a Username" autofocus>
+          <input type="text" class="form-control" placeholder="Your email">
+          <input type="password" class="form-control" placeholder="Create a Password">
+          <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign up for Tourbly</button>
 
-            <div class="hr-with-words">
-              <span class="smallor">or</span>
+          <div class="hr-with-words">
+            <span class="smallor">or</span>
+          </div>
+
+          <div id="gSignInWrapper">
+            <div id="customBtn_M" class="customGPlusSignIn">
+              <span class="icon"></span>
+              <span class="buttonText">Google</span>
             </div>
+          </div>
+        </form>
 
-            <div id="gSignInWrapper">
-              <div id="customBtn_M" class="customGPlusSignIn">
-                <span class="icon"></span>
-                <span class="buttonText">Google</span>
-              </div>
-            </div>
-          </form>
-
-        </div>
       </div>
     </div>
+  </div>
 
-    <div class="container reasons-to-love-tourbly hidden-xs visible-sm visible-md visible-lg">
-      <div class="header">
-        <h1>Why you&#8217;ll love Tourbly.</h1>
-        <p class="lead">We'll worry about finding you a reliable tour guide. You just enjoy your trip.</p>
+  <div class="container reasons-to-love-tourbly hidden-xs visible-sm visible-md visible-lg">
+    <div class="header">
+      <h1>Why you&#8217;ll love Tourbly.</h1>
+      <p class="lead">We'll worry about finding you a reliable tour guide. You just enjoy your trip.</p>
+    </div>
+    <div class="row body">
+      <div class="col-lg-4">
+        <img class="img-circle" src="/assets/images/guide.png" width="150" height="150" alt="">
+        <h3 class="sub-heading">Tour guides you can trust.</h3>
+        <p>We thoroughly screen, profile &amp; background-check our guides to ensure that to make sure you can rest easy. </p>
       </div>
-      <div class="row body">
-        <div class="col-lg-4">
-          <img class="img-circle" src="/assets/images/guide.png" width="150" height="150" alt="">
-          <h3 class="sub-heading">Tour guides you can trust.</h3>
-          <p>We thoroughly screen, profile &amp; background-check our guides to ensure that to make sure you can rest easy. </p>
-        </div>
-        <div class="col-lg-4">
-          <img class="img-circle" src="/assets/images/jamestown.png" width="150" height="150" alt="">
-          <h3 class="sub-heading">Great destinations to explore.</h3>
-          <p>Our guides have extensive knowledge of the city. You'll never run out of interesting sites to explore.</p>
-        </div>
-        <div class="col-lg-4">
-          <img class="img-circle" src="/assets/images/safety.png" width="150" height="150" alt="">
-          <h3 class="sub-heading">We've got you covered.</h3>
-          <p>Your safety is our number one concern. We go great lenghts to ensure your safety during your trip.</p>
-        </div>
+      <div class="col-lg-4">
+        <img class="img-circle" src="/assets/images/jamestown.png" width="150" height="150" alt="">
+        <h3 class="sub-heading">Great destinations to explore.</h3>
+        <p>Our guides have extensive knowledge of the city. You'll never run out of interesting sites to explore.</p>
+      </div>
+      <div class="col-lg-4">
+        <img class="img-circle" src="/assets/images/safety.png" width="150" height="150" alt="">
+        <h3 class="sub-heading">We've got you covered.</h3>
+        <p>Your safety is our number one concern. We go great lenghts to ensure your safety during your trip.</p>
       </div>
     </div>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script src="/assets/js/ext_auth.js"></script>
+  <script>
+    function s_up_c_bks_loc(authResult) {
+      usr_prf_ops.s_up_c_bks(authResult);
+    }
 
-    <!-- Footer -->
-    <div class="container footer">
-      <hr class="footer-divider">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-    </div>
+    (function() {
+      var po = document.createElement('script');
+      po.type = 'text/javascript'; po.async = true;
+      po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(po, s);
+    })();
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/ext_auth.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-
-
-    <script>
-      function s_up_c_bks_loc(authResult) {
-        usr_prf_ops.s_up_c_bks(authResult);
+    function render() {
+      if ($('#signup-form').is(':visible')) {
+        gapi.signin.render('customBtn', {
+          'callback': 's_up_c_bks_loc',
+          'clientid': '1066634592899.apps.googleusercontent.com',
+          'cookiepolicy': 'single_host_origin',
+          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+        });
       }
 
-      (function() {
-        var po = document.createElement('script');
-        po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(po, s);
-      })();
-
-      function render() {
-        if ($('#signup-form').is(':visible')) {
-          gapi.signin.render('customBtn', {
-            'callback': 's_up_c_bks_loc',
-            'clientid': '1066634592899.apps.googleusercontent.com',
-            'cookiepolicy': 'single_host_origin',
-            'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-          });
-        }
-
-        if ($('#mobile').is(':visible')) {
-          gapi.signin.render('customBtn_M', {
-            'callback': 's_up_c_bks_loc',
-            'clientid': '1066634592899.apps.googleusercontent.com',
-            'cookiepolicy': 'single_host_origin',
-            'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-            'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-          });
-        }
+      if ($('#mobile').is(':visible')) {
+        gapi.signin.render('customBtn_M', {
+          'callback': 's_up_c_bks_loc',
+          'clientid': '1066634592899.apps.googleusercontent.com',
+          'cookiepolicy': 'single_host_origin',
+          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+        });
       }
-
-    </script>
-
-  </body>
-</html>
+    }
+  </script>
+{% endblock %}

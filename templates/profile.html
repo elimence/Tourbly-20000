@@ -1,93 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Login</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
+{% extends "layout.html" %}
+{% block title %}Profile...{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
     <link href="/assets/css/signin.css" rel="stylesheet" media="screen">
-
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li><a href="/places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout?current_page=profile">Logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li><a href="/signup" id="signup">Signup</a></li>
-              <li class="active"><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
+{% endblock %}
+{% block content %}
+  <div class = "container">
+    <p></p><p></p>
+    <div>{{success_message}}</div>
+    <div class="col-lg-4 col-md-4 col-sm-4 form">
+      <p>{{success_message}}</p>
+      <form method = "post" action = "/profile" class="form-signin" enctype="multipart/form-data">
+        <p style = "color: red;">{{error}}</p>
+        <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
+        <span id = "picture"><img width = "100px" height = "100px" src = {{ profilepic}} / style = "border-radius: 5px"></span> <input id = "profile_pic" type = "file" name = "profile_pic" style = "display : none">
+        <p></p>
+        <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value = "{{email}}"> <span>{{email_status}}</span>
+        <p style = "color: red;">{{email_error}}</p>
+        <input type="text" class="form-control" placeholder="Your First Name" name = "first_name" value = "{{first_name}}">
+        <p style = "color: red;">{{first_name_error}}</p>
+        <input type="text" class="form-control" placeholder="Your Last Name" name = "last_name" value = "{{last_name}}">
+        <p style = "color: red;">{{last_name_error}}</p>
+        <input type="text" class="form-control" placeholder="Where Are You From?" name = "country" value = "{{country}}">
+        <p style = "color: red;">{{country_error}}</p>
+        <input type="text" class="form-control" placeholder="Your State" name = "state" value = "{{state}}">
+        <p style = "color: red;">{{state_error}}</p>
+        <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Save Changes</button>
+      </form>
     </div>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script type="text/javascript">
+    var clicker = document.getElementById("picture")
+    clicker.onclick = clickButton;
 
-    <div class = "container">
-      <p></p><p></p>
-      <div>{{success_message}}<div/>
-      <div class="col-lg-4 col-md-4 col-sm-4 form">
-        <p>{{success_message}}<p/>
-        <form method = "post" action = "/profile" class="form-signin" enctype="multipart/form-data">
-          <p style = "color: red;">{{error}}</p>
-          <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-          <span id = "picture"><img width = "100px" height = "100px" src = {{ profilepic}} / style = "border-radius: 5px"></span> <input id = "profile_pic" type = "file" name = "profile_pic" style = "display : none">
-          <p></p>
-          <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value = "{{email}}"> <span>{{email_status}}</span>
-          <p style = "color: red;">{{email_error}}</p>
-          <input type="text" class="form-control" placeholder="Your First Name" name = "first_name" value = "{{first_name}}">
-          <p style = "color: red;">{{first_name_error}}</p>
-          <input type="text" class="form-control" placeholder="Your Last Name" name = "last_name" value = "{{last_name}}">
-          <p style = "color: red;">{{last_name_error}}</p>
-          <input type="text" class="form-control" placeholder="Where Are You From?" name = "country" value = "{{country}}">
-          <p style = "color: red;">{{country_error}}</p>
-          <input type="text" class="form-control" placeholder="Your State" name = "state" value = "{{state}}">
-          <p style = "color: red;">{{state_error}}</p>
-          <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Save Changes</button>
-        </form>
-      </div>
-    </div>
-
-    <script type="text/javascript">
-      var clicker = document.getElementById("picture")
-      clicker.onclick = clickButton;
-
-      function clickButton() {
-        var fileButton = document.getElementById("profile_pic");
-        fileButton.click();
-      }
-    </script>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/holder.js"></script>
-  </body>
-</html>
+    function clickButton() {
+      var fileButton = document.getElementById("profile_pic");
+      fileButton.click();
+    }
+  </script>
+{% endblock %}

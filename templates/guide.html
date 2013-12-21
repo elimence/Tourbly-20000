@@ -1,247 +1,142 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Reliable tour guides to your favorite destinations</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
+{% extends "layout.html" %}
+{% block title %}{{guide._firstname}}'s Profile{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
     <link href="/assets/css/guide.css" rel="stylesheet" media="screen">
+{% endblock %}
+{% block content %}
+  <div class="container guide">
+    <div class="row">
+      <div class="col-lg-3 personal">
+        <div class="row id">
+          <div class="col-log-12">
+            <img id="guide-picture" class="img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" width="300">
+            <div class="meta">
+              <h3 class="name">{{guide._firstname}} &nbsp;<i class="fa fa-check-square-o verified-icon"></i></h3>
+              <p class="city">Lives in {{guide._lives_in}}</p>
+              <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
+              <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary">
 
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville|Exo|Sintony|Gabriela" rel="stylesheet" type="text/css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+                    Available
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li><a href="/places" id="places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout?current_page=home">Logout</a></li>
-                </ul>
-                <input type="hidden" id="user-email" name="user-email" value="{{ tourist.email }}" />
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li><a href="/signup" id="signup">Signup</a></li>
-              <li class="active"><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="container guide">
-      <div class="row">
-        <div class="col-lg-3 personal">
-          <div class="row id">
-            <div class="col-log-12">
-              <img id="guide-picture" class="img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" width="300">
-              <div class="meta">
-                <h3 class="name">{{guide._firstname}} &nbsp;<i class="fa fa-check-square-o verified-icon"></i></h3>
-                <p class="city">Lives in {{guide._lives_in}}</p>
-                <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
-                <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary">
-
-                      Available
-
-                </span></p>
-              </div>
-              <div class="book">
-                <a id="bookGuide" href="#" class="btn btn-success btn-block btn-lg">Book {{guide._firstname}}</a>
-              </div>
+              </span></p>
+            </div>
+            <div class="book">
+              <a id="bookGuide" href="#" class="btn btn-success btn-block btn-lg">Book {{guide._firstname}}</a>
             </div>
           </div>
-          <div class="row stats">
-            <div class="col-lg-12 wrapper">
-              <div class="header">
-                <h3 class="heading">Summary Stats</h3>
-              </div>
-              <div class="body">
-                <div class="stat">
-                  <i class="fa fa-thumb-tack"></i>
-                  {% if guide._times_booked == None %}
-                   Booked 9 times
+        </div>
+        <div class="row stats">
+          <div class="col-lg-12 wrapper">
+            <div class="header">
+              <h3 class="heading">Summary Stats</h3>
+            </div>
+            <div class="body">
+              <div class="stat">
+                <i class="fa fa-thumb-tack"></i>
+                {% if guide._times_booked == None %}
+                 Booked 9 times
+                 {% endif %}
+                 {% if guide._times_booked == "1" %}
+                  Booked Once
+                  {% endif %}
+                  {% if guide._times_booked > "1" %}
+                   Booked {{guide._times_booked}} Times
                    {% endif %}
-                   {% if guide._times_booked == "1" %}
-                    Booked Once
-                    {% endif %}
-                    {% if guide._times_booked > "1" %}
-                     Booked {{guide._times_booked}} Times
-                     {% endif %}
-                </div>
-                <div class="stat">
-                  <i class="fa fa-smile-o"></i> 
-                  {% if guide.reviews_set.count() == 0 %}
-                    No Reviews
-                  {% endif %}
-                  {% if guide.reviews_set.count() == 1 %} 
-                    1 Total Review
-                  {% endif %}
-                  {% if guide.reviews_set.count() >1 %}
-                   {{guide.reviews_set.count()}} Total Reviews
-                  {% endif %}
-                </div>
-                <div class="stat">
-                  Speaks
-                   {% for language in guide._languages %}
-                    {% if language != "" %}
-                      {{language}} &amp;
-                    {% endif %}
-                  {%  endfor %}
-
-                </div>
-                <div class="stat">
-                  Lives in {{guide._country}}
-                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-9 other">
-          <div class="row bio">
-            <div class="col-lg-12">
-              <div class="header">
-                <h4 class="header-text">Hello, I'm {{guide._firstname}} :)</h4>
-              </div>
-              <div class="body">
-                <p class="body-text">{{guide._elevator_pitch}} </p>
-              </div>
-            </div>
-          </div>
-          <div class="row reviews">
-            <div class="col-lg-12">
-              <div class="header">
-                <h3 class="header-text">
-                  {% if guide.reviews_set.count() == 0 %}
+              <div class="stat">
+                <i class="fa fa-smile-o"></i> 
+                {% if guide.reviews_set.count() == 0 %}
                   No Reviews
-                  {% endif %}
-                  {% if guide.reviews_set.count() == 1 %}
-                  1 Review
-                  {% endif %}
-                  {% if guide.reviews_set.count() > 1 %}
-                  {{guide.reviews_set.count()}} Reviews
-                  {% endif %} 
-                  <i class="fa fa-thumbs-o-up blue-icon"></i>
-                </h3>
+                {% endif %}
+                {% if guide.reviews_set.count() == 1 %} 
+                  1 Total Review
+                {% endif %}
+                {% if guide.reviews_set.count() >1 %}
+                 {{guide.reviews_set.count()}} Total Reviews
+                {% endif %}
               </div>
-              <div class="body">
-                {% for review in guide.reviews_set|sort(attribute = "_created_at", reverse = true) %}
-                  <div class="review">
-                    <div class="head">
-                      <h3 class="reviewer">{{review._reviewer.first_name}} {{review._reviewer.last_name}}</h3><span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
-                    </div>
-                  <div class="body">
-                    <p>{{review._comment | nl2br | safe}}</p>
-                  </div>
-                </div>
+              <div class="stat">
+                Speaks
+                 {% for language in guide._languages %}
+                  {% if language != "" %}
+                    {{language}} &amp;
+                  {% endif %}
+                {%  endfor %}
 
-                {% endfor %}
+              </div>
+              <div class="stat">
+                Lives in {{guide._country}}
               </div>
             </div>
           </div>
-          {% if tourist %}
-            <div class="row new-review">
-              <div class="col-lg-12">
-                <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
-                  <h2 class="form-heading visible-xs visible-lg visible-sm visible-md" style="font-family: 'Roboto Slab'; margin-left: 0.9em; font-size: 25px; font-weight: bold; color: #3C97B4;">Leave a review</h2>
-                  <p style = "color: red;">{{error}}</p>
-                  {% if not tourist.first_name %}
-                    <p style = "color: red;">{{name_error}}</p>
-                    <input type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
-                  {% endif %}
-                  <p style = "color: red;">{{comments_error}}</p>
-                  <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
-                  <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
-                </form>
-              </div>
-            </div>
-          {% endif %}
         </div>
       </div>
+      <div class="col-lg-9 other">
+        <div class="row bio">
+          <div class="col-lg-12">
+            <div class="header">
+              <h4 class="header-text">Hello, I'm {{guide._firstname}} :)</h4>
+            </div>
+            <div class="body">
+              <p class="body-text">{{guide._elevator_pitch}} </p>
+            </div>
+          </div>
+        </div>
+        <div class="row reviews">
+          <div class="col-lg-12">
+            <div class="header">
+              <h3 class="header-text">
+                {% if guide.reviews_set.count() == 0 %}
+                No Reviews
+                {% endif %}
+                {% if guide.reviews_set.count() == 1 %}
+                1 Review
+                {% endif %}
+                {% if guide.reviews_set.count() > 1 %}
+                {{guide.reviews_set.count()}} Reviews
+                {% endif %} 
+                <i class="fa fa-thumbs-o-up blue-icon"></i>
+              </h3>
+            </div>
+            <div class="body">
+              {% for review in guide.reviews_set|sort(attribute = "_created_at", reverse = true) %}
+                <div class="review">
+                  <div class="head">
+                    <h3 class="reviewer">{{review._reviewer.first_name}} {{review._reviewer.last_name}}</h3><span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
+                  </div>
+                <div class="body">
+                  <p>{{review._comment | nl2br | safe}}</p>
+                </div>
+              </div>
+
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% if tourist %}
+          <div class="row new-review">
+            <div class="col-lg-12">
+              <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
+                <h2 class="form-heading visible-xs visible-lg visible-sm visible-md" style="font-family: 'Roboto Slab'; margin-left: 0.9em; font-size: 25px; font-weight: bold; color: #3C97B4;">Leave a review</h2>
+                <p style = "color: red;">{{error}}</p>
+                {% if not tourist.first_name %}
+                  <p style = "color: red;">{{name_error}}</p>
+                  <input type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
+                {% endif %}
+                <p style = "color: red;">{{comments_error}}</p>
+                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
+                <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
+              </form>
+            </div>
+          </div>
+        {% endif %}
+      </div>
     </div>
-
-    <!-- Footer -->
-    <div class="container footer">
-      <hr class="footer-divider">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-    </div>
-
-    <div id="bookModal" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Booking Confirmation for Nana Kay</h4>
-          </div>
-          <div class="modal-body">
-            <p>You contact details will be sent to your chosen guide and he will get in touch shortly. We hope you enjoy your stay. Click <b>confirm</b> to continue</p>
-            <p>Click <strong>confirm</strong> below to proceed</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button id="confirmBooking" type="button" class="btn btn-primary">Confirm Booking</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div id="authModal" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Sign In or Sign Up to complete your Booking</h4>
-          </div>
-          <div class="modal-body">
-            <p>You must be logged in to book a tour guide. Please sign up or login below to proceed</p>
-          </div>
-          <div class="modal-footer">
-            <a id="signup-link" class="btn btn-success">Signup</a>
-            <a id="signin-link" class="btn btn-primary">Signin</a>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/guide.js"></script>
-    <script type="text/javascript" src="/assets/js/mandrill.js"></script>
-    <script type="text/javascript" src="/assets/js/json2.js"></script>
-    <script>
-      $(function () {
-        $('#confirmBooking').on('click', bookingHandler);
-        $('#bookGuide').on('click', doBookingHandler);
-        $('#signin-link').on('click', authLoginHandler);
-        $('#signup-link').on('click', authSignupHandler);
-      })
-    </script>
-  </body>
-</html>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script>
+  </script>
+{% endblock %}
