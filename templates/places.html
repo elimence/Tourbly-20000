@@ -33,7 +33,7 @@
 
         {% for place in places %}
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src= "/assets/images/places_pics/{{place.pictures[0]}}" data-src="" alt=""></a>
+          <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src= "/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt=""></a>
           <div class="place-text-overlay">
             <h3 class="caption">{{place.name}}</h3>
           </div>
