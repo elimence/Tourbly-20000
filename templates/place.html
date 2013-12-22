@@ -75,37 +75,39 @@
     {% endblock %}
 
     {% block pagespecificjs %}
-  <script>
-    function initialize() {
-        var latlngString = document.getElementById("latlng").innerHTML
-        console.log(latlngString)
-        latlng = latlngString.split(",")
-        var myOptions = {
-          zoom: 8,
-          center: new google.maps.LatLng(latlng[0], latlng[1]),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+    <script type="text/javascript" src="/assets/js/jquery.tooltipster.min.js"></script>
+    <script>
+      function initialize() {
+          var latlngString = document.getElementById("latlng").innerHTML
+          console.log(latlngString)
+          latlng = latlngString.split(",")
+          var myOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(latlng[0], latlng[1]),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
 
-        var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+          var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
-        // Add a marker
-        var options = {
-          position: new google.maps.LatLng(latlng[0], latlng[1])
-        };
-        marker = new google.maps.Marker(options);
-        marker.setMap(map);
-      }
-      </script>
-      <script>
-        $(document).ready(function() {
-          $('.image-tooltip').tooltipster({
-            position: 'bottom',
-            theme: '.tooltipster-noir',
-            animation: 'swing'
+          // Add a marker
+          var options = {
+            position: new google.maps.LatLng(latlng[0], latlng[1])
+          };
+          marker = new google.maps.Marker(options);
+          marker.setMap(map);
+        }
+        </script>
+        <script>
+          $(document).ready(function() {
+            initialize();
+            $('.image-tooltip').tooltipster({
+              position: 'bottom',
+              theme: '.tooltipster-noir',
+              animation: 'swing'
+            });
           });
-        });
-  </script>
-{% endblock %}
+    </script>
+  {% endblock %}
 
 
 
