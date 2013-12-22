@@ -1,107 +1,61 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Reliable tour guides to your favorite destinations</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
+{% extends "layout.html" %}
+{% block title %}Reliable tour guides to your favorite destinations{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
     <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/default.date.css" rel="stylesheet">
     <link href="/assets/css/default.time.css" rel="stylesheet">
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
     <link href="/assets/css/index.css" rel="stylesheet" media="screen">
+{% endblock %}
+{% block content %}
+  <div id="slider" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#slider" data-slide-to="0" class="active"></li>
+      <li data-target="#slider" data-slide-to="1"></li>
+      <li data-target="#slider" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="/assets/images/skyline.jpg" alt="First slide" class="img-responsive carousel-image" width="1365">
+        <div class="container">
+          <div class="carousel-caption search-slide-caption">
+            <h1 class="slide-header find-a-guide">Find a tour guide.</h1>
+            <div class="search-box">
+              <span style = "color:red">{{error_message}}</span>
+              <form method = "POST" action = "/home" role="form">
 
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body onload="init()">
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li><a href="/places" id="places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout?current_page=home">Logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li><a href="/signup" id="signup">Signup</a></li>
-              <li class="active"><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
+                <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
+                <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Arrival">
+                <input id="departure" name="departure" class="form-control input" type="text" placeholder="Departure">
+                <button type="submit" class="input btn btn-success" id="submit-btn">Search</button>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div id="slider" class="carousel slide">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#slider" data-slide-to="0" class="active"></li>
-        <li data-target="#slider" data-slide-to="1"></li>
-        <li data-target="#slider" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="/assets/images/skyline.jpg" alt="First slide" class="img-responsive carousel-image" width="1365">
-          <div class="container">
-            <div class="carousel-caption search-slide-caption">
-              <h1 class="slide-header find-a-guide">Find a tour guide.</h1>
-              <div class="search-box">
-                <span style = "color:red">{{error_message}}</span>
-                <form method = "POST" action = "/home" role="form">
-
-                  <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
-                  <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Arrival">
-                  <input id="departure" name="departure" class="form-control input" type="text" placeholder="Departure">
-                  <button type="submit" class="input btn btn-success" id="submit-btn">Search</button>
-                </form>
-              </div>
-            </div>
+      <div class="item">
+        <img src="/assets/images/london.jpg" alt="Second slide" class="img-responsive carousel-image" width="1365">
+        <div class="container">
+          <div class="carousel-caption cities-slide-caption">
+            <h1 class="slide-header">Discover amazing cities.</h1>
+            <p class="slide-description lead hidden-xs">
+              Explore amazing local cuisine &amp; culture with a guide you can trust.
+            </p>
+            <a href="/destinations" class="btn btn-success">Get Started</a>
           </div>
         </div>
-        <div class="item">
-          <img src="/assets/images/london.jpg" alt="Second slide" class="img-responsive carousel-image" width="1365">
-          <div class="container">
-            <div class="carousel-caption cities-slide-caption">
-              <h1 class="slide-header">Discover amazing cities.</h1>
-              <p class="slide-description lead hidden-xs">
-                Explore amazing local cuisine &amp; culture with a guide you can trust.
-              </p>
-              <a href="#" class="btn btn-success">Get Started</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="/assets/images/paris.jpg" alt="Third slide" class="img-responsive carousel-image" width="1365">
-          <div class="container">
-            <div class="carousel-caption cities-slide-caption">
-              <h1 class="slide-header">Become a guide.</h1>
-              <p class="slide-description lead hidden-xs">
-                Earn money giving tourists an amazing experience of your city &amp; culture.
-              </p>
-              <a href="#" class="btn btn-success">Apply Now</a>
-            </div>
+      </div>
+      <div class="item">
+        <img src="/assets/images/paris.jpg" alt="Third slide" class="img-responsive carousel-image" width="1365">
+        <div class="container">
+          <div class="carousel-caption cities-slide-caption">
+            <h1 class="slide-header">Become a guide.</h1>
+            <p class="slide-description lead hidden-xs">
+              Earn money giving tourists an amazing experience of your city &amp; culture.
+            </p>
+            <a href="/guides/apply" class="btn btn-success">Apply Now</a>
           </div>
         </div>
       </div>
@@ -129,52 +83,41 @@
       </div><!-- /.container -->
     {% endif %}
 
-    <!-- Quick Starts -->
-    <div class="container quickstarts">
-      <div class="row">
-        <div class="col-lg-4 quickstart-col">
-          <h3 class="section-header">What is Tourbly?</h3>
-          <p class="section-text lead">Tourbly connects you with friendly &amp; reliable tour guides to over 100 tourist destinations accross west Africa. We guarantee you a safe and exciting experience. <a href="/search">Find A Tour Guide</a></p>
-        </div>
-        <div class="col-lg-4 quickstart-col">
-          <h3 class="section-header">Be a Tour Guide</h3>
-          <p class="section-text lead">Its easy to start hosting &amp; showing tourists around your city. Become a Tourbly certified guide today. <a href="/guides/apply">Apply Now</a></p>
-        </div>
-        <div class="col-lg-4 quickstart-col">
-          <h3 class="section-header">Safety &amp; Security</h3>
-          <p class="section-text lead">We take your safety very seriously. Click <a href="#">here</a> to learn more about how we ensure your safety.</p>
-        </div>
+  <!-- Quick Starts -->
+  <div class="container quickstarts">
+    <div class="row">
+      <div class="col-lg-4 quickstart-col">
+        <h3 class="section-header">What is Tourbly?</h3>
+        <p class="section-text lead">Tourbly connects you with friendly &amp; reliable tour guides to over 100 tourist destinations accross west Africa. We guarantee you a safe and exciting experience. <a href="/search">Find A Tour Guide</a></p>
+      </div>
+      <div class="col-lg-4 quickstart-col">
+        <h3 class="section-header">Be a Tour Guide</h3>
+        <p class="section-text lead">Its easy to start hosting &amp; showing tourists around your city. Become a Tourbly certified guide today. <a href="/guides/apply">Apply Now</a></p>
+      </div>
+      <div class="col-lg-4 quickstart-col">
+        <h3 class="section-header">Safety &amp; Security</h3>
+        <p class="section-text lead">We take your safety very seriously. Click <a href="#">here</a> to learn more about how we ensure your safety.</p>
       </div>
     </div>
-
-    <!-- Footer -->
-    <div class="container footer">
-      <hr class="footer-divider">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a> &middot; <a href="https://plus.google.com/114524818757221632119" rel="publisher">Google+</a></p>
-      </footer>
-    </div>
-
-    <!-- Link to google plus page -->
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-    <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/picker.js"></script>
-    <script src="/assets/js/picker.date.js"></script>
-    <script src="/assets/js/picker.time.js"></script>
-    <script src="/assets/js/legacy.js"></script>
-    <script src="/assets/js/index.js"></script>
-    <script>
-      $(function () {
-        $('#arrival').pickadate();
-        $('#departure').pickadate();
-        attachSearchButtonListener();
-      })
-    </script>
-  </body>
-</html>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+  <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
+  <script src="/assets/js/picker.js"></script>
+  <script src="/assets/js/picker.date.js"></script>
+  <script src="/assets/js/picker.time.js"></script>
+  <script src="/assets/js/legacy.js"></script>
+  <script src="/assets/js/index.js"></script>
+  <script>
+    $(function () {
+      init();
+      $('#arrival').pickadate();
+      $('#departure').pickadate();
+      attachSearchButtonListener();
+      $('.carousel').carousel({
+        interval: 5000
+      });
+    })
+  </script>
+{% endblock %}

@@ -1,58 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Kruger National Park</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
+{% extends "layout.html" %}
+{% block title %}Kruger National Park{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="/assets/css/default.date.css" rel="stylesheet">
+    <link href="/assets/css/default.time.css" rel="stylesheet">
+    <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/tooltipster.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
     <link href="/assets/css/place.css" rel="stylesheet" media="screen">
-
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville" rel="stylesheet" type="text/css">
 
     <!-- Google Maps -->
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body onload="initialize()">
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li class="active"><a href="/places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout/current_page=places">Logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li><a href="/signup" id="signup">Signup</a></li>
-              <li><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </div>
+{% endblock %}
+{% block content %}
 
     <div class="container-fluid places-intro-banner" style = "background-image: url(../assets/images/places_pics/{{place.pictures[0]}});">
       <div class="banner-caption">
@@ -112,25 +72,11 @@
         </div>
       </div>
     {% endif %}
+    {% endblock %}
 
-    <!-- Footer -->
-    <div class="container footer">
-      <hr class="footer-divider">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a> &middot; <a href="https://plus.google.com/114524818757221632119" rel="publisher">Google+</a></p>
-      </footer>
-    </div>
-
-    <!-- Link to google plus page -->
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/assets/js/jquery.tooltipster.min.js"></script>
-    <script type="text/javascript">
-      function initialize() {
+    {% block pagespecificjs %}
+  <script>
+    function initialize() {
         var latlngString = document.getElementById("latlng").innerHTML
         console.log(latlngString)
         latlng = latlngString.split(",")
@@ -158,11 +104,8 @@
             animation: 'swing'
           });
         });
-      </script>
-    <script>
-    </script>
-  </body>
-</html>
+  </script>
+{% endblock %}
 
 
 

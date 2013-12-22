@@ -29,3 +29,4 @@ class Home(Root.Handler):
             places = places)
         
        
+

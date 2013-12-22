@@ -1,66 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Tourbly - Amazing Destinations</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link href="/assets/css/font-awesome.css" rel="stylesheet">
-    <link href="/assets/css/global.css" rel="stylesheet" media="screen">
+{% extends "layout.html" %}
+{% block title %}Amazing Destinations{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
     <link href="/assets/css/places.css" rel="stylesheet" media="screen">
-
-    <!-- Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">Tourbly</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right navlinks">
-            <li class="active"><a href="/places">Destinations</a></li>
-            {% if isLoggedIn %}
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/profile">Profile</a></li>
-                  <li><a href="/logout/current_page=places">Logout</a></li>
-                </ul>
-              </li>
-            {% endif %}
-            {% if not isLoggedIn %}
-              <li><a href="/signup" id="signup">Signup</a></li>
-              <li><a href="/signin" id="signin">Sign In</a></li>
-            {% endif %}
-          </ul>
-        </div>
+{% endblock %}
+{% block content %}
+  <div class="container-fluid places-intro-banner">
+    <div class="banner-caption">
+      <h1 class="caption-header">Discover amazing cities.</h1>
+      <div class="search-box">
+        <form role="form">
+          <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
+          <button type="submit" class="btn btn-success" id="submit-btn">Go</button>
+        </form>
       </div>
     </div>
-
-    <div class="container-fluid places-intro-banner">
-      <div class="banner-caption">
-        <h1 class="caption-header">Discover amazing cities.</h1>
-        <div class="search-box">
-          <form role="form">
-            <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
-            <button type="submit" class="btn btn-success" id="submit-btn">Go</button>
-          </form>
-        </div>
-      </div>
-    </div>
+  </div>
 
     <!-- Tourbly Places Gallery -->
     <div class="container places">
@@ -89,67 +45,69 @@
           <div class="place-text-overlay">
             <h3 class="caption">Kruger National Park</h3>
           </div>
+=======
+    <div class="row body">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_kruger.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Kruger National Park</h3>
+>>>>>>> e3d93bbf31085b05f12dea1f2c157f5e3d6d3645
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_waterfront.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">V&amp;A Waterfront</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_waterfront.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">V&amp;A Waterfront</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_capetown.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Capetown</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_capetown.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Capetown</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/shibuya.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Shibuya</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/shibuya.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Shibuya</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/redhook.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Redhook</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/redhook.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Redhook</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/harajuku.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Harajuku</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/harajuku.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Harajuku</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/ginza.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Ginza</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/ginza.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Ginza</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/kitazawa.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Kitazawa</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/kitazawa.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Kitazawa</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rogue.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Rogue</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rogue.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Rogue</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_singita.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Singita Boulders Lodge</h3>
-          </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+        <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_singita.jpg" data-src="" alt=""></a>
+        <div class="place-text-overlay">
+          <h3 class="caption">Singita Boulders Lodge</h3>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_lionsands.jpg" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">Lion Sands Capetown</h3>
-          </div>
-        </div>
+<<<<<<< HEAD
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
           <a href="/showplaceprofile"><img class="img-rounded img-responsive" src="/assets/images/rsz_zebra.jpg" data-src="" alt=""></a>
           <div class="place-text-overlay">
@@ -168,21 +126,10 @@
               <li class="next"><a href="#">Show Me More &rarr;</a></li>
               {% endif %}
           </ul>
-        </div>
       </div>
     </div>
-
-    <!-- Footer -->
-    <div class="container footer">
-      <hr class="footer-divider">
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 Tourbly. <a href="#">About</a> &middot; <a href="#">Contact</a> &middot; <a href="#">Privacy</a> &middot; <a href="#">Security</a> &middot; <a href="#">Terms</a> &middot; <a href="https://plus.google.com/114524818757221632119" rel="publisher">Google+</a></p>
-      </footer>
-    </div>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-  </body>
-</html>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script></script>
+{% endblock %}
