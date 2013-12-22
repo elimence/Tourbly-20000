@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div class="container-fluid places-intro-banner" style = "background-image: url(../assets/images/places_pics/{{place.picture_urls[0]}});">
+    <div class="container-fluid places-intro-banner" style = "background-image: url(../assets/images/places_pics/{{place.pictures[0]}});">
       <div class="banner-caption">
         <h1 class="caption-header">{{place.name}}</h1>
         <p id = "tagline" class="lead">{{place.tagline}}</p>
@@ -62,7 +62,7 @@
     </div>
 
     <div class="container place-details">
-      <span id = "latlng" style = "display: none">als;fjks</span>
+      <span id = "latlng" style = "display: none">{{place.latlng}}</span>
       <div class="row description">
         <div class="col-lg-8">
           <p class="lead">{{place.description | nl2br | safe}}</p>
@@ -132,7 +132,7 @@
     <script type="text/javascript">
       function initialize() {
         var latlngString = document.getElementById("latlng").innerHTML
-        console.log()
+        console.log(latlngString)
         latlng = latlngString.split(",")
         var myOptions = {
           zoom: 8,

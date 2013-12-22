@@ -2,17 +2,21 @@
 from security import Root
 from models import Tourist
 from datetime import datetime
+from models import Destination
 
 
 class Home(Root.Handler):
     def get(self):
+        places = Destination.Destination.gql("limit 6")
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-            self.render("index.html", isLoggedIn = self.check_session("query"), tourist = tourist)
+            self.render("index.html", isLoggedIn = self.check_session("query"), tourist = tourist, 
+                places = places)
         else:
-            self.render("index.html", isLoggedIn = self.check_session("query"))
+            self.render("index.html", isLoggedIn = self.check_session("query"), places = places)
 
     def post(self):
+        places = Destination.Destination.gql("limit 6")
     	destination = self.request.get("destination")
     	arrival_date = self.request.get("arrival")
     	departure_date = self.request.get("departure")
@@ -21,6 +25,7 @@ class Home(Root.Handler):
     	if destination and arrival_date and departure_date:
             self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
              + "&departure_date=" + departure_date)
-    	self.render("index.html", error_message = "Please provide all details to complete search")
+    	self.render("index.html", error_message = "Please provide all details to complete search", 
+            places = places)
         
        

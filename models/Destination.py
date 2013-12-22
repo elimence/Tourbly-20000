@@ -12,8 +12,8 @@ class Destination(db.Model, Root.Handler):
 	city = db.StringProperty()
 	direction = db.TextProperty()
 	times_visited = db.IntegerProperty()
-	picture_urls = db.StringListProperty()
-	pictures = db.ListProperty(db.Blob)
+	pictures = db.StringListProperty()
+	pictures_blobs = db.ListProperty(db.Blob)
 	tags = db.StringListProperty()
 
 	@classmethod

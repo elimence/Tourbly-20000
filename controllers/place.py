@@ -9,7 +9,8 @@ class PlaceHandler(Root.Handler):
 
 		available_guides = None
 		if place:
-			available_guides = Guide.Guide.gql("where _isAvailable = :1 limit 5", True)
+			available_guides = Guide.Guide.gql("where _country = :1 and _isAvailable = :2 limit 5", 
+				place.country, True)
 
 		if self.check_session("query"):
 			tourist = Tourist.Tourist.get_by_id(self.get_user_id())

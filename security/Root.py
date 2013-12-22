@@ -162,6 +162,74 @@ class Utility():
 
         return country
 
+    # Name - getLatLngFromJson
+    # Desc
+    #   To get the latlng from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the latlng
+    # returns
+    #   : String -> A particular latlng separated by a comma
+
+    def getLatLngFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        geometries = reponseResults[0]["geometry"]
+
+        latlng = geometry_type = str(geometries["location"]["lat"]) + "," + str(geometries["location"]["lng"])
+
+        return latlng
+
+    # Name - getRegionFromJson
+    # Desc
+    #   To get the region from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the region
+    # returns
+    #   : String -> A particular region
+
+    def getRegionFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        components_list = reponseResults[0]["address_components"]
+       
+        region = ""
+
+        count = 0
+        for component in components_list:
+            component_type = components_list[count]["types"]
+
+            if component_type[0] == "administrative_area_level_1":
+                region = component["long_name"]
+
+            count += 1
+
+        return region
+
+    # Name - getCityFromJson
+    # Desc
+    #   To get the city from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the city
+    # returns
+    #   : String -> A particular city
+
+    def getCityFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        components_list = reponseResults[0]["address_components"]
+       
+        city = ""
+
+        count = 0
+        for component in components_list:
+            component_type = components_list[count]["types"]
+
+            if component_type[0] == "administrative_area_level_2":
+                city = component["long_name"]
+
+            count += 1
+
+        return city
 
 
 
