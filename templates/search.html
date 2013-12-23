@@ -106,15 +106,28 @@
               <a href="/guides/{{suggested_guide.key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
               <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
               <span class="reviews">
-                {% if suggested_guide.reviews_set.count() == 0 %}
+                {% set totalReviews = suggested_guide.reviews_set.count() %}
+                {% set averageRating = 3 %}
+
+                <!-- Show Number of Reviews -->
+                {% if totalReviews == 0 %}
                   No Reviews
                 {% endif %}
-                {% if suggested_guide.reviews_set.count() == 1 %} 
-                  1 Total Review
+                {% if totalReviews == 1 %} 
+                  1 Review
                 {% endif %}
-                {% if suggested_guide.reviews_set.count() >1 %}
-                 {{suggested_guide.reviews_set.count()}} Total Reviews
-                {% endif %}
+                {% if totalReviews >1 %}
+                 {{totalReviews}} Reviews
+                {% endif %} <br />
+            
+                <!-- Show Star Rating Average -->
+                {% for n in range(1, 6) %}
+                  {% if n <= averageRating %}
+                    <i class='rating-star glyphicon glyphicon-star'></i>
+                  {% else %}
+                    <i class='rating-star glyphicon glyphicon-star-empty'></i>
+                  {% endif %}
+                {% endfor %}
               </span>
             </div>
           {% endfor %}
@@ -131,6 +144,7 @@
   <script src="/assets/js/picker.time.js"></script>
   <script src="/assets/js/legacy.js"></script>
   <script src="/assets/js/search.js"></script>
+  <script src="/assets/js/bootstrap-rating-input.js"></script>
   <script>
     $(function () {
       init();
