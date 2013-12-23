@@ -29,6 +29,9 @@
           <input type="text" class="form-control" placeholder="Phone Number" name = "phone_number" value = "{{phone_number}}">
           <p style = "color: red;">{{last_name_error}}</p>
           <select name = "country">
+            {% for country in countries %}
+              <option value = {{country}}>{{country}}</option>
+            {% endfor %}
             <option value = "">Select country</option>
             <option value = "Ghana">Ghana</option>
           </select>
@@ -41,9 +44,7 @@
             <option value = "Female">Female</option>
           </select>
           <input id = "dob" type="text" class="form-control" placeholder="Date of birth" name = "dob" value = "{{dob}}">
-          <input type="text" class="form-control" placeholder="main language spoken or understood" name = "language1" value = "{{language1}}">
-          <input type="text" class="form-control" placeholder="Additional language spoken or understood" name = "language2" value = "{{language2}}">
-          <input type="text" class="form-control" placeholder="Additional language spoken or understood" name = "language3" value = "{{language3}}">
+          <input type="text" class="form-control" placeholder="Add languages separated by comma" name = "languages" value = "{{languages}}">
           <textarea class="form-control" placeholder="A brief description about yourself" name = "elevator_pitch" > {{elevator_pitch}}</textarea>
           <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Add Guide</button>
         </form>
