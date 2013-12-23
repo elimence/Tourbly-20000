@@ -168,6 +168,12 @@ body {
     top: -2.0em;
   }
 }
+@media (min-width: 768px) and (max-width: 890px) {
+  span.buttonText {
+    padding-left: 5px !important;
+  }
+}
+
 
 /* Override Bootstrap CSS to allow carousel image to fill screen */
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
