@@ -17,9 +17,13 @@
               <p class="city">Lives in {{guide._lives_in}}</p>
               <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
               <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary">
-
+                {% if guide._isAvailable %}
                     Available
+                {% endif %}
 
+                {% if not guide._isAvailable %}
+                    Not Available
+                {% endif %}
               </span></p>
             </div>
             <div class="book">

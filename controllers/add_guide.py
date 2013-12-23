@@ -4,7 +4,7 @@ from datetime import datetime
 
 class AddGuide(Root.Handler):
 	def get(self):
-		self.render("add_guide.html")
+		self.render("add_guide.html", countries = self.all_countries)
 
 	def post(self):
 		firstname = self.request.get("first_name")
@@ -16,9 +16,7 @@ class AddGuide(Root.Handler):
 		dob = self.request.get("dob")
 		email = self.request.get("email")
 		phoneNumber = self.request.get("phone_number")
-		language1 = self.request.get("language1")
-		language2 = self.request.get("language2")
-		language3 = self.request.get("language3")
+		languages = self.request.get("languages")
 		elevator_pitch = self.request.get("elevator_pitch")
 		gender = self.request.get("gender")
 
@@ -27,7 +25,7 @@ class AddGuide(Root.Handler):
 		if country:
 			guide = Guide.Guide(_firstname = firstname, _lastname = lastname, _email = email, _country = country,
 				_lives_in = state, _phoneNumber = phoneNumber, _gender = gender, _picture = picture, _dateOfBirth 
-				= dateOfBirth, _languages = [language1, language2, language3], _elevator_pitch = elevator_pitch)
+				= dateOfBirth, _languages = languages.split(","), _elevator_pitch = elevator_pitch)
 
 			guide.put()
 		self.redirect("/admin/guides/add_guide")
