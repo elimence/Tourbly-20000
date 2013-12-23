@@ -13,7 +13,7 @@
           <div class="col-log-12">
             <img id="guide-picture" class="img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" width="300">
             <div class="meta">
-              <h3 class="name">{{guide._firstname}} &nbsp;<i class="fa fa-check-square-o verified-icon"></i></h3>
+              <h3 class="name">{{guide._firstname}} {{guide._lastname}} <i class="fa fa-check-square-o verified-icon"></i></h3>
               <p class="city">Lives in {{guide._lives_in}}</p>
               <p class="term">Member, since {{guide._created_at.strftime("%B %Y")}}</p>
               <p class="status"><span style="font-weight: bold;">Status</span> <span class="label label-primary">
@@ -40,7 +40,7 @@
               <div class="stat">
                 <i class="fa fa-thumb-tack"></i>
                 {% if guide._times_booked == None %}
-                 Booked 9 times
+                 No Bookings Yet
                  {% endif %}
                  {% if guide._times_booked == "1" %}
                   Booked Once
@@ -69,10 +69,9 @@
                   {% endif %}
                 {%  endfor %}
 
-                </div>
-                <div class="stat">
-                  From {{guide._country}}
-                </div>
+              </div>
+              <div class="stat">
+                From {{guide._country}}
               </div>
             </div>
           </div>
