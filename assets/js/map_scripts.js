@@ -6,7 +6,7 @@ function init() {
 	componentRestrictions: {country: 'gh'}
 	};
 	var place;
-	var autocomplete = new google.maps.places.Autocomplete(destination_tag, options);
+	var autocomplete = new google.maps.places.Autocomplete(destination_tag);
 	
 	var previous_place = document.getElementById("destination").value;
 	google.maps.event.addListener(autocomplete, 'place_changed', function() {

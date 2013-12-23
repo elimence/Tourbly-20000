@@ -59,56 +59,29 @@
           </div>
         </div>
       </div>
-    </div>
-    <a class="left carousel-control" href="#slider" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-    <a class="right carousel-control" href="#slider" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-  </div><!-- /.carousel -->
-
-  <!-- Tourbly Places Gallery -->
-  <div class="container places">
-    <div class="row header">
-      <h2 class="heading">Tourbly Places</h2>
-      <p class="lead sub-heading">Discover amazing cities around the world, with guides ready to show you around.</p>
-    </div>
-    <div class="row body">
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-        <a href="#"><img class="img-rounded img-responsive" src="/assets/images/shibuya.jpg" data-src="" alt=""></a>
-        <div class="place-text-overlay">
-          <h3 class="caption">Shibuya</h3>
+      <a class="left carousel-control" href="#slider" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#slider" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
+    
+    {% if places != none and places.count() != 0 %}
+      <!-- Tourbly Places Gallery -->
+      <div class="container places">
+        <div class="row header">
+          <h2 class="heading">Tourbly Places</h2>
+          <p class="lead sub-heading">Discover amazing cities around the world, with guides ready to show you around.</p>
         </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-        <a href="#"><img class="img-rounded img-responsive" src="/assets/images/redhook.jpg" data-src="" alt=""></a>
-        <div class="place-text-overlay">
-          <h3 class="caption">Redhook</h3>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-        <a href="#"><img class="img-rounded img-responsive" src="/assets/images/harajuku.jpg" data-src="" alt=""></a>
-        <div class="place-text-overlay">
-          <h3 class="caption">Harajuku</h3>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-        <a href="#"><img class="img-rounded img-responsive" src="/assets/images/ginza.jpg" data-src="" alt=""></a>
-        <div class="place-text-overlay">
-          <h3 class="caption">Ginza</h3>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-        <a href="#"><img class="img-rounded img-responsive" src="/assets/images/kitazawa.jpg" data-src="" alt=""></a>
-        <div class="place-text-overlay">
-          <h3 class="caption">Kitazawa</h3>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-        <a href="#"><img class="img-rounded img-responsive" src="/assets/images/rogue.jpg" data-src="" alt=""></a>
-        <div class="place-text-overlay">
-          <h3 class="caption">Rogue</h3>
-        </div>
-      </div>
-    </div><!-- /.row -->
-  </div><!-- /.container -->
+        <div class="row body">
+          {% for place in places %} 
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+              <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src="/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt=""></a>
+              <div class="place-text-overlay">
+                <h3 class="caption">{{place.name}}</h3>
+              </div>
+            </div>
+          {% endfor %}          
+        </div><!-- /.row -->
+      </div><!-- /.container -->
+    {% endif %}
 
   <!-- Quick Starts -->
   <div class="container quickstarts">

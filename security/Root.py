@@ -133,8 +133,131 @@ class Security():
         + ''.join(random.choice(string.letters) for i in range(8))
 
 
+# implements various utility functions that are common to many controllers
+class Utility():
 
+# A variable containing all the countries in the world 
+    all_countries = ["Select Guide's country",
+    "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua & Deps",
+    "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", 
+    "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia Herzegovina", 
+    "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina", "Burundi", "Cambodia", "Cameroon", "Canada", 
+    "Cape Verde", "Central African Rep", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", 
+    "Congo {Democratic Rep}", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", 
+    "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", 
+    "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", 
+    "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", 
+    "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland {Republic}",
+    "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati",
+    "Korea North", "Korea South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", 
+    "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", 
+    "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", 
+    "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar, {Burma}", 
+    "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", 
+    "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", 
+    "Portugal", "Qatar", "Romania", "Russian Federation", "Rwanda", "St Kitts & Nevis", "St Lucia", 
+    "Saint Vincent & the Grenadines", "Samoa", "San Marino", "Sao Tome & Principe", "Saudi Arabia", "Senegal", 
+    "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", 
+    "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland",
+    "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad & Tobago", "Tunisia",
+    "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", 
+    "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia",
+    "Zimbabwe"]
 
+    # Name - getCountryFromJson
+    # Desc
+    #   To get the country from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the country
+    # returns
+    #   : String -> A particular country
+
+    def getCountryFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        components_list = reponseResults[0]["address_components"]
+        # return components_list[0]["types"][0][0]
+        country = ""
+
+        count = 0
+        for component in components_list:
+            component_type = components_list[count]["types"]
+
+            if component_type[0] == "country":
+                country = component["long_name"]
+
+            count += 1
+
+        return country
+
+    # Name - getLatLngFromJson
+    # Desc
+    #   To get the latlng from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the latlng
+    # returns
+    #   : String -> A particular latlng separated by a comma
+
+    def getLatLngFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        geometries = reponseResults[0]["geometry"]
+
+        latlng = geometry_type = str(geometries["location"]["lat"]) + "," + str(geometries["location"]["lng"])
+
+        return latlng
+
+    # Name - getRegionFromJson
+    # Desc
+    #   To get the region from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the region
+    # returns
+    #   : String -> A particular region
+
+    def getRegionFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        components_list = reponseResults[0]["address_components"]
+       
+        region = ""
+
+        count = 0
+        for component in components_list:
+            component_type = components_list[count]["types"]
+
+            if component_type[0] == "administrative_area_level_1":
+                region = component["long_name"]
+
+            count += 1
+
+        return region
+
+    # Name - getCityFromJson
+    # Desc
+    #   To get the city from a geocoding response
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   jsonResponse : geocoding response with all data related to a particular address including the city
+    # returns
+    #   : String -> A particular city
+
+    def getCityFromJson(self, jsonResponse):
+        reponseResults = jsonResponse["results"]
+        components_list = reponseResults[0]["address_components"]
+       
+        city = ""
+
+        count = 0
+        for component in components_list:
+            component_type = components_list[count]["types"]
+
+            if component_type[0] == "administrative_area_level_2":
+                city = component["long_name"]
+
+            count += 1
+
+        return city
 
 
 
@@ -145,7 +268,7 @@ PASS_RE = re.compile(r"^.{6,20}$")
 
 
 # => Request handler extended with class Security and misc functionality
-class Handler(Security, webapp2.RequestHandler):
+class Handler(Security, Utility, webapp2.RequestHandler):
 
     def w(cls,*a, **kw):
         Handler.response.out.write(*a, **kw)
@@ -366,7 +489,7 @@ class Handler(Security, webapp2.RequestHandler):
     # Desc
     #   To get the right error prompt to be displayed to the user when name is enterd for review
     # params
-    #   self           : Ref    -> reference to object instance
+    #   self : Ref    -> reference to object instance
     #   name : Name entered by user for review
     # returns
     #   : String -> Error prompt to the user
@@ -499,4 +622,7 @@ class Handler(Security, webapp2.RequestHandler):
         # for i = 1; i <= len(countries_array[1]); i ++ :
         #     countries.add(countries_array[1])
         return countries_array[1][1]["name"]
+
+
+
 

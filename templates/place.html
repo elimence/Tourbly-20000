@@ -13,89 +13,103 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 {% endblock %}
 {% block content %}
-  <div class="container-fluid places-intro-banner">
-    <div class="banner-caption">
-      <h1 class="caption-header">Kruger National Park</h1>
-      <p class="lead">A Wildlife Sanctuary. Discover nature's beauty beyond your wildest imagination.</p>
-    </div>
-  </div>
-  <div class="container place-details">
-    <div class="row description">
-      <div class="col-lg-8">
-        <p class="lead">As far as holiday and safari destinations go, the Kruger National Park is well established as one of the foremost wildlife sanctuaries in the world. Measuring up at an impressive 18,989 square kilometers, the park is the largest in South Africa, and is considered a must-see safari destination by many of the guests who book there. 
-  With multiple reserves in the area, extensive and varied ecosystems, a wider selection of mammal species than anywhere else in Africa, a large range of accommodation options, many game viewing opportunities and optimum positioning amidst the attractive bushveld of the Limpopo and Mpumalanga provinces, the Greater Kruger Park is a complete safari destination. </p>
-      <a href="#guides" class="btn btn-success">See Availabe Tour Guides</a>
-      </div>
-      <div class="col-lg-4 tags">
-        <h4 style="margin-top: 5px;">Other tourists say...</h4>
-        <h4 class="tag-label"><span class="label label-info">Safari Escape</span></h4>
-        <h4 class="tag-label"><span class="label label-info">Refreshing</span></h4>
-        <h4 class="tag-label"><span class="label label-info">Amazing Scenery</span></h4>
-        <h4 class="tag-label"><span class="label label-info">Great Dining</span></h4>
-        <h4 class="tag-label"><span class="label label-info">Comfortable</span></h4>
-        <h4 class="tag-label"><span class="label label-info">Beautiful</span></h4>
-        <h4 class="tag-label"><span class="label label-info">Resort</span></h4>
-        <h4 class="tag-label"><span class="label label-info">Adventure</span></h4>
-      </div>
-    </div>
-    <div class="row location">
-      <div class="col-lg-12">
-        <h3>On the map</h3>
-        <p class="lead">Kruger National Park is the <a href="https://www.google.com/maps/preview#!q=limpopo">Limpopo Province</a> in the North Eastern part of <a href="https://www.google.com/maps/preview#!q=south+africa" target="_blank">South Africa</a>.</p>
-      </div>
-      <div class="col-lg-12">
-        <div id="map_canvas" style=""></div>
-      </div>
-    </div>
-    <div id="guides" class="row guides">
-      <div class="col-lg-12">
-        <h3>Available tour guides</h3>
-        <p class="lead">Hello there! We're here to help :) Click to see <a href="">all available guides</a></p> 
-        <!-- <p class="lead"><a href="">See all available guides</a></p>  -->
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-        <a href="#"><img src="/assets/images/sonia.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sonia Arquette</h3><p class='lead tooltip-sub-heading'>16 Reviews</p></a>">
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-        <a href="#"><img src="/assets/images/sarah.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sarah Miller</h3><p class='lead tooltip-sub-heading'>22 Reviews</p></a>">
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-        <a href="#"><img src="/assets/images/sayla.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Sayla Rivera</h3><p class='lead tooltip-sub-heading'>9 Reviews</p></a>">
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
-        <a href="#"><img src="/assets/images/rach.jpg" class="image-tooltip img-circle" title="<h3 class='tooltip-heading'>Rachel Sommers</h3><p class='lead tooltip-sub-heading'>6 Reviews</p></a>">
-      </div>
-    </div>
-  </div>
-{% endblock %}
-{% block pagespecificjs %}
-  <script type="text/javascript" src="/assets/js/jquery.tooltipster.min.js"></script>
-  <script type="text/javascript">
-    function initialize() {
-      var myOptions = {
-        zoom: 8,
-        center: new google.maps.LatLng(-24.00820793812158, 31.556854248046875),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      };
 
-      var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+    <div class="container-fluid places-intro-banner" style = "background-image: url(../assets/images/places_pics/{{place.pictures[0]}});">
+      <div class="banner-caption">
+        <h1 class="caption-header">{{place.name}}</h1>
+        <p id = "tagline" class="lead">{{place.tagline}}</p>
+      </div>
+    </div>
 
-      // Add a marker
-      var options = {
-        position: new google.maps.LatLng(-24.00820793812158, 31.556854248046875)
-      };
-      marker = new google.maps.Marker(options);
-      marker.setMap(map);
-    }
-  </script>
-  <script>
-    $(document).ready(function() {
-      initialize();
-      $('.image-tooltip').tooltipster({
-        position: 'bottom',
-        theme: '.tooltipster-noir',
-        animation: 'swing'
-      });
-    });
-  </script>
-{% endblock %}
+    <div class="container place-details">
+      <span id = "latlng" style = "display: none">{{place.latlng}}</span>
+      <div class="row description">
+        <div class="col-lg-8">
+          <p class="lead">{{place.description | nl2br | safe}}</p>
+          {% if available_guides != None and available_guides.count() != 0 %}
+            <a href="#guides" class="btn btn-success">See Availabe Tour Guides</a>
+          {% endif %}
+        </div>
+        <div class="col-lg-4 tags">
+          <h4 style="margin-top: 5px;">We'd describe this destination as:</h4>
+          {% for tag in place.tags %}
+            <h4 class="tag-label"><span class="label label-info">{{tag}}</span></h4>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row location">
+        <div class="col-lg-12">
+          <h3>On the map</h3>
+          <p class="lead">{{place.direction}}</p>
+        </div>
+        <div class="col-lg-12">
+          <div id="map_canvas" style=""></div>
+        </div>
+      </div>
+
+      {% if available_guides != none and available_guides.count() != 0 %}
+        <div id="guides" class="row guides">
+          <div class="col-lg-12">
+            <h3>Available tour guides</h3>
+            <p class="lead">Hello there! We're here to help :) Click to see <a href="">all available guides</a></p> 
+            <!-- <p class="lead"><a href="">See all available guides</a></p>  -->
+          </div>
+          {% for available_guide in available_guides %}
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
+            <a href="/guides/{{available_guide.key().id()}}"><img src="/assets/images/guides_pics/{{available_guide._picture}}" class="image-tooltip img-circle" title="<h3 collapses='tooltip-heading'>{{available_guide._firstname}} {{available_guide._lastname}}</h3><p class='lead tooltip-sub-heading'>
+              {% if available_guide.reviews_set.count() == 0 %}
+                  No Reviews
+                  {% endif %}
+              {% if available_guide.reviews_set.count() == 1 %}
+              1 Review
+              {% endif %}
+              {% if available_guide.reviews_set.count() > 1 %}
+                {{available_guide.reviews_set.count()}} Reviews
+              {% endif %} 
+            </p></a>">
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {% endblock %}
+
+    {% block pagespecificjs %}
+    <script type="text/javascript" src="/assets/js/jquery.tooltipster.min.js"></script>
+    <script>
+      function initialize() {
+          var latlngString = document.getElementById("latlng").innerHTML
+          console.log(latlngString)
+          latlng = latlngString.split(",")
+          var myOptions = {
+            zoom: 8,
+            center: new google.maps.LatLng(latlng[0], latlng[1]),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          };
+
+          var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+          // Add a marker
+          var options = {
+            position: new google.maps.LatLng(latlng[0], latlng[1])
+          };
+          marker = new google.maps.Marker(options);
+          marker.setMap(map);
+        }
+        </script>
+        <script>
+          $(document).ready(function() {
+            initialize();
+            $('.image-tooltip').tooltipster({
+              position: 'bottom',
+              theme: '.tooltipster-noir',
+              animation: 'swing'
+            });
+          });
+    </script>
+  {% endblock %}
+
+
+
+<!-- As far as holiday and safari destinations go, the Kruger National Park is well established as one of the foremost wildlife sanctuaries in the world. Measuring up at an impressive 18,989 square kilometers, the park is the largest in South Africa, and is considered a must-see safari destination by many of the guests who book there. 
+With multiple reserves in the area, extensive and varied ecosystems, a wider selection of mammal species than anywhere else in Africa, a large range of accommodation options, many game viewing opportunities and optimum positioning amidst the attractive bushveld of the Limpopo and Mpumalanga provinces, the Greater Kruger Park is a complete safari destination.  -->
