@@ -27,6 +27,7 @@ class GuideHandler(Root.Handler):
     		name = tourist.first_name
     	else:
     		name = self.request.get("name")
+        rating   = int(self.request.get("rating"))
     	comments = self.request.get("comment")
 
     	_args = {"name" : name, "comments" : comments}
@@ -34,7 +35,7 @@ class GuideHandler(Root.Handler):
     		tourist.first_name = name
     		tourist.put()
 
-    		review = Review.Review(_reviewer = tourist, _reviewee = guide, _comment = comments)
+    		review = Review.Review(_reviewer = tourist, _reviewee = guide, _comment = comments, _rating = rating)
     		review.put()
     		self.redirect("/guides/" + guide_id)
     	else:

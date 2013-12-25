@@ -55,17 +55,16 @@
             <!-- <p class="lead"><a href="">See all available guides</a></p>  -->
           </div>
           {% for available_guide in available_guides %}
+            {% set averageRating = 3 %}
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
             <a href="/guides/{{available_guide.key().id()}}"><img src="/assets/images/guides_pics/{{available_guide._picture}}" class="image-tooltip img-circle" title="<h3 collapses='tooltip-heading'>{{available_guide._firstname}} {{available_guide._lastname}}</h3><p class='lead tooltip-sub-heading'>
-              {% if available_guide.reviews_set.count() == 0 %}
-                  No Reviews
-                  {% endif %}
-              {% if available_guide.reviews_set.count() == 1 %}
-              1 Review
-              {% endif %}
-              {% if available_guide.reviews_set.count() > 1 %}
-                {{available_guide.reviews_set.count()}} Reviews
-              {% endif %} 
+              {% for n in range(1, 6) %}
+                {% if n <= averageRating %}
+                  <i class='glyphicon glyphicon-star'></i>
+                {% else %}
+                  <i class='glyphicon glyphicon-star-empty'></i>
+                {% endif %}
+              {% endfor %}
             </p></a>">
           </div>
           {% endfor %}
@@ -108,8 +107,3 @@
           });
     </script>
   {% endblock %}
-
-
-
-<!-- As far as holiday and safari destinations go, the Kruger National Park is well established as one of the foremost wildlife sanctuaries in the world. Measuring up at an impressive 18,989 square kilometers, the park is the largest in South Africa, and is considered a must-see safari destination by many of the guests who book there. 
-With multiple reserves in the area, extensive and varied ecosystems, a wider selection of mammal species than anywhere else in Africa, a large range of accommodation options, many game viewing opportunities and optimum positioning amidst the attractive bushveld of the Limpopo and Mpumalanga provinces, the Greater Kruger Park is a complete safari destination.  -->
