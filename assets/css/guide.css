@@ -134,14 +134,15 @@
   /*color: #3f729b;*/
   font-size: 1.3em;
   font-weight: bold;
-  margin-right: 0.7em;
+  margin-right: 0.2em;
   color: #222;
 }
 .reviews .review .head .review-date{
   /*font-family: 'Gabriela', serif;*/
-  font-weight: bold;
+  font-weight: normal;
   color: #999;
-  font-size: 1.3em;
+  font-size: 1.1em;
+  margin-left: 0.4em;
 }
 .reviews .review .body p{
   margin-top: 0.5em;
@@ -163,8 +164,11 @@
 
 
 
-
-
+@media (min-width: 1199px) {
+  form {
+    padding-left: 1em;
+  }
+}
 @media (max-width: 800px) {
   .guide {
     text-align: center;
