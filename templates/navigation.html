@@ -17,18 +17,9 @@
         {% endif %}
 
 
-        <li ng-hide="showAuthButs" class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/profile" target="_self">Profile</a></li>
-            <li><a ng-click='logoutCall()' target="_self">Logout</a></li>
-          </ul>
-        </li>
-
-
         {% if not isLoggedIn %}
-          <li ng-show="showAuthButs"><a href="/signup" id="signup" target="_self">Signup</a></li>
-          <li ng-show="showAuthButs" class="active"><a href="/signin" id="signin" target="_self">Sign In</a></li>
+          <li><a href="/signup" id="signup">Signup</a></li>
+          <li class="active"><a href="/signin" id="signin">Sign In</a></li>
         {% endif %}
       </ul>
     </div>
