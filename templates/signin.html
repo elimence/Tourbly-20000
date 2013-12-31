@@ -21,7 +21,8 @@
                 <form class="form-signin" method = "post" action = "/signin">
                   <p class="lead error-label">{{error}}</p>
                   <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-                  <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email">
+                  <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value 
+                  = "{{email}}">
                   <input type="password" class="form-control" placeholder="Enter your password" name = "password">
                   <input name = "referer" type = "hidden" value = "{{referer}}">
                   <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
@@ -37,7 +38,6 @@
                     </div>
                   </div>
                 </form>
-
               </div>
             </div>
           </div>
@@ -53,8 +53,8 @@
         <form method = "post" action = "/signin" class="form-signin">
           <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
           <p class="lead error-label mobile-error-label">{{error}}</p>
-          <input type="text" class="form-control" placeholder="Your Email" autofocus>
-          <input type="password" class="form-control" placeholder="Enter your password">
+          <input type="text" class="form-control" placeholder="Your Email" name = "email" value = "{{email}}" autofocus>
+          <input type="password" class="form-control" placeholder="Enter your password" name = "password">
           <input type = "hidden" name = "referer" value = "{{referer}}" >
           <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
 

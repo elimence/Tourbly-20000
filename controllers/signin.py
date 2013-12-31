@@ -8,6 +8,7 @@ from google.appengine.ext import db
 class Signin(Root.Handler):
     def get(self):
         referer = self.request.referer
+        self.write(referer)
         if referer:
             referer = referer[referer.find("/", 8) : ]
         if self.check_session("query"):
@@ -39,8 +40,8 @@ class Signin(Root.Handler):
                     else:
                         self.redirect(referer)
                 else:
-                    self.render("signin.html", error = "Invalid email or password")
+                    self.render("signin.html", email = email, error = "Invalid email or password")
             else:
-                self.render("signin.html", error = "User with email " + email + " cannot be found")
+                self.render("signin.html", email = email, error = "User with email " + email + " cannot be found")
         else:
-            self.render("signin.html", error = "Both fields are required")
+            self.render("signin.html", email = email, error = "Both fields are required")
