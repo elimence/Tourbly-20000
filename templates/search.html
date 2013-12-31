@@ -113,13 +113,15 @@
                 {% if totalReviews == 0 %}
                   No Reviews
                 {% endif %}
-                {% if totalReviews == 1 %} 
+
+                {% if totalReviews == 1 %}
                   1 Review
+
                 {% endif %}
                 {% if totalReviews >1 %}
                  {{totalReviews}} Reviews
                 {% endif %} <br />
-            
+
                 <!-- Show Star Rating Average -->
                 {% for n in range(1, 6) %}
                   {% if n <= averageRating %}
@@ -137,6 +139,7 @@
   </div>
 {% endblock %}
 {% block pagespecificjs %}
+  <script src="/assets/js/jquery.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
   <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
   <script src="/assets/js/picker.js"></script>
@@ -205,4 +208,5 @@
        });
       });
   </script>
+  <script>startApp();</script>
 {% endblock %}

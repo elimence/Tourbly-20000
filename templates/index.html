@@ -43,7 +43,7 @@
             <p class="slide-description lead hidden-xs">
               Explore amazing local cuisine &amp; culture with a guide you can trust.
             </p>
-            <a href="/destinations" class="btn btn-success">Get Started</a>
+            <a href="/places" target="_self" class="btn btn-success">Get Started</a>
           </div>
         </div>
       </div>
@@ -55,15 +55,16 @@
             <p class="slide-description lead hidden-xs">
               Earn money giving tourists an amazing experience of your city &amp; culture.
             </p>
-            <a href="/guides/apply" class="btn btn-success">Apply Now</a>
+            <a href="/guides/apply" target="_self" class="btn btn-success">Apply Now</a>
           </div>
         </div>
       </div>
+
     </div>
     <a class="left carousel-control" href="#slider" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <a class="right carousel-control" href="#slider" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
   </div><!-- /.carousel -->
-    
+
   {% if places != none and places.count() != 0 %}
     <!-- Tourbly Places Gallery -->
     <div class="container places">
@@ -72,14 +73,14 @@
         <p class="lead sub-heading">Discover amazing cities around the world, with guides ready to show you around.</p>
       </div>
       <div class="row body">
-        {% for place in places %} 
+        {% for place in places %}
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-            <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src="/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt=""></a>
+            <a href="/places/{{place.key().id()}}" target="_self"><img class="img-rounded img-responsive" src="/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt=""></a>
             <div class="place-text-overlay">
               <h3 class="caption">{{place.name}}</h3>
             </div>
           </div>
-        {% endfor %}          
+        {% endfor %}
       </div><!-- /.row -->
     </div><!-- /.container -->
   {% endif %}
@@ -93,7 +94,7 @@
       </div>
       <div class="col-lg-4 quickstart-col">
         <h3 class="section-header">Be a Tour Guide</h3>
-        <p class="section-text lead">Its easy to start hosting &amp; showing tourists around your city. Become a Tourbly certified guide today. <a href="/guides/apply">Apply Now</a></p>
+        <p class="section-text lead">Its easy to start hosting &amp; showing tourists around your city. Become a Tourbly certified guide today. <a href="/guides/apply" target="_self">Apply Now</a></p>
       </div>
       <div class="col-lg-4 quickstart-col">
         <h3 class="section-header">Safety &amp; Security</h3>
@@ -103,6 +104,7 @@
   </div>
 {% endblock %}
 {% block pagespecificjs %}
+  <script src="/assets/js/jquery.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
   <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
   <script src="/assets/js/picker.js"></script>
@@ -121,4 +123,5 @@
       });
     })
   </script>
+  <script>startApp();</script>
 {% endblock %}

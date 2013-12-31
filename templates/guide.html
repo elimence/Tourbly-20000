@@ -50,11 +50,11 @@
                    {% endif %}
               </div>
               <div class="stat">
-                <i class="fa fa-smile-o"></i> 
+                <i class="fa fa-smile-o"></i>
                 {% if guide.reviews_set.count() == 0 %}
                   No Reviews
                 {% endif %}
-                {% if guide.reviews_set.count() == 1 %} 
+                {% if guide.reviews_set.count() == 1 %}
                   1 Total Review
                 {% endif %}
                 {% if guide.reviews_set.count() >1 %}
@@ -100,7 +100,7 @@
                 {% endif %}
                 {% if guide.reviews_set.count() > 1 %}
                 {{guide.reviews_set.count()}} Reviews
-                {% endif %} 
+                {% endif %}
                 <i class="fa fa-thumbs-o-up blue-icon"></i>
               </h3>
             </div>
@@ -141,7 +141,7 @@
                   <input type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
                 {% endif %}
                 <p style = "color: red;">{{comments_error}}</p>
-                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
+                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>
                 <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
               </form>
             </div>
@@ -152,5 +152,7 @@
   </div>
 {% endblock %}
 {% block pagespecificjs %}
+  <script src="/assets/js/jquery.js"></script>
   <script src="/assets/js/bootstrap-rating-input.js"></script>
+  <script>startApp();</script>
 {% endblock %}

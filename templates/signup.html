@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 {% block title %}Sign Up{% endblock %}
 {% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
@@ -6,6 +7,11 @@
     <link href="/assets/css/signup.css" rel="stylesheet" media="screen">
 {% endblock %}
 {% block content %}
+
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+
   <div id="signup-form" class="carousel slide hidden-xs">
     <div class="carousel-inner">
       <div class="item active">
@@ -34,7 +40,7 @@
                     <span class="bigor">or</span>
                   </div>
 
-                  <div id="gSignInWrapper">
+                  <div id="gSignInWrapper" ng-show="immediateFailed">
                     <div id="customBtn" class="customGPlusSignIn">
                       <span class="icon"></span>
                       <span class="buttonText">Sign up with Google</span>
@@ -53,28 +59,35 @@
   <div id="mobile" class="container visible-xs hidden-sm hidden-md hidden-lg">
     <div class="row">
       <div class="col-xs-12 mobile-signup-form">
-        <form class="form-signin">
+        <form method = "post" action = "/signup"  class="form-signin">
           <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-          <input type="text" class="form-control" placeholder="Pick a Username" autofocus>
-          <input type="text" class="form-control" placeholder="Your email">
-          <input type="password" class="form-control" placeholder="Create a Password">
-          <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign up for Tourbly</button>
+          <p class="lead error-label">{{error}}</p>
+          <input type="text" class="form-control" placeholder="Your email" name="email_mobile" value = "{{email}}">
+          <p class="lead error-label">{{email_error}}</p>
+          <input type="password" class="form-control" placeholder="Create a Password" name="password_mobile">
+          <p class="lead error-label">{{password_error}}</p>
+          <input type="password" class="form-control" placeholder="Confirm Your Password" name="confirm_password_mobile">
+          <p class="lead error-label">{{confirm_password_error}}</p>
+          <button id="submit-btn-mobile" class="btn btn-lg btn-primary btn-block" type="submit">Sign up for Tourbly</button>
 
           <div class="hr-with-words">
             <span class="smallor">or</span>
           </div>
 
-          <div id="gSignInWrapper">
+          <div id="gSignInWrapper" ng-show="immediateFailed">
             <div id="customBtn_M" class="customGPlusSignIn">
               <span class="icon"></span>
               <span class="buttonText">Google</span>
             </div>
           </div>
+
         </form>
 
       </div>
     </div>
   </div>
+
+
 
   <div class="container reasons-to-love-tourbly hidden-xs visible-sm visible-md visible-lg">
     <div class="header">
@@ -83,7 +96,7 @@
     </div>
     <div class="row body">
       <div class="col-lg-4">
-        <img class="img-circle" src="/assets/images/guide.png" width="150" height="150" alt="">
+        <img class="img-circle" src="/assets/images/guides_pics/guide.png" width="150" height="150" alt="">
         <h3 class="sub-heading">Tour guides you can trust.</h3>
         <p>We thoroughly screen, profile &amp; background-check our guides to ensure that to make sure you can rest easy. </p>
       </div>
@@ -95,46 +108,22 @@
       <div class="col-lg-4">
         <img class="img-circle" src="/assets/images/safety.png" width="150" height="150" alt="">
         <h3 class="sub-heading">We've got you covered.</h3>
-        <p>Your safety is our number one concern. We go great lenghts to ensure your safety during your trip.</p>
+        <p>Your safety is our number one concern. We go to great lenghts to ensure your safety during your trip.</p>
       </div>
     </div>
   </div>
 {% endblock %}
-{% block pagespecificjs %}
-  <script src="/assets/js/ext_auth.js"></script>
-  <script>
-    function s_up_c_bks_loc(authResult) {
-      usr_prf_ops.s_up_c_bks(authResult);
-    }
 
+{% block pagespecificjs %}
+
+  <script>
     (function() {
       var po = document.createElement('script');
       po.type = 'text/javascript'; po.async = true;
-      po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+      po.src = 'https://apis.google.com/js/client:plusone.js?onload=startApp';
       var s = document.getElementsByTagName('script')[0];
       s.parentNode.insertBefore(po, s);
     })();
 
-    function render() {
-      if ($('#signup-form').is(':visible')) {
-        gapi.signin.render('customBtn', {
-          'callback': 's_up_c_bks_loc',
-          'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
-          'cookiepolicy': 'single_host_origin',
-          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-        });
-      }
-
-      if ($('#mobile').is(':visible')) {
-        gapi.signin.render('customBtn_M', {
-          'callback': 's_up_c_bks_loc',
-          'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
-          'cookiepolicy': 'single_host_origin',
-          'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-          'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-        });
-      }
-    }
   </script>
 {% endblock %}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:ng="http://angularjs.org">
+
   <head>
     {% block head %}
       <meta charset="utf-8">
@@ -11,25 +12,52 @@
       <link href="/assets/css/bootstrap.css" rel="stylesheet">
       <link href="/assets/css/font-awesome.css" rel="stylesheet">
       <link href="/assets/css/global.css" rel="stylesheet" media="screen">
-      
+
       <!-- Fonts -->
       <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,400|Roboto+Slab:400,100|Advent+Pro:400,100|Alegreya|Raleway|Quicksand|PT+Sans+Narrow|Lily+Script+One|Libre+Baskerville" rel="stylesheet" type="text/css">
-      
+
       <!-- Cannonical Page URL -->
       {% block cannonical %}{% endblock %}
-  
+
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>
         <script src="../../assets/js/html5shiv.js"></script>
         <script src="../../assets/js/respond.min.js"></script>
       <![endif]-->
     {% endblock %}
+
+    <!-- angular stuff -->
+    <!-- Local Angular Libs for Testing -->
+    <!--script src="/assets/lib/angular/angular.js"></script-->
+    <!--script src="/assets/lib/angular/angular-cookies.js"></script-->
+    <!-- CDN Angular Libs for Production -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-cookies.js"></script>
+
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/services.js"></script>
+    <script src="/assets/js/controllers.js"></script>
+    <script type='text/javascript'>
+      function startApp() {
+        angular.bootstrap(document, ['tourbly']);
+      }
+    </script>
+    <!-- angular stuff -->
+
   </head>
+
+
   <body>
-    {% include 'navigation.html' %}
-    {% block content %}{% endblock %}
+    <div ng-controller="NavBarCtrl" ng-cloak>
+      {% include 'navigation.html' %}
+    </div>
+    <div ng-controller="TourblyCtrl">
+      {% block content %}{% endblock %}
+    </div>
+
     {% include 'footer.html' %}
-    {% include 'globaljs.html' %}
     {% block pagespecificjs %}{% endblock %}
+    {% include 'globaljs.html' %}
   </body>
 </html>

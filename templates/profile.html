@@ -3,43 +3,97 @@
 {% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
 {% block head %}
     {{ super() }}
-    <link href="/assets/css/signin.css" rel="stylesheet" media="screen">
+    <link href="/assets/css/profile.css" rel="stylesheet" media="screen">
 {% endblock %}
 {% block content %}
-  <div class = "container">
-    <p></p><p></p>
-    <div>{{success_message}}</div>
-    <div class="col-lg-4 col-md-4 col-sm-4 form">
-      <p>{{success_message}}</p>
-      <form method = "post" action = "/profile" class="form-signin" enctype="multipart/form-data">
-        <p style = "color: red;">{{error}}</p>
-        <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-        <span id = "picture"><img width = "100px" height = "100px" src = {{ profilepic}} / style = "border-radius: 5px"></span> <input id = "profile_pic" type = "file" name = "profile_pic" style = "display : none">
-        <p></p>
-        <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value = "{{email}}"> <span>{{email_status}}</span>
-        <p style = "color: red;">{{email_error}}</p>
-        <input type="text" class="form-control" placeholder="Your First Name" name = "first_name" value = "{{first_name}}">
-        <p style = "color: red;">{{first_name_error}}</p>
-        <input type="text" class="form-control" placeholder="Your Last Name" name = "last_name" value = "{{last_name}}">
-        <p style = "color: red;">{{last_name_error}}</p>
-        <input type="text" class="form-control" placeholder="Where Are You From?" name = "country" value = "{{country}}">
-        <p style = "color: red;">{{country_error}}</p>
-        <input type="text" class="form-control" placeholder="Your State" name = "state" value = "{{state}}">
-        <p style = "color: red;">{{state_error}}</p>
-        <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Save Changes</button>
-      </form>
+  <div class="container profile-wrapper">
+    <div class="row header">
+      <div class="col-lg-12">
+        <h2 class="main-text">Profile</h2>
+        <p class="lead sub-text">This information appears on your public profile, search results, and beyond.</p>
+      </div>
     </div>
+    <div class="row info">
+      <div class="alert alert-info profile-alert fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>New!</strong> Now edit your <strong>photos</strong> and bio right from your profile.
+      </div>
+    </div>
+    <form method = "POST" action = "/profile" enctype="multipart/form-data">
+      <div class="row photo">
+        <div class="col-lg-1" style="text-align: right; padding-right: 0;">
+          <img class="profile-picture" src="/assets/images/nanaewusi.png" alt="Profile Picture" />
+        </div>
+        <div class="col-lg-11">
+          <!-- Change Photo button -->
+          <div class="btn-group">
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+              Change Photo &nbsp; <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li style="display: none;"><a href="#"><input type="file" name="photo" class="file-input" id="picture-select"></a></li>
+              <li><a href="#" id="pseudo-picture-select">Upload Photo</a></li>
+            </ul>
+          </div>
+          <p class="photo-help-text">This photo is your identity on Twitter and appears with your Tweets.</p>
+        </div>
+      </div>
+      <div class="row google-account">
+        <div class="col-lg-12">
+          <h3 class="main-text">Google Sign-In</h3>
+          <a class="btn btn-danger btn-block">Disconnect my Google Account</a>
+          <span class="help-block">By clicking this button, you are disassociating your Google account from Tourbly.</span>
+        </div>
+      </div>
+      <div class="row personal">
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="">First Name</label>
+            <input type="text" class="form-control" placeholder="First Name" autofocus name = "first_name" value = "{{first_name}}" />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="">Last Name</label>
+            <input type="text" class="form-control" placeholder="Last Name" name = "last_name" value = "{{last_name}}" />
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label for="">Country</label>
+            <input type="text" class="form-control" placeholder="Country" name = "country" value = "{{country}}" />
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="form-group">
+            <label for="">State</label>
+            <input type="text" class="form-control" placeholder="State" name = "state" value = "{{state}}" />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label for="">Your Email address</label>
+            <input type="email" class="form-control" placeholder="Email Address" name = "email" value = "{{email}}" />
+          </div>
+        </div>
+      </div>
+      <div class="row update">
+        <div class="col-lg-12">
+          <button id="submit-btn" class="btn btn-warning btn-block" type="submit" name = "update-profile">Save Changes</button>
+        </div>
+      </div>
+    </form>
   </div>
 {% endblock %}
 {% block pagespecificjs %}
+  <script src="/assets/js/jquery.js"></script>
+  <script src="/assets/js/profile.js"></script>
   <script type="text/javascript">
-    var clicker = document.getElementById("picture")
-    clicker.onclick = clickButton;
-
-    function clickButton() {
-      var fileButton = document.getElementById("profile_pic");
-      fileButton.click();
-    }
+    $(function () {
+      $('#pseudo-picture-select').on('click', pseudoPhotoSelectClickListener);
+      $('#picture-select').on('click', actualPhotoSelectClickListener);
+    });
   </script>
+  <script>startApp();</script>
 {% endblock %}
 
