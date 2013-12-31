@@ -1,0 +1,66 @@
+.profile-wrapper {
+  margin-top: 70px;
+  margin-bottom: 10px;
+  /*border: 1px solid #bbb;*/
+  width: 88.5%;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  background-clip: padding-box;
+  /*padding-bottom: 10em;*/
+}
+.header {
+  border-bottom: 1px solid #e8e8e8;
+}
+.header .main-text {
+  margin-top: 0.3em;
+  margin-bottom: 0;
+  font-size: 29px;
+}
+.header .sub-text {
+  font-size: 18px;
+  color: #999;
+  margin-bottom: 0.5em;
+}
+
+.info {}
+.info .profile-alert {
+  border-radius: 0px;
+  position: relative;
+  bottom: 1px;
+  margin-bottom: 0;
+}
+
+.photo {
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
+  border-bottom: 1px solid #e8e8e8;
+}
+.photo .profile-picture {
+  width: 73px;
+  height: 73px;
+  border-radius: 5px;
+}
+.photo .photo-help-text {
+  color: #999;
+  margin-top: 0.5em;
+}
+
+.google-account {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #e8e8e8;
+}
+.google-account .main-text {
+  margin-top: 0.3em;
+  margin-bottom: 0.5em;
+}
+
+.personal {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #e8e8e8;
+}
+.update {
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
+}

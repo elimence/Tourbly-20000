@@ -57,7 +57,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/admin/places/add_place',   handler=add_place.AddPlace,         name='add_place'),
     webapp2.Route(r'/admin/reviews/add_review', handler=add_review.AddReview,       name='add_review'),
     webapp2.Route(r'/guides/apply',             handler=guide.GuideApplicationForm, name='guides_apply'),
-    webapp2.Route(r'/showplaceprofile',         handler=places.ShowPlace,           name='place_profile')
+    webapp2.Route(r'/showplaceprofile',         handler=places.ShowPlace,           name='place_profile'),
+    webapp2.Route(r'/disconnect',               handler=profile.CloseAccount,       name='disconnect')
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
 # ERROR HANDLERS

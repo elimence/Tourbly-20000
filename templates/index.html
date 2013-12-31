@@ -43,7 +43,7 @@
             <p class="slide-description lead hidden-xs">
               Explore amazing local cuisine &amp; culture with a guide you can trust.
             </p>
-            <a href="/destinations" class="btn btn-success">Get Started</a>
+            <a href="/places" class="btn btn-success">Get Started</a>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
     <a class="left carousel-control" href="#slider" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <a class="right carousel-control" href="#slider" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
   </div><!-- /.carousel -->
-    
+
   {% if places != none and places.count() != 0 %}
     <!-- Tourbly Places Gallery -->
     <div class="container places">
@@ -72,14 +72,14 @@
         <p class="lead sub-heading">Discover amazing cities around the world, with guides ready to show you around.</p>
       </div>
       <div class="row body">
-        {% for place in places %} 
+        {% for place in places %}
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
             <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src="/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt=""></a>
             <div class="place-text-overlay">
               <h3 class="caption">{{place.name}}</h3>
             </div>
           </div>
-        {% endfor %}          
+        {% endfor %}
       </div><!-- /.row -->
     </div><!-- /.container -->
   {% endif %}

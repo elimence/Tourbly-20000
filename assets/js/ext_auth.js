@@ -26,7 +26,7 @@ var usr_prf_ops = {
           console.log('from here and now on');
           console.log(resp);
           access_token = authResult['access_token'];
-          console.log(authResult['access_token']);
+          console.log("here's the access token",authResult['access_token']);
           userData.email     = resp.email;
           userData.activated = resp.verified_email;
         });
@@ -39,6 +39,7 @@ var usr_prf_ops = {
 
     gapi.client.load('plus', 'v1', function() {
       if (authResult['access_token']) {
+        console.log("here's the access token",authResult['access_token']);
         gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
           // console.log(resp);
           userData.gender     = resp.gender;
@@ -80,6 +81,7 @@ var usr_prf_ops = {
 
     gapi.client.load('oauth2', 'v2', function() {
       if (authResult['access_token']) {
+        console.log("here's the access token",authResult['access_token']);
         gapi.client.oauth2.userinfo.get().execute(function(resp) {
           // console.log(resp);
           uDat.email     = resp.email;
