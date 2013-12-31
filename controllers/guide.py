@@ -42,6 +42,13 @@ class GuideHandler(Root.Handler):
     		self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist,
     			error = reviewing_error_prompt(name, comments), comments = comments, name = name)
 
+
+
+
 class GuideApplicationForm(Root.Handler):
     def get(self):
-        self.render("guide_signup_form.html")
+        self.render("guide_signup_form.html", isLoggedIn = self.check_session("query"))
+
+
+
+

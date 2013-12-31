@@ -15,6 +15,7 @@ class Tourist(db.Model):
 	token 		= db.StringProperty()
 	created 	= db.DateTimeProperty(auto_now_add = True)
 	gender 		= db.StringProperty() 							# NB: - NEW ADDITION
+	acct_type   = db.StringProperty(default = "regular")
 
 
 	# @classmethod
@@ -27,7 +28,9 @@ class Tourist(db.Model):
 
 	@staticmethod
 	def create_from_oauth(email, first_name, last_name, gender, picture, activated):
-		tourist = Tourist(email=email, first_name=first_name,last_name=last_name,picture=picture,activated=(activated == 'True'),gender=gender)
+		tourist = Tourist(email=email, first_name=first_name,last_name=last_name,picture=picture,
+			activated=(activated == 'True'),gender=gender,acct_type='google')
+
 		tourist.put()
 		return tourist
 

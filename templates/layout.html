@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:ng="http://angularjs.org">
-
+<html lang="en" ng-app="tourbly">
   <head>
     {% block head %}
       <meta charset="utf-8">
@@ -46,16 +45,9 @@
     <!-- angular stuff -->
 
   </head>
-
-
-  <body>
-    <div ng-controller="NavBarCtrl" ng-cloak>
-      {% include 'navigation.html' %}
-    </div>
-    <div ng-controller="TourblyCtrl">
-      {% block content %}{% endblock %}
-    </div>
-
+  <body ng-controller="TourblyCtrl">
+    {% include 'navigation.html' %}
+    {% block content %}{% endblock %}
     {% include 'footer.html' %}
     {% block pagespecificjs %}{% endblock %}
     {% include 'globaljs.html' %}

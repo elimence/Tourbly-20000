@@ -1,6 +1,7 @@
 
 import logging
 import urllib
+
 from security import Root
 from models import Tourist
 

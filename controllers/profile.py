@@ -1,6 +1,7 @@
 
 from security import Root
 from models import Tourist
+from google.appengine.ext import db
 
 
 class Profile(Root.Handler):
@@ -8,9 +9,13 @@ class Profile(Root.Handler):
         if self.check_session("query"):
             tourist_id = int(self.get_cookie("query")[0])
             tourist = Tourist.Tourist.get_by_id(tourist_id)
+
+            googleAccount = True if tourist.acct_type == "google" else False
+
             self.render("profile.html", email = tourist.email, first_name = tourist.first_name,
                 last_name = tourist.last_name, country = tourist.country, state = tourist.state,
-                tourist_id = tourist_id, isLoggedIn = self.check_session("query"), tourist = tourist, profilepic=tourist.picture)
+                tourist_id = tourist_id, isLoggedIn = self.check_session("query"), tourist = tourist,
+                profilepic=tourist.picture, googleAccount=googleAccount)
         else:
             self.redirect("/home")
 
@@ -36,3 +41,23 @@ class Profile(Root.Handler):
         else:
             self.render("profile.html", email = new_email, email_error = self.profile_email_error_prompt(tourist.email, new_email), first_name =
                 first_name, last_name = last_name, state = state, tourist_id = tourist_id, success_message = "there is something wrong")
+
+
+
+
+class CloseAccount(Root.Handler):
+    def get(self):
+        pass
+    def post(self):
+        tourist_id = int(self.get_cookie("query")[0])
+        tourist = Tourist.Tourist.get_by_id(tourist_id)
+        db.delete(tourist)
+        self.redirect('/logout')
+        self.write("deleted")
+
+
+
+
+
+
+

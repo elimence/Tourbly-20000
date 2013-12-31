@@ -1,132 +1,240 @@
-/*
- * Copyright (c) 2013 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
 
-'use strict';
+'use strict'
 
-function NavBarCtrl($scope, Logout, $cookies) {
-  $scope.showAuthButs = Logout.showAuthButs;
-  $scope.updateShowAuthButs = function(val) {
-    Logout.updateShowAuthButs(val);
-  };
+function TourblyCtrl($scope, $window, $http) {
 
-  $scope.$on( 'Logout.update', function( event, showAuthButs ) {
-    $scope.showAuthButs = showAuthButs;
-  });
+	$scope.apiBase = "/oauth/";
+	$scope.revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token';
 
-  $scope.logoutCall = function() {
-    $scope.updateShowAuthButs(true);
-    $cookies.session = '';
-  };
-}
+	$scope.uDat = {email: "", verified: ""};
 
-function TourblyCtrl($scope, $location, Conf, TourblyApi, Logout, $cookies) {
-
-  // signIn
-  $scope.userProfile = undefined;
-  $scope.hasUserProfile = false;
-  $scope.isSignedIn = false;
-  $scope.immediateFailed = false;
-
-  $scope.disconnect = function() {
-    console.log('disconnect clicked');
-    TourblyApi.disconnect().then(function() {
-      $scope.userProfile = undefined;
-      $scope.hasUserProfile = false;
-      $scope.isSignedIn = false;
-      $scope.immediateFailed = true;
-      Logout.updateShowAuthButs(true);
-    });
-  }
+	$scope.userData = {
+		email      : "",
+		gender     : "",
+		picture    : "",
+		last_name  : "",
+		languages  : "",
+		activated  : "",
+		first_name : ""
+	};
 
 
-  $scope.signedIn = function(profile) {
-    $scope.isSignedIn = true;
-    $scope.userProfile = profile;
-    $scope.hasUserProfile = true;
-    Logout.updateShowAuthButs(false);
-  };
+	$scope.accessToken = {
+		get: function()       {
+			var cookies = document.cookie.split(';');
+			for (var i=0; i<cookies.length; i++) {
+				var cookie = cookies[i].trim();
+				if (cookie.indexOf('access_token')  == 0)
+					return cookie.substring('access_token'.length, cookie.length);
+			}
+			return null;
+		},
+		del: function()       { document.cookie='access_token=';
+		},
+		save: function(token) { document.cookie='access_token='+token;
+		}
+	};
+
+	$scope.signin = function(authResult) {
+		gapi.client.load('oauth2', 'v2', function() {
+			if (authResult['access_token']) {
+				gapi.client.oauth2.userinfo.get().execute(function(resp) {
+					//save token
+					$scope.accessToken.save(authResult['access_token']);
+
+					$scope.uDat.email     = resp.email;
+					$scope.uDat.activated = resp.verified_email;
+
+					$scope.outBound.post({
+						url   : "signin",
+						async : "false",
+						dat   : $scope.uDat
+					}).done(function(data) {
+						console.log("SUCCESS, POST TO SERVER WITH STATUS: ");
+						console.log(data);
+
+						if(data=="notfound") {
+							window.location.replace("/signup");
+						} else {
+							document.cookie=data.split("*-*")[0];
+							document.cookie=data.split("*-*")[1];
+							location.reload();
+						}
+					});
+				});
+
+			} else if (authResult['error']) {
+				console.log('There was an error: ' + authResult['error']);
+			}
+
+		});
+	};// end function signin
+
+	$scope.signup = function(authResult) {
+		gapi.client.load('oauth2', 'v2', function() {
+			if (authResult['access_token']) {
+				gapi.client.oauth2.userinfo.get().execute(function(resp) {
+					//save token
+					$scope.accessToken.save(authResult['access_token']);
+					$scope.userData.email     = resp.email;
+					$scope.userData.activated = resp.verified_email;
+				});
+
+			} else if (authResult['error']) {
+				console.log('There was an error: ' + authResult['error']);
+			}
+		});
 
 
+		gapi.client.load('plus', 'v1', function() {
+			if (authResult['access_token']) {
+				gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
+					// console.log(resp);
+					$scope.userData.gender     = resp.gender;
+					$scope.userData.picture    = resp.image.url;
+					$scope.userData.languages  = resp.language;
+					$scope.userData.last_name  = resp.name.familyName;
+					$scope.userData.first_name = resp.name.givenName;
 
-  $scope.signIn = function(authResult) {
-    var $authResult = jQuery.extend(true, {}, authResult);
-    $scope.$apply(function() {
-      $scope.processAuth(jQuery.extend(true, {}, $authResult));
-    });
-  }
+					console.log($scope.userData);
+					$scope.outBound.post({
+						url   : "signup",
+						async : "false",
+						dat   : $scope.userData
+					}).done(function(data) {
+						if(data=="duplicate") {
+							window.location.replace("/signin");
+						} else {
+							document.cookie=data.split("*-*")[0];
+							document.cookie=data.split("*-*")[1];
+							location.reload();
+						}
+					});
 
-  $scope.processAuth = function(authResult) {
-    $scope.immediateFailed = true;
-    if ($scope.isSignedIn) {
-      return 0;
-    }
-    if (authResult['access_token']) {
-      $scope.immediateFailed = false;
-      // Successfully authorized, create session
-      TourblyApi.signIn(authResult).then(function(response) {
-        $scope.signedIn(response.data);
-      });
-    } else if (authResult['error']) {
-      if (authResult['error'] == 'immediate_failed') {
-        $scope.immediateFailed = true;
-      } else {
-        console.log('Error:' + authResult['error']);
-      }
-    }
-  }
+				});
 
-  $scope.renderMobileSignIn = function() {
-    gapi.signin.render('customBtn_M', {
-      'callback': $scope.signIn,
-      'clientid': Conf.clientId,
-      'requestvisibleactions': Conf.requestvisibleactions,
-      'scope': Conf.scopes,
-      'theme': 'dark',
-      'cookiepolicy': Conf.cookiepolicy,
-      'accesstype': 'offline'
-    });
-  }
+			} else if (authResult['error']) {
+				console.log('There was an error: ' + authResult['error']);
+			}
+		});
+	};// end function signup
 
-  $scope.renderWebSignIn = function() {
-    gapi.signin.render('customBtn', {
-      'callback': $scope.signIn,
-      'clientid': Conf.clientId,
-      'requestvisibleactions': Conf.requestvisibleactions,
-      'scope': Conf.scopes,
-      'theme': 'dark',
-      'cookiepolicy': Conf.cookiepolicy,
-      'accesstype': 'offline'
-    });
-  }
+	$scope.disconnect = function(access_token) {
+		$.ajax({
+			type: 'GET',
+		    url: $scope.revokeUrl + $scope.accessToken.get(),
+		    async: false,
+		    contentType: "application/json",
+		    dataType: 'jsonp',
+		    success: function(nullResponse) {
+		    	console.log("Successfully disconnected!");
+		    	$scope.accessToken.del();
 
-  $scope.renderSignIn = function() {
-    if ($('#signup-form').is(':visible')) {
-      $scope.renderWebSignIn();
-    }
 
-    if ($('#mobile').is(':visible')) {
-      $scope.renderMobileSignIn();
-    }
-  }
+		    	$http({method: 'POST', url: '/disconnect'}).
+		    	  success(function(data, status, headers, config) {
+		    	  }).
+		    	  error(function(data, status, headers, config) {
+		    	  });
 
-  $scope.start = function() {
-    $scope.renderSignIn();
-    if ($cookies.session) {
-      Logout.updateShowAuthButs(false);
-    } else Logout.updateShowAuthButs(true);
-  }
+		    	$window.alert("Disconnect Successfull");
+		    	location.reload();
+		    },
+		    error: function(e) {
+		    	console.log("Failed to disconnect! : ", e);
+		    	alert("Failed to disconnect! Please go to https://plus.google.com/apps to disconnect manually")
+		      // Handle the error
+		      // console.log(e);
+		      // You could point users to manually disconnect if unsuccessful
+		      // https://plus.google.com/apps
+		    }
+		});
+	}// end function disconnect
 
-  $scope.start();
+	$scope.outBound =  {
+		get: function(_args) {
+			return $.ajax({
+				type        : 'GET',
+				url         : $scope.apiBase + _args.url,
+				async       : _args.async,
+				contentType : 'application/json',
+				dataType    : 'jsonp'
+			})
+			.always(function() {
+				console.log("ALWAYS FUNCTION CALLED - GET");
+			})
+			.fail(function(data) {
+				console.log("FAILURE, GET TO SERVER WITH STATUS: ");
+				console.log(data);
+			});
+		},
+		post: function(_args) {
+			return $.ajax({
+				type        : 'POST',
+				url         : $scope.apiBase + _args.url,
+				async       : _args.async,
+				data        : _args.dat
+			})
+			.fail(function(err) {
+				console.log("FAILURE, POST TO SERVER WITH STATUS: ");
+				console.log(err);
+			});
+		}
+	}// end object outBound
 
-}
+	$window.renderSignin = function() {
+		if ($('#signup-form').is(':visible')) {
+			gapi.signin.render('customBtn', {
+				'callback': $scope.signin,
+				'immedediate': false,
+				'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
+				'cookiepolicy': 'single_host_origin',
+				'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+				'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+			});
+		}
+
+		if ($('#mobile').is(':visible')) {
+			gapi.signin.render('customBtn_M', {
+				'callback': $scope.signin,
+				'immedediate': false,
+				'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
+				'cookiepolicy': 'single_host_origin',
+				'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+				'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+			});
+		}
+	}// end function renderSignin
+
+
+	$window.renderSignup = function() {
+		if ($('#signup-form').is(':visible')) {
+			gapi.signin.render('customBtn', {
+				'callback': $scope.signup,
+				'immedediate': false,
+				'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
+				'cookiepolicy': 'single_host_origin',
+				'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+				'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+			});
+		}
+
+		if ($('#mobile').is(':visible')) {
+			gapi.signin.render('customBtn_M', {
+				'callback': $scope.signup,
+				'immedediate': false,
+				'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
+				'cookiepolicy': 'single_host_origin',
+				'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+				'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
+			});
+		}
+	}// end function renderSignup
+
+	$scope.dummy = function() {
+		console.log('here is the cookie', $scope.accessToken.get());
+	}
+	$window.glob = function(){$scope.dummy();}
+
+
+}// end controller TourblyCtrl
