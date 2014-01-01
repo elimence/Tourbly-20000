@@ -17,7 +17,7 @@ class Places(Root.Handler):
 
     def post(self):
     	keyword = self.request.get("keyword")
-    	self.redirect("/places?redirect=" + keyword.lower())
+    	self.redirect("/places?keyword=" + keyword.lower())
 
 
 # @nanaewusi - to whom it may concern
