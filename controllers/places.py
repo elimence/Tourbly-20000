@@ -11,7 +11,7 @@ class Places(Root.Handler):
         keyword = self.request.get("keyword")
 
         if keyword:
-        	places = Destination.Destination.gql("where tags = :1" ,keyword.lower())
+        	places = Destination.Destination.gql("where keywords = :1" ,keyword.lower())
         self.render("places.html", places = places, isLoggedIn = self.check_session("query"), tourist=tourist,
          keyword = keyword)
 

@@ -15,6 +15,7 @@ class Destination(db.Model, Root.Handler):
 	pictures = db.StringListProperty()
 	pictures_blobs = db.ListProperty(db.Blob)
 	tags = db.StringListProperty()
+	keywords = db.StringListProperty()
 
 	@classmethod
 	def addDestination(cls, name, latlng, description):
