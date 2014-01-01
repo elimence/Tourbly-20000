@@ -26,10 +26,10 @@
     {% endblock %}
   </head>
   <body ng-controller="TourblyCtrl">
-    {% include 'navigation.html' %}
+    {% include 'partials/navigation.html' %}
     {% block content %}{% endblock %}
-    {% include 'footer.html' %}
-    {% include 'globaljs.html' %}
+    {% include 'partials/footer.html' %}
+    {% include 'partials/globaljs.html' %}
     {% block pagespecificjs %}{% endblock %}
   </body>
 </html>
