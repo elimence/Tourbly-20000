@@ -50,5 +50,12 @@ class GuideApplicationForm(Root.Handler):
         self.render("guide_signup_form.html", isLoggedIn = self.check_session("query"))
 
 
+    def post(self):
+        full_name = self.request.get("full_name")
+        country = self.request.get("country")
+        email = self.request.get("email")
 
-
+        if full_name and country and email:
+            self.write("Application to be a guide received successfully. Please follow the link sent to your email to complete the process.")
+        else:
+            self.render("guide_signup.html", error = "There was something wrong")

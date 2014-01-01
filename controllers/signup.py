@@ -7,6 +7,7 @@ from google.appengine.api import urlfetch
 class Signup(Root.Handler):
     def get(self):
         referer = self.request.referer
+        self.write(referer)
         if referer:
             referer = referer[referer.find("/", 8) : ]
         if self.check_session("query"):

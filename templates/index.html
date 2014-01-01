@@ -112,13 +112,13 @@
   <script src="/assets/js/index.js"></script>
   <script>
     $(function () {
-      init();
       $('#arrival').pickadate();
       $('#departure').pickadate();
       attachSearchButtonListener();
       $('.carousel').carousel({
         interval: 5000
       });
+      init();
     })
   </script>
 {% endblock %}

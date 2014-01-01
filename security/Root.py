@@ -175,18 +175,18 @@ class Utility():
 
     def getCountryFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
-        components_list = reponseResults[0]["address_components"]
-        # return components_list[0]["types"][0][0]
         country = ""
+        if len(reponseResults) > 0:
+            components_list = reponseResults[0]["address_components"]
 
-        count = 0
-        for component in components_list:
-            component_type = components_list[count]["types"]
+            count = 0
+            for component in components_list:
+                component_type = components_list[count]["types"]
 
-            if component_type[0] == "country":
-                country = component["long_name"]
+                if component_type[0] == "country":
+                    country = component["long_name"]
 
-            count += 1
+                count += 1
 
         return country
 

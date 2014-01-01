@@ -32,8 +32,6 @@
             {% for country in countries %}
               <option value = {{country}}>{{country}}</option>
             {% endfor %}
-            <option value = "">Select country</option>
-            <option value = "Ghana">Ghana</option>
           </select>
           <p style = "color: red;">{{country_error}}</p>
           <input id = "destination" type="text" class="form-control" placeholder="Your State or where you live" name = "state" value = "{{state}}">

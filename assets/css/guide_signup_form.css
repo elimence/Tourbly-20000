@@ -20,3 +20,7 @@
     font-size: 2.0em;
   }
 }
+
+.side-text .lead {
+  text-shadow: 0 1px 7px #000;
+}

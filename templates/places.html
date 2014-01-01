@@ -11,7 +11,7 @@
       <h1 class="caption-header">Discover amazing cities.</h1>
       <div class="search-box">
         <form role="form">
-          <input type="text" class="form-control input" id="destination" name="destination" placeholder="Enter a keyword to find interesting destinations...">
+          <input type="text" class="form-control input" id="destination" name="keyword" placeholder="Enter a keyword to find interesting destinations..." value = "{{keyword}}">
           <button type="submit" class="btn btn-success" id="submit-btn">Go</button>
         </form>
       </div>
@@ -22,22 +22,33 @@
     <div class="container places">
       <div class="row header">
         <h2 class="heading">Tourbly Places</h2>
-        {% if places.count() != 0  %}
-          <p class="lead sub-heading">Showing Results for Destinations.</p>
+        {% if not keyword %}
+          {% if places.count() != 0  %}
+            <p class="lead sub-heading">Showing Results for Destinations.</p>
+          {% endif %}
+          {% if places.count() == 0 %}
+            <p class="lead sub-heading">There are currently no destinations.</p>
+          {% endif %}
         {% endif %}
-        {% if places.count() == 0 %}
-          <p class="lead sub-heading">There are currently no destinations.</p>
+
+        {% if keyword %}
+          {% if places.count() != 0  %}
+            <p class="lead sub-heading">Showing Results for keyword {{keyword}}.</p>
+          {% endif %}
+          {% if places.count() == 0 %}
+            <p class="lead sub-heading">No destination found for keyword</p>
+          {% endif %}
         {% endif %}
       </div>
       <div class="row body">
 
         {% for place in places %}
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
-          <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src= "/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt=""></a>
-          <div class="place-text-overlay">
-            <h3 class="caption">{{place.name}}</h3>
-          </div>
-        </div>
+          <a href="/places/{{place.key().id()}}"><div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+            <img class="img-rounded img-responsive" src= "/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt="">
+            <div class="place-text-overlay">
+              <h3 class="caption">{{place.name}}</h3>
+            </div>
+          </a></div>
           {% endfor %}
       </div><!-- /.row -->
     </div><!-- /.container -->

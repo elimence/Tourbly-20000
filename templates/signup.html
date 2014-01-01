@@ -19,8 +19,8 @@
               </div>
               <div class="col-lg-4 col-md-4 col-sm-4 form">
                 <form method = "post" action = "/signup" class="form-signin">
-                  <p class="lead error-label">{{error}}</p>
                   <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
+                  <p class="lead error-label">{{error}}</p>
                   <input type="text" class="form-control" placeholder="Your Email" autofocus name = "email" value = "{{email}}">
                   <p class="lead error-label">{{email_error}}</p>
                   <input type="password" class="form-control" placeholder="Create a Password" name = "password">
@@ -53,11 +53,16 @@
   <div id="mobile" class="container visible-xs hidden-sm hidden-md hidden-lg">
     <div class="row">
       <div class="col-xs-12 mobile-signup-form">
-        <form class="form-signin">
+        <form class="form-signin" method = "post">
           <h2 class="form-heading visible-xs hidden-lg hidden-sm hidden-md">Find great tour guides.</h2>
-          <input type="text" class="form-control" placeholder="Pick a Username" autofocus>
-          <input type="text" class="form-control" placeholder="Your email">
-          <input type="password" class="form-control" placeholder="Create a Password">
+          <p class="lead error-label">{{error}}</p>
+          <input name = "referer" type = "hidden" value = "{{referer}}">
+          <input type="text" class="form-control" placeholder="Email" name = "email" value = "{{email}}" autofocus>
+          <p class="lead error-label">{{email_error}}</p>
+          <input type="password" class="form-control" placeholder="Password" name = "password">
+          <p class="lead error-label">{{password_error}}</p>
+          <input type="password" class="form-control" placeholder="Confirm Password" name = "confirm_password">
+          <p class="lead error-label">{{confirm_password_error}}</p>
           <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit">Sign up for Tourbly</button>
 
           <div class="hr-with-words">
@@ -76,29 +81,10 @@
     </div>
   </div>
 
-  <div class="container reasons-to-love-tourbly hidden-xs visible-sm visible-md visible-lg">
-    <div class="header">
-      <h1>Why you&#8217;ll love Tourbly.</h1>
-      <p class="lead">We'll worry about finding you a reliable tour guide. You just enjoy your trip.</p>
-    </div>
-    <div class="row body">
-      <div class="col-lg-4">
-        <img class="img-circle" src="/assets/images/guides_pics/guide.png" width="150" height="150" alt="">
-        <h3 class="sub-heading">Tour guides you can trust.</h3>
-        <p>We thoroughly screen, profile &amp; background-check our guides to ensure that to make sure you can rest easy. </p>
-      </div>
-      <div class="col-lg-4">
-        <img class="img-circle" src="/assets/images/jamestown.png" width="150" height="150" alt="">
-        <h3 class="sub-heading">Great destinations to explore.</h3>
-        <p>Our guides have extensive knowledge of the city. You'll never run out of interesting sites to explore.</p>
-      </div>
-      <div class="col-lg-4">
-        <img class="img-circle" src="/assets/images/safety.png" width="150" height="150" alt="">
-        <h3 class="sub-heading">We've got you covered.</h3>
-        <p>Your safety is our number one concern. We go great lenghts to ensure your safety during your trip.</p>
-      </div>
-    </div>
-  </div>
+
+  <!-- Include Block For Reasons To Love Tourbly -->
+  {% include 'loveTourbly.html' %}
+>>>>>>> b2e07ff25f75154dbbbc655e6cfe510c5bf196a8
 {% endblock %}
 {% block pagespecificjs %}
   <script>
