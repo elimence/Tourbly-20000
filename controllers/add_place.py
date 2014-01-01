@@ -23,7 +23,7 @@ class AddPlace(Root.Handler):
 		destination_tags = self.request.get("tags")
 		direction = self.request.get("direction")
 
-		destination_tags = destination_tags.replace(" ", "")
+		destination_tags = destination_tags.replace(", ", ",")
 		destination_tags = destination_tags.lower()
 		tags = destination_tags.split(",")
 		tags.append(destination_name.lower())
