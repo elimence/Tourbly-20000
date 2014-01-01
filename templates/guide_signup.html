@@ -12,14 +12,17 @@
     </div>
     <div class="row body">
       <form role="form" name="new-guide-signup-form" method="POST" action="">
+        <p class="lead error-label">{{error}}</p>
         <div class="form-group">
-          <input type="text" class="form-control input" id="full-name" name="full-name" placeholder="Your Full Name">
+          <input type="text" class="form-control input" id="full-name" name="full_name" placeholder="Your Full Name" value = "{{full_name}}">
         </div>
+        <select name = "country">
+            {% for country in countries %}
+              <option value = {{country}}>{{country}}</option>
+            {% endfor %}
+          </select>
         <div class="form-group">
-          <input type="text" class="form-control input" id="country" name="country" placeholder="Your Nationality">
-        </div>
-        <div class="form-group">
-          <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address">
+          <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address" value = "{{email}}">
           <span class="help-block">We will send a verification link to this email address with further instructions.</span>
         </div>
         <button type="submit" class="btn btn-info btn-block btn-lg">Get Started</button>

@@ -1,13 +1,23 @@
 from security import Root
 from models import Tourist
 from models import Destination
+from google.appengine.ext import db
 
 
 class Places(Root.Handler):
     def get(self):
     	tourist = Tourist.Tourist.get_by_id(self.get_user_id())
         places = Destination.Destination.getAllDestinations()
-        self.render("places.html", places = places, isLoggedIn = self.check_session("query"), tourist=tourist)
+        keyword = self.request.get("keyword")
+
+        if keyword:
+        	places = Destination.Destination.gql("where tags = :1" ,keyword)
+        self.render("places.html", places = places, isLoggedIn = self.check_session("query"), tourist=tourist,
+         keyword = keyword)
+
+    def post(self):
+    	keyword = self.request.get("keyword")
+    	self.redirect("/places?redirect=" + keyword)
 
 
 # @nanaewusi - to whom it may concern
