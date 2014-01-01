@@ -176,7 +176,7 @@ class Utility():
     def getCountryFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
         country = ""
-        if len(reponseResults) == 0:
+        if len(reponseResults) > 0:
             components_list = reponseResults[0]["address_components"]
 
             count = 0
