@@ -11,13 +11,13 @@ class Places(Root.Handler):
         keyword = self.request.get("keyword")
 
         if keyword:
-        	places = Destination.Destination.gql("where tags = :1" ,keyword)
+        	places = Destination.Destination.gql("where tags = :1" ,keyword.lower())
         self.render("places.html", places = places, isLoggedIn = self.check_session("query"), tourist=tourist,
          keyword = keyword)
 
     def post(self):
     	keyword = self.request.get("keyword")
-    	self.redirect("/places?redirect=" + keyword)
+    	self.redirect("/places?redirect=" + keyword.lower())
 
 
 # @nanaewusi - to whom it may concern
