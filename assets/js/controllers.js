@@ -1,8 +1,8 @@
 'use strict'
 
-function TourblyCtrl($scope, $window, $http) {
+function TourblyCtrl($scope, $window) {
 
-	$scope.apiBase = "/oauth/";
+	$scope.apiBase   = '/oauth';
 	$scope.revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token';
 
 	$scope.uDat = {email: "", verified: ""};
@@ -34,42 +34,8 @@ function TourblyCtrl($scope, $window, $http) {
 		}
 	};
 
+
 	$scope.signin = function(authResult) {
-		gapi.client.load('oauth2', 'v2', function() {
-			if (authResult['access_token']) {
-				gapi.client.oauth2.userinfo.get().execute(function(resp) {
-					//save token
-					$scope.accessToken.save(authResult['access_token']);
-
-					$scope.uDat.email     = resp.email;
-					$scope.uDat.activated = resp.verified_email;
-
-					$scope.outBound.post({
-						url   : "signin",
-						async : "false",
-						dat   : $scope.uDat
-					}).done(function(data) {
-						console.log("SUCCESS, POST TO SERVER WITH STATUS: ");
-						console.log(data);
-
-						if(data=="notfound") {
-							window.location.replace("/signup");
-						} else {
-							document.cookie=data.split("*-*")[0];
-							document.cookie=data.split("*-*")[1];
-							location.reload();
-						}
-					});
-				});
-
-			} else if (authResult['error']) {
-				console.log('There was an error: ' + authResult['error']);
-			}
-
-		});
-	};// end function signin
-
-	$scope.signup = function(authResult) {
 		gapi.client.load('oauth2', 'v2', function() {
 			if (authResult['access_token']) {
 				gapi.client.oauth2.userinfo.get().execute(function(resp) {
@@ -97,17 +63,13 @@ function TourblyCtrl($scope, $window, $http) {
 
 					console.log($scope.userData);
 					$scope.outBound.post({
-						url   : "signup",
 						async : "false",
+						url   : $scope.apiBase,
 						dat   : $scope.userData
 					}).done(function(data) {
-						if(data=="duplicate") {
-							window.location.replace("/signin");
-						} else {
-							document.cookie=data.split("*-*")[0];
-							document.cookie=data.split("*-*")[1];
-							location.reload();
-						}
+						document.cookie=data.split("*-*")[0];
+						document.cookie=data.split("*-*")[1];
+						location.reload();
 					});
 
 				});
@@ -127,17 +89,17 @@ function TourblyCtrl($scope, $window, $http) {
 		    dataType: 'jsonp',
 		    success: function(nullResponse) {
 		    	console.log("Successfully disconnected!");
+
+		    	$scope.outBound.post({
+		    		async : "false",
+		    		url   : '/disconnect',
+		    	}).done(function(data) {
+		    		console.log('Successfully deleted tourist', data);
+		    	});
+
 		    	$scope.accessToken.del();
-
-
-		    	$http({method: 'POST', url: '/disconnect'}).
-		    	  success(function(data, status, headers, config) {
-		    	  }).
-		    	  error(function(data, status, headers, config) {
-		    	  });
-
 		    	$window.alert("Disconnect Successfull");
-		    	location.reload();
+		    	$window.location.replace('/logout');
 		    },
 		    error: function(e) {
 		    	console.log("Failed to disconnect! : ", e);
@@ -154,7 +116,7 @@ function TourblyCtrl($scope, $window, $http) {
 		get: function(_args) {
 			return $.ajax({
 				type        : 'GET',
-				url         : $scope.apiBase + _args.url,
+				url         : $scope.apiBase,
 				async       : _args.async,
 				contentType : 'application/json',
 				dataType    : 'jsonp'
@@ -170,7 +132,7 @@ function TourblyCtrl($scope, $window, $http) {
 		post: function(_args) {
 			return $.ajax({
 				type        : 'POST',
-				url         : $scope.apiBase + _args.url,
+				url         : _args.url,
 				async       : _args.async,
 				data        : _args.dat
 			})
@@ -204,36 +166,6 @@ function TourblyCtrl($scope, $window, $http) {
 			});
 		}
 	}// end function renderSignin
-
-
-	$window.renderSignup = function() {
-		if ($('#signup-form').is(':visible')) {
-			gapi.signin.render('customBtn', {
-				'callback': $scope.signup,
-				'immedediate': false,
-				'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
-				'cookiepolicy': 'single_host_origin',
-				'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-				'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-			});
-		}
-
-		if ($('#mobile').is(':visible')) {
-			gapi.signin.render('customBtn_M', {
-				'callback': $scope.signup,
-				'immedediate': false,
-				'clientid': '1066634592899-vq0boe9dv5s49lf3jghr6qo825bvesg9.apps.googleusercontent.com',
-				'cookiepolicy': 'single_host_origin',
-				'requestvisibleactions': 'http://schemas.google.com/AddActivity',
-				'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email'
-			});
-		}
-	}// end function renderSignup
-
-	$scope.dummy = function() {
-		console.log('here is the cookie', $scope.accessToken.get());
-	}
-	$window.glob = function(){$scope.dummy();}
 
 
 }// end controller TourblyCtrl
