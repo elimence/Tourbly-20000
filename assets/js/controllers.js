@@ -1,7 +1,7 @@
 'use strict'
 
 function TourblyCtrl($scope, $window) {
-
+$scope.price = '$300';
 	$scope.apiBase   = '/oauth';
 	$scope.revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token';
 
@@ -169,3 +169,48 @@ function TourblyCtrl($scope, $window) {
 
 
 }// end controller TourblyCtrl
+
+
+function PaymentCtrl($scope, $window) {
+
+	$scope.data = {
+		name: 'samuel',
+		age : '22'
+	};
+
+	$scope.price = '$300';
+	$scope.duration = '0';
+	$scope.testValue = "Squemish Ossifrage";
+
+	$scope.success = function(status) {
+		$window.console.log('Purchase Completed Successfully : ', status);
+	};// end function success
+
+	$scope.failure = function(status) {
+		$window.console.log('Purchase Failed : ', status);
+	};// end function failure
+
+	$scope.Qpurchase = function(item) {
+		 $scope.generated_jwt = '';
+
+		if (item == "Item1") {
+			$scope.generated_jwt = "{{ jwt_1 }}";
+		} else if (item == "Item2") {
+			$scope.generated_jwt = "{{ jwt_2 }}";
+		} else {
+			return;
+		}
+
+		goog.payments.inapp.buy({
+			'jwt'     : $scope.generated_jwt,
+			'success' : $scope.success,
+			'failure' : $scope.failure
+		});
+	};// end function payment
+
+	$scope.purchase = function() {
+		console.log('attempting to set price');
+		$scope.price = 'new price';
+	};
+
+}// end function PaymentCtrl
