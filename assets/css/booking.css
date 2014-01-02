@@ -1,0 +1,78 @@
+.booking {
+  margin-top: 90px;
+}
+.booking .payment .header {
+  color: #393c3d;
+  font-weight: bold;
+  margin-top: 0;
+}
+.booking .payment select {
+  /*background-color: #fff;*/
+/*background-image: -webkit-linear-gradient(#fff, #f2f2f2);*/
+}
+.booking .payment .greet-guide {
+  margin-top: 2em;
+}
+.booking .payment .greet-guide .help-block,
+.booking .payment label,
+.help-block {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #393c3d;
+  -webkit-font-smoothing: antialiased;
+}
+.booking .payment .greet-guide .message {
+  height: 99px;
+}
+
+
+.booking .summary {
+}
+.booking .summary .place {
+  border: 0px solid #f00;
+  position: relative;
+}
+.booking .summary .place .place-text-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 3.9%;
+  padding: 0.5em;
+}
+.booking .summary .place .place-text-overlay .caption {
+  font-family: "Libre Baskerville";
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 1px 7px #000;
+}
+.booking .summary .place .place-text-overlay .location {
+  color: #fff;
+  text-shadow: 0 1px 7px #000;
+  text-align: right;
+  margin-bottom: 0;
+}
+.booking .summary .details {
+  border: 1px solid #dbdbdb;
+  padding-bottom: 2em;
+}
+.details .tags,
+.details .guide,
+.details .total,
+.details .duration-of-stay {
+  width: 95%;
+  margin: 0 auto;
+  margin-bottom: 0em;
+  padding-top: 1.0em;
+  padding-bottom: 1.0em;
+  border-bottom: 1px dotted rgba(219, 219, 219, 0.65);
+  text-align: center;
+}
+.details .tags .tag-label {
+  display: inline-block;
+  margin-left: 0.1em;
+  margin-top: 0.1em;
+}
+.guide .lead,
+.duration-of-stay .lead {
+  font-size: 16px;
+}
