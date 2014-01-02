@@ -38,6 +38,12 @@ function getTourDays() {
   
   if (arrival_date && departure_date) {
     var tour_days = new TimeSpan(departure_date - arrival_date);
+
+    if (tour_days.days < 0) {
+      // console.log("Please check, your departure date must be after arrival date");
+      // alert("Please check, your departure date must be after arrival date");
+      return 0
+    }
     return tour_days.days;
   }
   return 0;
