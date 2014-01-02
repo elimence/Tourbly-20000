@@ -35,6 +35,10 @@
   padding-bottom: 2.5em;
   border-bottom: 1px solid #e8e8e8;
 }
+.photo .profile-picture-holder {
+  text-align: right; 
+  padding-right: 0;
+}
 .photo .profile-picture {
   width: 73px;
   height: 73px;
@@ -63,4 +67,13 @@
 .update {
   padding-top: 2.5em;
   padding-bottom: 2.5em;
+}
+
+/* Xtra Small */
+@media (max-width: 991px) {
+  .photo .profile-picture-holder {
+    text-align: left; 
+    padding-right: 0;
+    margin-bottom: 0.4em;
+  }
 }

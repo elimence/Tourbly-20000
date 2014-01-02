@@ -28,6 +28,9 @@
 .guide .book {
   margin-top: 1em;
 }
+.guide .hangout {
+  margin-top: 0.35em;
+}
 .guide .verified-icon {
   color: rgb(0, 206, 0);
 }

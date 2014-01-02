@@ -28,3 +28,29 @@ class Places(Root.Handler):
 class ShowPlace(Root.Handler):    
   def get(self):
     self.render("place.html")
+
+def getPlacesJson(places):
+    places_json = {}
+    places_json["status"] = "ok"
+    places_json["message"] = "successful"
+
+    places_array = []
+    for place in places:
+        place_object = {}
+        place_object["name"] = place.name
+        place_object["id"] = place.key().id()
+
+        places_array.append(place_object)
+
+    places_json["places"] = places_array
+
+    return places_json
+
+class GetAllPlaces(Root.Handler):
+    def get(self):
+        places = Destination.Destination.all()
+        places_json = getPlacesJson(places)
+
+        self.write(places_json)
+        
+        
