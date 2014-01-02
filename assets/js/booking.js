@@ -24,7 +24,7 @@ function payButtonClickListener (evt) {
   }
 }
 
-function dayAndChargeManipulations() {
+function dayAndChangeManipulations() {
   changeTourDays();
   changeTourCharge();
 }
@@ -33,7 +33,11 @@ function getTourDays() {
   var arrival_date = document.getElementById("arrival").value;
   var departure_date = document.getElementById("departure").value;
 
-  return arrival_date - departure_date
+  if (arrival_date && departure_date) {
+    var tour_days = new TimeSpan(departure_date - arrival_date);
+    return tour_days.days;
+  }
+  return 0;
 }
 
 function changeTourDays() {

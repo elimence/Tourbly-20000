@@ -27,10 +27,10 @@
           <label for="country">Tour Start and End Dates</label>
           <div class="row">
             <div class="col-lg-6">
-              <input type="text" class="form-control input" id="arrival" name="arrival" placeholder="Tour starts on...">
+              <input type="text" class="form-control input" id="arrival" name="arrival" placeholder="Tour starts on..." onblur = "dayAndChangeManipulations()" onfocus = "dayAndChangeManipulations()">
             </div>
             <div class="col-lg-6">
-              <input type="text" class="form-control input" id="departure" name="departure" placeholder="Tour ends on...">
+              <input type="text" class="form-control input" id="departure" name="departure" placeholder="Tour ends on..." onblur = "dayAndChangeManipulations()" onfocus = "dayAndChangeManipulations()">
             </div>
           </div>
           <div class="greet-guide">
@@ -100,13 +100,14 @@
   <script src="/assets/js/picker.time.js"></script>
   <script src="/assets/js/legacy.js"></script>
   <script src="/assets/js/booking.js"></script>
-  <script type="text/javascript" src = "/assets/js/date.js"></script>
+  <script src="/assets/js/date.js"></script>
+  <script src="/assets/js/time.js"></script>
   <script>
     $(function () {
       $('#arrival').pickadate();
       $('#departure').pickadate();
       attachPayButtonListener();
-      dayAndChargeManipulations();
+      dayAndChangeManipulations();
     })
   </script>
 {% endblock %}
