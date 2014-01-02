@@ -33,8 +33,24 @@ jinja_env    = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir)
 
 def nl2br(value): 
      return value.replace('\n','<br>\n')
+
+def getAverageRating(reviews):
+    totalRaters = 0
+    totalRating = 0
+    averageRating = 0
+
+    for review in reviews:
+        if review._rating:
+            totalRaters += 1
+            totalRating += int(review._rating)
+
+    if totalRaters != 0:
+        averageRating = totalRating / totalRaters
+
+    return {"totalRaters" : totalRaters, "averageRating" : averageRating}
  
 jinja_env.filters['nl2br'] = nl2br
+jinja_env.globals['getAverageRating'] = getAverageRating
 
 
 ## => Implements various utility functions for handling security operations
@@ -137,7 +153,7 @@ class Security():
 class Utility():
 
 # A variable containing all the countries in the world 
-    all_countries = ["Select Guide's country",
+    all_countries = ["Select Country",
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua & Deps",
     "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", 
     "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia Herzegovina", 
