@@ -135,10 +135,10 @@
               <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
                 <h2 class="form-heading visible-xs visible-lg visible-sm visible-md" style="font-size: 25px;">Write a review</h2>
                 <p style = "color: red;">{{error}}</p>
-                <input style="" type="number" name="rating" id="rating" class="rating" data-max="5" data-min="1" />
                 {% if not tourist.first_name %}
                   <p style = "color: red;">{{name_error}}</p>
-                  <input type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
+                  <input style="margin-bottom: 0.7em;" type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
+                  <input style="" type="number" name="rating" id="rating" class="rating" data-max="5" data-min="1" />
                 {% endif %}
                 <p style = "color: red;">{{comments_error}}</p>
                 <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
