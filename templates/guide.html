@@ -62,13 +62,15 @@
                 {% endif %}
               </div>
               <div class="stat">
+                {% set counter = 0 %}
                 Speaks
-                 {% for language in guide._languages %}
-                  {% if language != "" %}
-                    {{language}} &amp;
+                {% for language in guide._languages %}
+                  {% set counter = counter + 1 %}
+                  {{language}} 
+                  {% if counter != guide._languages | count %}
+                    &amp;
                   {% endif %}
                 {%  endfor %}
-
               </div>
               <div class="stat">
                 From {{guide._country}}
