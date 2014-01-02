@@ -116,7 +116,7 @@
                         <i class='glyphicon glyphicon-star-empty rating-star'></i>
                       {% endif %}
                     {% endfor %}
-                    <span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
+                    <span class="review-date"><i class="fa fa-clock-o"></i> <span class="ago">{{review._created_at.strftime("%Y-%m-%d %H:%M:%S")}}</span></span>
                   </div>
                 <div class="body">
                   <p>{{review._comment | nl2br | safe}}</p>
@@ -151,4 +151,11 @@
 {% endblock %}
 {% block pagespecificjs %}
   <script src="/assets/js/bootstrap-rating-input.js"></script>
+  <script src="/assets/js/moment.min.js"></script>
+  <script src="/assets/js/guide.js"></script>
+  <script>
+    $(function () {
+      init();
+    })
+  </script>
 {% endblock %}
