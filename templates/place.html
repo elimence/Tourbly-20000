@@ -55,16 +55,34 @@
             <!-- <p class="lead"><a href="">See all available guides</a></p>  -->
           </div>
           {% for available_guide in available_guides %}
-            {% set averageRating = 3 %}
+            {% set totalReviews = available_guide.reviews_set.count() %}
+            {% set averageRating = 0 %}
+            {% set totalRating = 0 %}
+            {% set totalRaters = 0 %}
+
+            {% for review in available_guide.reviews_set %}
+              {% if review._rating %}
+                totalRating += review._rating
+                totalRaters += 1
+              {% endif %}
+            {% endfor %}
+            
+            {% if totalRaters != 0 %}
+              averageRating = totalRating / totalRaters
+            {% endif %}
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 guide-div">
             <a href="/guides/{{available_guide.key().id()}}"><img src="/assets/images/guides_pics/{{available_guide._picture}}" class="image-tooltip img-circle" title="<h3 collapses='tooltip-heading'>{{available_guide._firstname}} {{available_guide._lastname}}</h3><p class='lead tooltip-sub-heading'>
-              {% for n in range(1, 6) %}
-                {% if n <= averageRating %}
-                  <i class='glyphicon glyphicon-star'></i>
-                {% else %}
-                  <i class='glyphicon glyphicon-star-empty'></i>
-                {% endif %}
-              {% endfor %}
+              {% if totalRaters != 0 %}
+                {% for n in range(1, 6) %}
+                  {% if n <= averageRating %}
+                    <i class='glyphicon glyphicon-star'></i>
+                  {% else %}
+                    <i class='glyphicon glyphicon-star-empty'></i>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                No Rating
+              {% endif %}
             </p></a>">
           </div>
           {% endfor %}

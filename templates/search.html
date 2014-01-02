@@ -107,7 +107,20 @@
               <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
               <span class="reviews">
                 {% set totalReviews = suggested_guide.reviews_set.count() %}
-                {% set averageRating = 3 %}
+                {% set averageRating = 0 %}
+                {% set totalRating = 0 %}
+                {% set totalRaters = 0 %}
+
+                {% for review in suggested_guide.reviews_set %}
+                  {% if review._rating %}
+                    totalRating += review._rating
+                    totalRaters += 1
+                  {% endif %}
+                {% endfor %}
+                
+                {% if totalRaters != 0 %}
+                  averageRating = totalRating / totalRaters
+                {% endif %}
 
                 <!-- Show Number of Reviews -->
                 {% if totalReviews == 0 %}
@@ -119,15 +132,19 @@
                 {% if totalReviews >1 %}
                  {{totalReviews}} Reviews
                 {% endif %} <br />
-            
-                <!-- Show Star Rating Average -->
-                {% for n in range(1, 6) %}
-                  {% if n <= averageRating %}
-                    <i class='rating-star glyphicon glyphicon-star'></i>
-                  {% else %}
-                    <i class='rating-star glyphicon glyphicon-star-empty'></i>
-                  {% endif %}
-                {% endfor %}
+                
+                {% if totalRaters != 0 %}
+                  <!-- Show Star Rating Average -->
+                  {% for n in range(1, 6) %}
+                    {% if n <= averageRating %}
+                      <i class='rating-star glyphicon glyphicon-star'></i>
+                    {% else %}
+                      <i class='rating-star glyphicon glyphicon-star-empty'></i>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                No Ratings
+                {% endif %}
               </span>
             </div>
           {% endfor %}
