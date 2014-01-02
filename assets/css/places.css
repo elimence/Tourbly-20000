@@ -1,3 +1,6 @@
+.navbar-default .navbar-nav>li>a#places:link, .navbar-default .navbar-nav>li>a#places:visited {
+  color: #ED9C28;
+}
 .places-intro-banner {
   border: 1px solid transparent;
   margin-top: 50px;
