@@ -28,6 +28,10 @@ from controllers import add_place
 from controllers import add_guide
 from controllers import add_review
 from controllers import verifyemail
+from controllers import wallet
+
+# Dummy handlers for testing
+from controllers import bogus
 
 # APPLICATION ENTRY
 
@@ -58,7 +62,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/admin/reviews/add_review', handler=add_review.AddReview,       name='add_review'),
     webapp2.Route(r'/guides/apply',             handler=guide.GuideApplicationForm, name='guides_apply'),
     webapp2.Route(r'/showplaceprofile',         handler=places.ShowPlace,           name='place_profile'),
-    webapp2.Route(r'/disconnect',               handler=oauth.CloseAccount,         name='disconnect')
+    webapp2.Route(r'/disconnect',               handler=oauth.CloseAccount,         name='disconnect'),
+    webapp2.Route(r'/pay',                      handler=wallet.Wallet,              name='pay')
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
 # ERROR HANDLERS
