@@ -133,7 +133,9 @@
                     {% endif %}
                   {% endfor %}
                 {% else %}
-                No Ratings
+                  {% for n in range(1, 6) %}
+                    <i class='rating-star glyphicon glyphicon-star-empty'></i>
+                  {% endfor %}
                 {% endif %}
               </span>
             </div>

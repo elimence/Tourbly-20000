@@ -93,14 +93,12 @@
             <div class="header">
               <h3 class="header-text">
                 {% if guide.reviews_set.count() == 0 %}
-                No Reviews Yet
+                  No Reviews Yet
+                {% elif guide.reviews_set.count() == 1 %}
+                  1 Review
+                {% else %}
+                  {{guide.reviews_set.count()}} Reviews
                 {% endif %}
-                {% if guide.reviews_set.count() == 1 %}
-                1 Review
-                {% endif %}
-                {% if guide.reviews_set.count() > 1 %}
-                {{guide.reviews_set.count()}} Reviews
-                {% endif %} 
                 <i class="fa fa-thumbs-o-up blue-icon"></i>
               </h3>
             </div>
@@ -118,7 +116,7 @@
                         <i class='glyphicon glyphicon-star-empty rating-star'></i>
                       {% endif %}
                     {% endfor %}
-                    <span class="review-date"><i class="fa fa-clock-o"></i> {{review._created_at.strftime("%b %d, %y.")}}</span>
+                    <span class="review-date"><i class="fa fa-clock-o"></i> <span class="ago">{{review._created_at.strftime("%Y-%m-%d %H:%M:%S")}}</span></span>
                   </div>
                 <div class="body">
                   <p>{{review._comment | nl2br | safe}}</p>
@@ -135,13 +133,13 @@
               <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
                 <h2 class="form-heading visible-xs visible-lg visible-sm visible-md" style="font-size: 25px;">Write a review</h2>
                 <p style = "color: red;">{{error}}</p>
-                <input style="" type="number" name="rating" id="rating" class="rating" data-max="5" data-min="1" />
                 {% if not tourist.first_name %}
                   <p style = "color: red;">{{name_error}}</p>
-                  <input type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
+                  <input style="margin-bottom: 0.7em;" type="text" class="form-control" placeholder="Your Name" autofocus name = "name" id="name" value = "{{name}}">
                 {% endif %}
+                <input style="" type="number" name="rating" id="rating" class="rating" data-max="5" data-min="1" />
                 <p style = "color: red;">{{comments_error}}</p>
-                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
+                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" id="comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
                 <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
               </form>
             </div>
@@ -153,4 +151,11 @@
 {% endblock %}
 {% block pagespecificjs %}
   <script src="/assets/js/bootstrap-rating-input.js"></script>
+  <script src="/assets/js/moment.min.js"></script>
+  <script src="/assets/js/guide.js"></script>
+  <script>
+    $(function () {
+      init();
+    })
+  </script>
 {% endblock %}
