@@ -10,14 +10,15 @@ def reviewing_error_prompt(name, comments):
 		return "You need to comment before reviewing"
 
 class GuideHandler(Root.Handler):
-    def get(self, guide_id):
+    def get(self, guide_id, place_id):
     	guide = Guide.Guide.get_by_id(int(guide_id))
 
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist)
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist, 
+                place_id = place_id)
         else:
-            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"))
+            self.redirect("/home")
 
     def post(self, guide_id):
     	guide = Guide.Guide.get_by_id(int(guide_id))

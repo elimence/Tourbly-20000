@@ -4,14 +4,16 @@ from security import Root
 from models import Guide    
 from models import Tourist
 from models import Review
+from models import Destination
 from datetime import datetime
 
 # def getNumberOfDays(arrival, departure):
 
 
 class BookingHandler(Root.Handler):
-	def get(self, guide_id):
+	def get(self, guide_id, place_id):
 		guide = Guide.Guide.get_by_id(int(guide_id))
+		place = Destination.Destination.get_by_id(int(place_id))
 
 	  	countries = self.all_countries
 	  	country = self.request.get("country")
@@ -26,7 +28,7 @@ class BookingHandler(Root.Handler):
 	  	booking_args = {"country" : country, "arrival" : arrival, "departure" : departure, "tour_days" : 2}
 	  	if self.check_session("query"):
 		  	self.render("booking.html", isLoggedIn = self.check_session("query"), countries = countries, 
-		    	booking_args = booking_args, guide = guide)
+		    	booking_args = booking_args, guide = guide, place = place)
 		else:
 			self.redirect("/home")
 

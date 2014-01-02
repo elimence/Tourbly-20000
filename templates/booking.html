@@ -54,24 +54,18 @@
       </div>
       <div class="col-lg-4 summary">
         <div class="place">
-          <img class="image img-responsive" src="/assets/images/places_pics/rogue.jpg" alt="Pigalle Saint-Georges" />
+          <img class="image img-responsive" src="/assets/images/places_pics/rsz_{{place.pictures[0]}}" alt="Pigalle Saint-Georges" />
           <div class="description place-text-overlay">
-            <h4 class="caption">Pigalle Saint-Georges</h4>
-            <p class="location">Paris, France</p>
+            <h4 class="caption">{{place.name}}</h4>
+            <p class="location">{{place.city}}, {{place.country}}</p>
           </div>
         </div>
         <div class="container details">
           <div class="row tags">
             <div class="col-lg-12">
-              <h4 class="tag-label"><span class="label label-success">Nightlife</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Bars</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Popular</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Artsy</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Urban Living</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Chic</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Moulin Rouge</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Lively</span></h4>
-              <h4 class="tag-label"><span class="label label-success">Underground Scene</span></h4>
+              {% for tag in place.tags %}
+                <h4 class="tag-label"><span class="label label-success">{{tag}}</span></h4>
+              {% endfor %}
             </div>
           </div>
           <div class="row guide">
