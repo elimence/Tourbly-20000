@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+{% block title %}Booking{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="/assets/css/default.css" rel="stylesheet">
+    <link href="/assets/css/default.date.css" rel="stylesheet">
+    <link href="/assets/css/default.time.css" rel="stylesheet">
+    <link href="/assets/css/booking.css" rel="stylesheet" media="screen">
+{% endblock %}
+{% block content %}
+  <div class="container booking">
+    <div class="row">
+      <div class="col-lg-8 payment">
+        <h3 class="header">Payment Details</h3>
+        <form role="form">
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select name="country" id="country" class="form-control">
+              <option value="#">Choose your country</option>
+              <option value="#">Blah</option>
+              <option value="#">Blah</option>
+              <option value="#">Blah</option>
+            </select>
+          </div>
+          <label for="country">Tour Start and End Dates</label>
+          <div class="row">
+            <div class="col-lg-6">
+              <input type="text" class="form-control input" id="arrival" name="arrival" placeholder="Tour start on...">
+            </div>
+            <div class="col-lg-6">
+              <input type="text" class="form-control input" id="departure" name="departure" placeholder="Tour ends on...">
+            </div>
+          </div>
+          <div class="greet-guide">
+            <h3 class="header">Say Hello to Nana, Your Host</h3>
+            <span class="help-block">Let Nana know the purpose of your trip and about the other travellers in your party.</span>
+            <div class="row">
+              <div class="col-lg-2">
+                <img class="img-rounded img-responsive" src="/assets/images/guides_pics/nana.png" alt="">
+              </div>
+              <div class="col-lg-10">
+                <textarea class="message form-control" name="message" rows="4" placeholder="Message your host..."></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" style="margin-top: 2em;">
+            <h3 class="header">Payment Methods</h3>
+            <a id="pay-button" href="#" class="btn btn-info btn-block">Pay with Google Wallet</a>
+            <span class="help-block">You will only be charged if the host accepts your request. They'll have 24 hours to reply. If the host declines or does not respond, no charge is made.</span>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-4 summary">
+        <div class="place">
+          <img class="image img-responsive" src="/assets/images/places_pics/rogue.jpg" alt="Pigalle Saint-Georges" />
+          <div class="description place-text-overlay">
+            <h4 class="caption">Pigalle Saint-Georges</h4>
+            <p class="location">Paris, France</p>
+          </div>
+        </div>
+        <div class="container details">
+          <div class="row tags">
+            <div class="col-lg-12">
+              <h4 class="tag-label"><span class="label label-success">Nightlife</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Bars</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Popular</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Artsy</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Urban Living</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Chic</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Moulin Rouge</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Lively</span></h4>
+              <h4 class="tag-label"><span class="label label-success">Underground Scene</span></h4>
+            </div>
+          </div>
+          <div class="row guide">
+            <div class="col-lg-12">
+              <p class="lead" style="margin: 0;">Booking for Guide: <a href="#">Nana Ewusi</a></p>
+            </div>
+          </div>
+          <div class="row duration-of-stay">
+            <div class="col-lg-12">
+              <p class="lead" style="margin: 0;">This tour lasts 3 days</p>
+            </div>
+          </div>
+          <div class="row total">
+            <div class="col-lg-12">
+              <table style="width: 100%;">
+                <tr>
+                  <td><h4 class="caption" style="margin: 0; font-weight: bold;">Total Charge</h4></td>
+                  <td><p class="value" style="margin: 0; font-family: 'Libre Baskerville'; font-size: 1.4em; color: #ed9c28; font-weight: bold;">$300</p></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <p class="help-block" style="margin-top: 1em; border: 0px solid #bbb; width: 95%; margin-left: auto; margin-right: auto;">Your payment will be processed securely using Google wallet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script src="/assets/js/picker.js"></script>
+  <script src="/assets/js/picker.date.js"></script>
+  <script src="/assets/js/picker.time.js"></script>
+  <script src="/assets/js/legacy.js"></script>
+  <script src="/assets/js/booking.js"></script>
+  <script>
+    $(function () {
+      $('#arrival').pickadate();
+      $('#departure').pickadate();
+      attachPayButtonListener();
+    })
+  </script>
+{% endblock %}
