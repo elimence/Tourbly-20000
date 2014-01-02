@@ -135,11 +135,11 @@
                 <p style = "color: red;">{{error}}</p>
                 {% if not tourist.first_name %}
                   <p style = "color: red;">{{name_error}}</p>
-                  <input style="margin-bottom: 0.7em;" type="text" class="form-control" placeholder="Your Name" autofocus name = "name" value = "{{name}}">
+                  <input style="margin-bottom: 0.7em;" type="text" class="form-control" placeholder="Your Name" autofocus name = "name" id="name" value = "{{name}}">
                 {% endif %}
                 <input style="" type="number" name="rating" id="rating" class="rating" data-max="5" data-min="1" />
                 <p style = "color: red;">{{comments_error}}</p>
-                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
+                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" id="comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
                 <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
               </form>
             </div>
