@@ -18,7 +18,7 @@
         </div>
         <select name = "country" style = "margin-bottom : 15px;">
             {% for country in countries %}
-              <option value = {{country}} {% if country == guide_details["country"] %} selected {% endif %}>
+              <option value = "{{country}}" {% if country == guide_details["country"] %} selected {% endif %}>
                 {{country}}
               </option>
             {% endfor %}

@@ -30,7 +30,7 @@
           <p style = "color: red;">{{last_name_error}}</p>
           <select name = "country">
             {% for country in countries %}
-              <option value = {{country}}>{{country}}</option>
+              <option value = "{{country}}">{{country}}</option>
             {% endfor %}
           </select>
           <p style = "color: red;">{{country_error}}</p>

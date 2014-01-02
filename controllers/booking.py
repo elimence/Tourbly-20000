@@ -4,7 +4,35 @@ from security import Root
 from models import Guide    
 from models import Tourist
 from models import Review
+from datetime import datetime
+
+# def getNumberOfDays(arrival, departure):
+
 
 class BookingHandler(Root.Handler):
-  def get(self, guide_id):
-    self.render("booking.html", isLoggedIn = self.check_session("query"))
+	def get(self, guide_id):
+		guide = Guide.Guide.get_by_id(int(guide_id))
+
+	  	countries = self.all_countries
+	  	country = self.request.get("country")
+	  	arrival = self.request.get("arrival")
+	  	departure = self.request.get("departure")
+
+	  	date_format = "%d %MM, %yyyy"
+	  	# arrival_date = date.strptime(arrival, date_format)
+	  	# departure_date = date.strptime(departure, date_format)
+	  	# tour_days = (arrival_date - departure_date).days
+
+	  	booking_args = {"country" : country, "arrival" : arrival, "departure" : departure, "tour_days" : 2}
+	  	if self.check_session("query"):
+		  	self.render("booking.html", isLoggedIn = self.check_session("query"), countries = countries, 
+		    	booking_args = booking_args, guide = guide)
+		else:
+			self.redirect("/home")
+
+	def post(self):
+		country = self.request.get("country")
+		arrival = self.request.get("arrival")
+		departure = self.request.get("departure")
+		message = self.request.get("message")
+

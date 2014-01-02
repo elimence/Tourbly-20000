@@ -16,17 +16,18 @@
         <form role="form">
           <div class="form-group">
             <label for="country">Country</label>
-            <select name="country" id="country" class="form-control">
-              <option value="#">Choose your country</option>
-              <option value="#">Blah</option>
-              <option value="#">Blah</option>
-              <option value="#">Blah</option>
+            <select name = "country" style = "margin-bottom : 15px;">
+              {% for country in countries %}
+                <option value = "{{country}}" {% if country == booking_args["country"] %} selected {% endif %}>
+                  {{country}}
+                </option>
+              {% endfor %}
             </select>
           </div>
           <label for="country">Tour Start and End Dates</label>
           <div class="row">
             <div class="col-lg-6">
-              <input type="text" class="form-control input" id="arrival" name="arrival" placeholder="Tour start on...">
+              <input type="text" class="form-control input" id="arrival" name="arrival" placeholder="Tour starts on...">
             </div>
             <div class="col-lg-6">
               <input type="text" class="form-control input" id="departure" name="departure" placeholder="Tour ends on...">
@@ -37,7 +38,7 @@
             <span class="help-block">Let Nana know the purpose of your trip and about the other travellers in your party.</span>
             <div class="row">
               <div class="col-lg-2">
-                <img class="img-rounded img-responsive" src="/assets/images/guides_pics/nana.png" alt="">
+                <img class="img-rounded img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" alt="">
               </div>
               <div class="col-lg-10">
                 <textarea class="message form-control" name="message" rows="4" placeholder="Message your host..."></textarea>
@@ -75,12 +76,12 @@
           </div>
           <div class="row guide">
             <div class="col-lg-12">
-              <p class="lead" style="margin: 0;">Booking for Guide: <a href="#">Nana Ewusi</a></p>
+              <p class="lead" style="margin: 0;">Booking for Guide: <a href="/guides/{{guide.key().id()}}">{{guide._firstname}} {{guide._lastname}}</a></p>
             </div>
           </div>
           <div class="row duration-of-stay">
             <div class="col-lg-12">
-              <p class="lead" style="margin: 0;">This tour lasts 3 days</p>
+              <p class="lead" style="margin: 0;">This tour lasts <span id = "tour_days"></span> days</p>
             </div>
           </div>
           <div class="row total">
@@ -88,7 +89,7 @@
               <table style="width: 100%;">
                 <tr>
                   <td><h4 class="caption" style="margin: 0; font-weight: bold;">Total Charge</h4></td>
-                  <td><p class="value" style="margin: 0; font-family: 'Libre Baskerville'; font-size: 1.4em; color: #ed9c28; font-weight: bold;">$300</p></td>
+                  <td><p id = "tour_charge" class="value" style="margin: 0; font-family: 'Libre Baskerville'; font-size: 1.4em; color: #ed9c28; font-weight: bold;">$300</p></td>
                 </tr>
               </table>
             </div>
@@ -105,11 +106,13 @@
   <script src="/assets/js/picker.time.js"></script>
   <script src="/assets/js/legacy.js"></script>
   <script src="/assets/js/booking.js"></script>
+  <script type="text/javascript" src = "/assets/js/date.js"></script>
   <script>
     $(function () {
       $('#arrival').pickadate();
       $('#departure').pickadate();
       attachPayButtonListener();
+      dayAndChargeManipulations();
     })
   </script>
 {% endblock %}

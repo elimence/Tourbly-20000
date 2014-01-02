@@ -23,3 +23,27 @@ function payButtonClickListener (evt) {
     evt.preventDefault(); return;
   }
 }
+
+function dayAndChargeManipulations() {
+  changeTourDays();
+  changeTourCharge();
+}
+
+function getTourDays() {
+  var arrival_date = document.getElementById("arrival").value;
+  var departure_date = document.getElementById("departure").value;
+
+  return arrival_date - departure_date
+}
+
+function changeTourDays() {
+  var tour_days = getTourDays();
+
+  document.getElementById("tour_days").innerHTML = tour_days;
+}
+
+function changeTourCharge() {
+  var tour_days = getTourDays();
+  var charge = tour_days * 50
+  document.getElementById("tour_charge").innerHTML = "$ " + charge + ".00"
+}
