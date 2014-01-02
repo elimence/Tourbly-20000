@@ -47,15 +47,27 @@ class GuideHandler(Root.Handler):
 
 class GuideApplicationForm(Root.Handler):
     def get(self):
-        self.render("guide_signup_form.html", isLoggedIn = self.check_session("query"))
+        countries = self.all_countries
+        guide_details = {}
+        self.render("guide_signup.html", isLoggedIn = self.check_session("query"), countries = countries, 
+            guide_details = guide_details)
 
 
     def post(self):
+        countries = self.all_countries
         full_name = self.request.get("full_name")
         country = self.request.get("country")
         email = self.request.get("email")
 
+        guide_details = {"full_name" : full_name, "country" : country, "email" : email}
+
         if full_name and country and email:
-            self.write("Application to be a guide received successfully. Please follow the link sent to your email to complete the process.")
+            if self.validate_email(email):
+                self.write("Application to be a guide received successfully. Please follow the link sent to your email to complete the process.")
+            else:
+                self.render("guide_signup.html", countries = countries, guide_details = guide_details, 
+                    email_error = "Invalid email entered")
         else:
-            self.render("guide_signup.html", error = "There was something wrong")
+            # self.write(country)
+            self.render("guide_signup.html", countries = countries, guide_details = guide_details, 
+                error = "All fields are required")

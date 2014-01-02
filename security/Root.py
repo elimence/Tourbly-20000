@@ -137,7 +137,7 @@ class Security():
 class Utility():
 
 # A variable containing all the countries in the world 
-    all_countries = ["Select Guide's country",
+    all_countries = ["Select Country",
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua & Deps",
     "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", 
     "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia Herzegovina", 
