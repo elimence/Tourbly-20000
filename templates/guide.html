@@ -62,12 +62,10 @@
                 {% endif %}
               </div>
               <div class="stat">
-                {% set counter = 0 %}
                 Speaks
                 {% for language in guide._languages %}
-                  {% set counter = counter + 1 %}
                   {{language}} 
-                  {% if counter != guide._languages | count %}
+                  {% if not loop.last %}
                     &amp;
                   {% endif %}
                 {%  endfor %}

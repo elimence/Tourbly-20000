@@ -33,8 +33,24 @@ jinja_env    = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir)
 
 def nl2br(value): 
      return value.replace('\n','<br>\n')
+
+def getAverageRating(reviews):
+    totalRaters = 0
+    totalRating = 0
+    averageRating = 0
+
+    for review in reviews:
+        if review._rating:
+            totalRaters += 1
+            totalRating += int(review._rating)
+
+    if totalRaters != 0:
+        averageRating = totalRating / totalRaters
+
+    return {"totalRaters" : totalRaters, "averageRating" : averageRating}
  
 jinja_env.filters['nl2br'] = nl2br
+jinja_env.globals['getAverageRating'] = getAverageRating
 
 
 ## => Implements various utility functions for handling security operations
