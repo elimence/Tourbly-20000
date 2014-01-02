@@ -26,7 +26,7 @@ class AddPlace(Root.Handler):
 		destination_tags = destination_tags.replace(", ", ",")
 		destination_tags = destination_tags.lower()
 		tags = destination_tags.split(",")
-		tags.append(destination_name.lower())
+		keywords = destination_tags.split(",")
 		
 		if destination_map_name:
 			request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address="
@@ -38,13 +38,18 @@ class AddPlace(Root.Handler):
 			city = self.getCityFromJson(request_json)
 			latlng = self.getLatLngFromJson(request_json)
 
+		keywords.append(country.lower())
+		keywords.append(region.lower())
+		keywords.append(city.lower())
+		keywords.append(destination_name.lower())
+
 		value_args = {"destination_name" : destination_name, country : country, "region" : region,
 		"city" : city, "tagline" : tagline, "picture" : picture, "description" : description,
 		"latlng" : latlng, "tags" : destination_tags, "map_name" : destination_map_name }
 		if destination_name and latlng and description:
 			place = Destination.Destination(name = destination_name, country = country, region = region,
 				city = city, tagline = tagline, pictures = [picture], description = description, latlng = latlng,
-				tags = tags, direction = direction)
+				tags = tags, direction = direction, keywords = keywords)
 			place.put()
 			self.redirect("/admin/places/add_place")
 		else:
