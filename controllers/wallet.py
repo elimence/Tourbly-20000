@@ -23,6 +23,8 @@ from sellerinfo import SELLER_SECRET
 class Wallet(webapp.RequestHandler):
   def get(self, duration):
 
+    # booking_details = self.request.get(toursit) + self.reque
+
     price = int(duration) * 50
     curr_time = int(time.time())
     exp_time = curr_time + 3600
