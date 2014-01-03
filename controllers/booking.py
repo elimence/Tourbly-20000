@@ -1,7 +1,7 @@
 # @Sam / @Chris: I created this file only to help me render the booking page
 # Feel free to edit and add functionality as needed
 from security import Root
-from models import Guide    
+from models import Guide
 from models import Tourist
 from models import Review
 from models import Destination
@@ -26,9 +26,10 @@ class BookingHandler(Root.Handler):
 	  	# tour_days = (arrival_date - departure_date).days
 
 	  	booking_args = {"country" : country, "arrival" : arrival, "departure" : departure, "tour_days" : 2}
-	  	self.render("booking.html", isLoggedIn = self.check_session("query"), countries = countries, 
+
+	  	self.render("booking.html", isLoggedIn = self.check_session("query"), countries = countries,
 	    	booking_args = booking_args, guide = guide, place = place)
-		
+
 
 	def post(self):
 		country = self.request.get("country")
