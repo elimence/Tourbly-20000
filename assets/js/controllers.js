@@ -204,7 +204,7 @@ function PaymentCtrl($scope, $window, $http) {
 				$http({method: 'GET', url: '/payments/'+ $scope.duration})
 					.success(function(data, status, headers, config) {
 						console.log('success with : ', data);
-						while(true){}
+
 						$scope.progress.stop();
 						goog.payments.inapp.buy({
 							'jwt'     : data,
