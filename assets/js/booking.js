@@ -3,6 +3,10 @@ function attachPayButtonListener() {
 }
 
 function payButtonClickListener (evt) {
+  validateTourDates();
+}
+
+function validateTourDates() {
   var arrivalText = $('#arrival').val(),
     departureText = $('#departure').val();
 
@@ -21,7 +25,35 @@ function payButtonClickListener (evt) {
   } else if (departure < arrival) {
     alert('Your departure date must be after your arrival date.');
     evt.preventDefault(); return;
+  } else {
+    displayProgress();
   }
+}
+
+function displayProgress() {
+  pageOpacity(0.1);
+  toggleLoadingGif(1);
+  countdown(5000, function () {
+    finishProgress();
+  });
+}
+function finishProgress () {
+  pageOpacity(1.0);
+  toggleLoadingGif(0);
+}
+function pageOpacity(state) {
+  $('.booking').css('opacity', state);
+}
+function toggleLoadingGif(state) {
+  if (state) {
+    $('.loading').css('display', 'block');
+  } else {
+    $('.loading').css('display', 'none');
+  }
+}
+
+function countdown(seconds, callback) { // Simulates time to wait for transaction to complete
+  setTimeout(callback, seconds);
 }
 
 function dayAndChargeManipulations() {
