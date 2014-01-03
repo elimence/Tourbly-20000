@@ -5,6 +5,22 @@ function init() {
 		$(item).html(moment($(item).html(), "YYYY-MM-DD HH:mm:ss").fromNow());
 	});
   attachSubmitReviewListener();
+  attachBookGuideClickListener();
+}
+
+function attachBookGuideClickListener() {
+  $('#bookGuide').on('click', bookGuideClickListener);
+}
+
+function bookGuideClickListener(e) {
+  var cookies = $.cookie();
+  if (!(cookies.query && cookies.authenticator)) {
+    e.preventDefault();
+    // alert(location.href + '/book');
+    // Set the redirect cookie here...
+    $.cookie('redirects', location.href + '/book', { expires: 7, path: '/' });
+    $('#authRequired').modal();
+  }
 }
 
 function attachSubmitReviewListener() {
