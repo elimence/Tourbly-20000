@@ -5,6 +5,9 @@ from security import Root
 
 class Logout(Root.Handler):
      def get(self):
-        current_page = self.request.get("current_page")
+        referer = self.request.referer
+        if referer:
+            referer = referer[referer.find("/", 8) : ]
+        self.write(referer)
         self.logout(["authenticator", "query"])
-        self.redirect("/" + current_page)
+        self.redirect(referer)
