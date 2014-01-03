@@ -3,6 +3,7 @@ from security import Root
 from models import Tourist
 from google.appengine.api import urlfetch
 import urllib
+import logging
 
 
 class Signup(Root.Handler):
@@ -17,6 +18,9 @@ class Signup(Root.Handler):
 
     def post(self):
         referer = self.request.get("referer")
+        if referer == 'None':
+            referer = '/home'
+
         redirects = self.get_cookie("redirects")
 
         email = self.request.get("email")
@@ -46,12 +50,12 @@ class Signup(Root.Handler):
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
 
-                if redirects:
-                        redirects = urllib.unquote(redirects[0].decode("utf-8"))
-                        redirects = redirects[redirects.find("/", 8) : ]
+                if redirects[0] is not None:
+                    redirects = urllib.unquote(redirects[0].decode("utf-8"))
+                    redirects = redirects[redirects.find("/", 8) : ]
 
-                        self.delete_cookie("redirects")
-                        self.redirect(redirects)
+                    self.delete_cookie("redirects")
+                    self.redirect(redirects)
                 elif referer == "/home":
                     self.redirect("/search")
                 else:
@@ -63,4 +67,24 @@ class Signup(Root.Handler):
         else:
             error = "All fields are required"
             self.render("signup.html", email = email, error = error)
+
+
+
+class Switch(Root.Handler):
+    def post(self):
+        password = self.request.body
+        tourist_id = int(self.get_cookie("query")[0])
+        tourist = Tourist.Tourist.get_by_id(tourist_id)
+
+        _args = {"name":tourist.email, "password":password}
+        hashed_password, salt = self.hash_password(_args)
+        token, salt2 = self.hash_password(_args)
+
+        tourist.password = hashed_password
+        tourist.salt = salt
+        tourist.token = token
+        tourist.acct_type = 'regular'
+        res = tourist.put()
+        self.write(res)
+
 
