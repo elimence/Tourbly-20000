@@ -1,6 +1,7 @@
 from security import Root
 from models import Guide
 from models import Tourist
+from models import Destination
 from google.appengine.ext import db
 from google.appengine.api import urlfetch
 import urllib
@@ -70,6 +71,7 @@ class Search(Root.Handler):
         if _id == -1000:
             return self.redirect('signin')
 
+        all_places = Destination.Destination.all().run()   #@nanaewusi - I added this to get an initial dump of the places for the dropdown
         tourist = Tourist.Tourist.get_by_id(_id)
     	destination = self.request.get("destination")
     	arrival_date = self.request.get("arrival_date")
@@ -94,10 +96,10 @@ class Search(Root.Handler):
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
             self.render("search.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
-             tourist = tourist, search_args = search_args, all_languages = all_languages)
+             tourist = tourist, search_args = search_args, all_languages = all_languages, all_places = all_places)
         else:
             self.render("search.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
-             search_args = search_args, all_languages = all_languages)
+             search_args = search_args, all_languages = all_languages, all_places = all_places)
 
     def post(self):
         destination = self.request.get("destination")
