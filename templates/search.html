@@ -181,14 +181,13 @@
           field: 'text',
           direction: 'asc'
         },
-        dropdownParent: 'body'
+        dropdownParent: 'body',
+        onChange: function() {
+          // alert("value changed");
+          document.getElementById("filter-form").submit();
+        }
       });
       // init();
     })
-  </script>
-  <script type="text/javascript">
-    function search() {
-      console.log("clicked option");
-    }
   </script>
 {% endblock %}
