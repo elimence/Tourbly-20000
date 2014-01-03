@@ -1,0 +1,28 @@
+.bookings {
+  margin-top: 90px;
+  width: 88.5%;
+  border-bottom: 0px solid rgba(0,0,0,0.1);
+}
+.header {
+  border-bottom: 0px solid #e8e8e8;
+}
+.header .main-text {
+  margin-top: 0.3em;
+  margin-bottom: 0.5em;
+  font-size: 33px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: 0.5em;
+}
+
+.body {
+  /*border: 1px solid #ddd;*/
+}
+.info {
+  padding-left: 16.5px;
+  padding-right: 16.5px;
+  padding-bottom: 16.5px;
+}
+.info .profile-alert {
+  border-radius: 0px;
+  margin-bottom: 0;
+}
