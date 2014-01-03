@@ -3,6 +3,7 @@
 {% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="/assets/css/selectize.css" />
     <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/default.date.css" rel="stylesheet">
     <link href="/assets/css/default.time.css" rel="stylesheet">
@@ -16,7 +17,15 @@
       </div>
       <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
         <div class="form-group">
-          <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}">
+          <!-- <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}"> -->
+          <div class="control-group" id="destination">
+            <select name="destination" id="select-beast" class="demo-default" placeholder="Select a person...">
+              <option value="">Choose your destination</option>
+              {% for place in all_places %}
+                <option value="{{place.key().id()}}">{{place.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
         </div>
         <div class="row date-input">
           <div class="col-lg-4 date-label">
@@ -146,8 +155,9 @@
   </div>
 {% endblock %}
 {% block pagespecificjs %}
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-  <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
+  <!-- // <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script> -->
+  <!-- // <script type="text/javascript" src = "/assets/js/map_scripts.js"></script> -->
+  <script src="/assets/js/selectize.js"></script>
   <script src="/assets/js/picker.js"></script>
   <script src="/assets/js/picker.date.js"></script>
   <script src="/assets/js/picker.time.js"></script>
@@ -159,7 +169,14 @@
       $('#arrival').pickadate();
       $('#departure').pickadate();
       attachFilterButtonListener();
-      init();
+      $('#select-beast').selectize({
+        sortField: {
+          field: 'text',
+          direction: 'asc'
+        },
+        dropdownParent: 'body'
+      });
+      // init();
     })
   </script>
 
