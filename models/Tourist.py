@@ -11,6 +11,7 @@ class Tourist(db.Model):
 	languages 	= db.ListProperty(db.Key)
 	salt 		= db.StringProperty()
 	picture 	= db.StringProperty()
+	profile_picture = db.BlobProperty()
 	activated 	= db.BooleanProperty(default = False)
 	token 		= db.StringProperty()
 	created 	= db.DateTimeProperty(auto_now_add = True)
