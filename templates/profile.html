@@ -52,7 +52,7 @@
       <div class="row google-account">
         <div class="col-lg-12">
           <h3 class="main-text">Google Sign-In</h3>
-          <a id="disconnect" class="btn btn-danger btn-block">Disconnect my Google Account</a>
+          <a id="disconnect" ng-click="disconnect()" class="btn btn-danger btn-block">Disconnect my Google Account</a>
           <span class="help-block">By clicking this button, you are disassociating your Google account from Tourbly.</span>
         </div>
       </div>
@@ -76,9 +76,9 @@
             <label for="">Country</label>
             <select class="form-control" name = "country" style = "margin-bottom : 15px;">
               {% for country in countries %}
-                <option value = "{{country}}" 
-                {% if country == profile_args["country"] %} 
-                  selected 
+                <option value = "{{country}}"
+                {% if country == profile_args["country"] %}
+                  selected
                 {% endif %}>
                   {{country}}
                 </option>
@@ -128,7 +128,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <a id="continueWithDisconnect" type="button" class="btn btn-primary">Continue</a>
+          <a id="continueWithDisconnect" ng-click="conDisconnect()" type="button" class="btn btn-primary">Continue</a>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -140,8 +140,6 @@
     $(function () {
       $('#pseudo-picture-select').on('click', pseudoPhotoSelectClickListener);
       $('#picture-select').on('click', actualPhotoSelectClickListener);
-      $('#disconnect').on('click', disconnectButtonClickListener);
-      $('#continueWithDisconnect').on('click', continueWithDisconnectClickListener);
     });
   </script>
 {% endblock %}

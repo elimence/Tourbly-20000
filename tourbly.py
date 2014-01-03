@@ -67,7 +67,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/disconnect',                               handler=oauth.CloseAccount,         name='disconnect'),
     webapp2.Route(r'/places/all',                               handler=places.GetAllPlaces,        name='all_places_json'),
     webapp2.Route(r'/payments/<:[0-9]+>',                       handler=wallet.Wallet,              name='payments'),
-    webapp2.Route(r'/payments/authorize',                       handler=wallet.Wallet,              name='authorize_payments')
+    webapp2.Route(r'/payments/authorize',                       handler=wallet.Wallet,              name='authorize_payments'),
+    webapp2.Route(r'/switchaccount',                            handler=signup.Switch,              name='switchaccount')
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
 # ERROR HANDLERS
