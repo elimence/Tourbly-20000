@@ -8,7 +8,7 @@ from google.appengine.ext import db
 class Signin(Root.Handler):
     def get(self):
         referer = self.request.referer
-        self.write(referer)
+        logging.info(referer)
         if referer:
             referer = referer[referer.find("/", 8) : ]
         if self.check_session("query"):
