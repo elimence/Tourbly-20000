@@ -73,22 +73,28 @@ class Search(Root.Handler):
 
         all_places = Destination.Destination.all().run()   #@nanaewusi - I added this to get an initial dump of the places for the dropdown
         tourist = Tourist.Tourist.get_by_id(_id)
-    	destination = self.request.get("destination")
+    	destination_id = self.request.get("destination")
     	arrival_date = self.request.get("arrival_date")
     	departure_date = self.request.get("departure_date")
         gender = self.request.get("gender")
         language = self.request.get("language")
 
-    	search_args = {"destination" : destination, "arrival_date" : arrival_date, "departure_date" : departure_date,
+        destination = Destination.Destination.get_by_id(int(destination_id))
+
+    	search_args = {"destination" : "", "arrival_date" : arrival_date, "departure_date" : departure_date,
         "gender" : gender, "language" : language}
 
         destination_country = ""
-    	if destination:
-            request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address="
-                + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
+        if destination:
+            destination_country = destination.country
+            search_args["destination"] = destination
 
-            request_json = json.loads(request)
-            destination_country = self.getCountryFromJson(request_json)
+    	# if destination:
+     #        request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address="
+     #            + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
+
+     #        request_json = json.loads(request)
+     #        destination_country = self.getCountryFromJson(request_json)
 
         suggested_guides = getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender,
          language, destination_country)

@@ -23,20 +23,20 @@
       <div class="row header">
         <h2 class="heading">Tourbly Places</h2>
         {% if not keyword %}
-          {% if places.count() != 0  %}
+          {% if places_query.count() != 0  %}
             <p class="lead sub-heading">Showing Results for Destinations.</p>
           {% endif %}
-          {% if places.count() == 0 %}
+          {% if places_query.count() == 0 %}
             <p class="lead sub-heading">There are currently no destinations.</p>
           {% endif %}
         {% endif %}
 
         {% if keyword %}
-          {% if places.count() != 0  %}
+          {% if places_query.count() != 0  %}
             <p class="lead sub-heading">Showing Results for keyword {{keyword}}.</p>
           {% endif %}
-          {% if places.count() == 0 %}
-            <p class="lead sub-heading">No destination found for keyword</p>
+          {% if places_query.count() == 0 %}
+            <p class="lead sub-heading">No destination found for keyword {{keyword}}</p>
           {% endif %}
         {% endif %}
       </div>
@@ -57,9 +57,9 @@
       <div class="row">
         <div class="col-lg-12">
           <ul class="pager">
-            {% if places.count() > 9 %}
-              <li class="previous"><a href="#">&larr; Go Back</a></li>
-              <li class="next"><a href="#">Show Me More &rarr;</a></li>
+            {% if cursor %}
+              <!-- <li class="previous"><a href="#">&larr; Go Back</a></li> -->
+              <li class="next"><a href="?cursor={{cursor}}">Show Me More &rarr;</a></li>
               {% endif %}
           </ul>
       </div>

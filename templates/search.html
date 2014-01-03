@@ -20,7 +20,19 @@
           <!-- <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}"> -->
           <div class="control-group" id="destination">
             <select name="destination" id="select-beast" class="demo-default" placeholder="Select a person...">
-              <option value="">Choose your destination</option>
+              <option value=
+              "{% if search_args['destination'] %}
+                {{search_args['destination'].key().id()}}
+                {% else %}
+                  ''
+              {% endif %}
+              ">
+                {% if search_args["destination"] %} 
+                  {{search_args["destination"].name}}
+                {% else %}
+                  Choose your destination
+                {% endif %}
+              </option>
               {% for place in all_places %}
                 <option value="{{place.key().id()}}">{{place.name}}</option>
               {% endfor %}
@@ -112,8 +124,8 @@
         {% if suggested_guides is not none %}
           {% for suggested_guide in suggested_guides %}
             <div class="col-lg-3 guide">
-              <a href="/guides/{{suggested_guide.key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
-              <a href="/guides/{{suggested_guide.key().id()}}" class="name">{{suggested_guide._firstname}}</a>
+              <a href="/guides/{{suggested_guide.key().id()}}/{{search_args['destination'].key().id()}}"><img src="/assets/images/guides_pics/{{suggested_guide._picture}}" width="105" class="image img-rounded img-responsive"></a>
+              <a href="/guides/{{suggested_guide.key().id()}}/{{search_args['destination'].key().id()}}" class="name">{{suggested_guide._firstname}}</a>
               <span class="reviews">
                 {% set totalReviews = suggested_guide.reviews_set.count() %}
                 
