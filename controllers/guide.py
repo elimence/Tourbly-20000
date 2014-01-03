@@ -18,7 +18,7 @@ class GuideHandler(Root.Handler):
             self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist, 
                 place_id = place_id)
         else:
-            self.redirect("/home")
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), place_id = place_id)
 
     def post(self, guide_id):
     	guide = Guide.Guide.get_by_id(int(guide_id))

@@ -40,7 +40,7 @@ class Profile(Root.Handler):
         if self.validate_email(new_email) and self.validate_name(first_name) and self.validate_name(last_name):
             Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
             if picture:
-                tourist.picture = str(picture)
+                tourist.picture = db.Blob()
                 tourist.put()
             self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
                 success_message = "Your profile has been updated successfully", tourist = tourist, 
