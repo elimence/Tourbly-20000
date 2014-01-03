@@ -31,6 +31,7 @@ from controllers import add_review
 from controllers import verifyemail
 from controllers import wallet
 from controllers import order_confirmation
+from controllers import bookings
 
 # Dummy handlers for testing
 from controllers import bogus
@@ -69,7 +70,8 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/places/all',                               handler=places.GetAllPlaces,                    name='all_places_json'),
     webapp2.Route(r'/payments/<:[0-9]+>',                       handler=wallet.Wallet,                          name='payments'),
     webapp2.Route(r'/payments/authorize',                       handler=wallet.Wallet,                          name='authorize_payments'),
-    webapp2.Route(r'/booking/confirm',                          handler=order_confirmation.OrderConfirmation,   name='confirm_booking')
+    webapp2.Route(r'/booking/confirm',                          handler=order_confirmation.OrderConfirmation,   name='confirm_booking'),
+    webapp2.Route(r'/bookings',                          handler=bookings.Bookings,                      name='bookings'),
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
 # ERROR HANDLERS
