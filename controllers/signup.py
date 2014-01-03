@@ -2,6 +2,7 @@
 from security import Root
 from models import Tourist
 from google.appengine.api import urlfetch
+import urllib
 
 
 class Signup(Root.Handler):
@@ -16,6 +17,8 @@ class Signup(Root.Handler):
 
     def post(self):
         referer = self.request.get("referer")
+        redirects = self.get_cookie("redirects")
+
         email = self.request.get("email")
         password = self.request.get("password")
         confirm_password  = self.request.get("confirm_password")
@@ -43,7 +46,13 @@ class Signup(Root.Handler):
                 params = {"email" : email, "url" : verification_link}
                 self.send_verification_email(params)
 
-                if referer == "/home":
+                if redirects:
+                        redirects = urllib.unquote(redirects[0].decode("utf-8"))
+                        redirects = redirects[redirects.find("/", 8) : ]
+
+                        self.delete_cookie("redirects")
+                        self.redirect(redirects)
+                elif referer == "/home":
                     self.redirect("/search")
                 else:
                     self.redirect(referer)

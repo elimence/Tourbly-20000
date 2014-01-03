@@ -396,7 +396,19 @@ class Handler(Security, Utility, webapp2.RequestHandler):
         else:
             return [None, None]
 
+    # Name - delete_cookie
+    # Desc
+    #   deletes a given cookie given the name
+    # params
+    #   self        : Ref    -> reference to object instance
+    #   name  : String -> name of cookie to be deleted
+    # returns
+    #   : Void
+    def delete_cookie(self, name):
+        cookie = self.get_cookie(name)
 
+        if cookie:
+            self.response.delete_cookie(cookie[0])
 
     # Name - get_cookie ==> (Deprecated)
     # Desc
