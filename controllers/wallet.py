@@ -34,8 +34,8 @@ class Wallet(webapp.RequestHandler):
       "exp" : exp_time,
       "iat" : curr_time,
       "request" :{
-        "name" : "Book a Tourbly Guide - One Time Payment",
-        "description" : 'Payments for a '+ duration+ 'day guided tour',
+        "name" : "Book a Tourbly Guide",
+        "description" : 'One time payment for a '+ duration+ ' day guided tour',
         "price" : price,
         "currencyCode" : "USD",
         "sellerData" : "user_id:1224245,offer_code:3098576987,affiliate:aksdfbovu9j"
