@@ -2,18 +2,35 @@ from security import Root
 from models import Tourist
 from models import Destination
 from google.appengine.ext import db
+from google.appengine.datastore.datastore_query import Cursor
 
 
 class Places(Root.Handler):
     def get(self):
     	tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-        places = Destination.Destination.getAllDestinations()
+        # places = Destination.Destination.getAllDestinations()
+        places_query = db.GqlQuery("select * from Destination")
         keyword = self.request.get("keyword")
+        cursor = urlsafe=self.request.get("cursor")
+        # query = Destination.Destination.query()
 
         if keyword:
-        	places = Destination.Destination.gql("where keywords = :1" ,keyword.lower())
+        	# places = Destination.Destination.gql("where keywords = :1" ,keyword.lower())
+            places_query = db.GqlQuery("select * from Destination where keywords = :1", keyword.lower())
+
+        # items, next_curs, more = places.fetch(2, start_cursor = cursor)
+        # if more:
+        #     next_c = next_curs.urlsafe()
+        # else:
+        #     next_c = None
+        # items = db.GqlQuery("select * from Destination limit 1")
+        if cursor:
+            # self.write(str(cursor))
+            places_query.with_cursor(cursor)
+        places = places_query.fetch(9)
+        cursor = places_query.cursor()
         self.render("places.html", places = places, isLoggedIn = self.check_session("query"), tourist=tourist,
-         keyword = keyword)
+         keyword = keyword, cursor = cursor, places_query = places_query)
 
     def post(self):
     	keyword = self.request.get("keyword")
