@@ -74,26 +74,4 @@ function searchSelectedListeners() {
         }
        });
       });
-
-    $(document).ready(function(){
-       var clicknum = 0;
-       var previous_content = document.getElementById("select-beast").value;
-       $("#destination").click(function(){
-        clicknum++;
-        console.log(previous_content);
-        if(clicknum == 1){
-          var current_content = document.getElementById('select-beast').value;
-          if (current_content != previous_content) {
-            search_form.submit();
-          }
-          clicknum = 0;
-        }
-       });
-      });
-
-    $(document).ready(function() {
-      $("#select-beast").click(function() {
-        console.log("option clicked");
-      });
-    });
 }
