@@ -14,7 +14,6 @@ date = ""
 class Booking(db.Model, Root.Handler):
     _tourist   = db.ReferenceProperty(Tourist.Tourist, collection_name = "reviewers_set")
     _guide     = db.ReferenceProperty(Guide.Guide, collection_name = "reviews_set")
-    _rating    = db.IntegerProperty()
     _tour_start   = db.DateTimeProperty()
     _tour_end = db.DateTimeProperty()
     _message = db.TextProperty()
