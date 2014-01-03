@@ -97,7 +97,7 @@ class Search(Root.Handler):
              tourist = tourist, search_args = search_args, all_languages = all_languages)
         else:
             self.render("search.html", suggested_guides = suggested_guides, isLoggedIn = self.check_session("query"),
-             tourist = tourist, search_args = search_args, all_languages = all_languages)
+             search_args = search_args, all_languages = all_languages)
 
     def post(self):
         destination = self.request.get("destination")
