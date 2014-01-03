@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}Order Confirmation{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="/assets/css/order_confirmation.css" rel="stylesheet" media="screen">
+{% endblock %}
+{% block content %}
+  <div class="container confirmation">
+    <div class="row header">
+      <div class="col-lg-12">
+        <h2 class="main-text">Booking Confirmation</h2>
+      </div>
+    </div>
+    <div class="row info">
+      <div class="alert alert-info profile-alert fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        Your <strong>booking</strong> has been <strong>confirmed!</strong> We will notify you by mail once payment processing is complete.
+      </div>
+    </div>
+    <div class="row body">
+      <div class="col-lg-9">
+        <h2 class="heading">Thanks for using Tourbly</h2>
+        <p class="lead" style="margin-bottom: 0px;">Your temporary booking number is: <strong>31A84045</strong></p>
+        <span class="help-block">We'll send an email confirmation shortly to: <span class="tourist-email">elimence@gmail.com</span></span>
+      </div>
+      <div class="col-lg-3">
+        <p class="help">Questions?<br />
+          Call us: +233 (246) 634349 or<br />
+          <a href="mailto:elimence@gmail.com">Email Us</a></p>
+      </div>
+    </div>
+
+    <div class="row details">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="font-size: 1.5em; color: #5a5a5a; font-weight: normal;">
+                  Booking Details
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <p class="lead description"><strong>Tour:</strong> 3-Day Guided Tour to Kruger National Park<br /><strong>Starting:</strong> January 5, 2014<br /><strong>With:</strong> Nana Ewusi<br /><strong>Booked On:</strong> January 3, 2014<br /><strong>Costing:</strong> $300.00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row next">
+      <div class="col-lg-12">
+        <p class="lead">You can click <a href="#">here</a> to view your bookings. Or <a href="/">continue to our homepage</a></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script type="text/javascript">
+  </script>
+{% endblock %}
