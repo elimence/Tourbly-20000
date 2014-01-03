@@ -33,7 +33,7 @@ def getCountryFromJson(jsonResponse):
 
     return country
 
-def getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender, language,
+def getSuggestedGuidesQuery(arrival_date, departure_date, gender, language,
     destination_country):
     suggested_guides = None
 
@@ -79,24 +79,17 @@ class Search(Root.Handler):
         gender = self.request.get("gender")
         language = self.request.get("language")
 
-        destination = Destination.Destination.get_by_id(int(destination_id))
-
-    	search_args = {"destination" : "", "arrival_date" : arrival_date, "departure_date" : departure_date,
+        search_args = {"destination" : "", "arrival_date" : arrival_date, "departure_date" : departure_date,
         "gender" : gender, "language" : language}
 
         destination_country = ""
-        if destination:
-            destination_country = destination.country
-            search_args["destination"] = destination
+        if destination_id:
+            destination = Destination.Destination.get_by_id(int(destination_id))
+            if destination:
+                destination_country = destination.country
+                search_args["destination"] = destination
 
-    	# if destination:
-     #        request = urlfetch.Fetch("https://maps.googleapis.com/maps/api/geocode/json?address="
-     #            + urllib.quote(search_args["destination"].encode("utf-8")) + "&sensor=true").content
-
-     #        request_json = json.loads(request)
-     #        destination_country = self.getCountryFromJson(request_json)
-
-        suggested_guides = getSuggestedGuidesQuery(destination, arrival_date, departure_date, gender,
+        suggested_guides = getSuggestedGuidesQuery(arrival_date, departure_date, gender,
          language, destination_country)
 
         if self.check_session("query"):

@@ -18,23 +18,17 @@
       <form name="filter-form" id="filter-form" role="form" method = "post" action = "/search">
         <div class="form-group">
           <!-- <input type="text" name = "destination" class="form-control" id="destination" placeholder="Where are you headed?" value = "{{search_args['destination']}}"> -->
-          <div class="control-group" id="destination">
+          <div class="control-group" id="destination" onclick = "search()">
             <select name="destination" id="select-beast" class="demo-default" placeholder="Select a person...">
-              <option value=
-              "{% if search_args['destination'] %}
-                {{search_args['destination'].key().id()}}
-                {% else %}
-                  ''
-              {% endif %}
-              ">
-                {% if search_args["destination"] %} 
-                  {{search_args["destination"].name}}
-                {% else %}
-                  Choose your destination
-                {% endif %}
-              </option>
+              <option value="">Choose your destination</option>
               {% for place in all_places %}
-                <option value="{{place.key().id()}}">{{place.name}}</option>
+                <option onclick = "search()" value="{{place.key().id()}}"
+                  {% if search_args["destination"] %}
+                    {% if search_args["destination"].key().id() == place.key().id() %}
+                      selected
+                    {% endif %}
+                  {% endif %}
+                >{{place.name}}</option>
               {% endfor %}
             </select>
           </div>
@@ -181,6 +175,7 @@
       $('#arrival').pickadate();
       $('#departure').pickadate();
       attachFilterButtonListener();
+      searchSelectedListeners();
       $('#select-beast').selectize({
         sortField: {
           field: 'text',
@@ -191,56 +186,9 @@
       // init();
     })
   </script>
-
   <script type="text/javascript">
-    var search_form = document.getElementById("filter-form");
-
-    $(document).ready(function(){
-       var clicknum = 0;
-       var previous_content = document.getElementById("gender").value;
-       $("#gender").click(function(){
-        clicknum++;
-        if(clicknum == 1){
-          var current_content = document.getElementById('gender').value;
-          if (current_content != previous_content) {
-            search_form.submit();
-          }
-          clicknum = 0;
-        }
-       });
-      });
-
-    $(document).ready(function(){
-       var clicknum = 0;
-       var previous_content = document.getElementById("languages").value;
-       $("#languages").click(function(){
-        clicknum++;
-        if(clicknum == 1){
-          var current_content = document.getElementById('languages').value;
-          if (current_content != previous_content) {
-            search_form.submit();
-          }
-          clicknum = 0;
-        }
-       });
-      });
-
-    $(document).ready(function(){
-       var clicknum = 0;
-       var previous_content = document.getElementById("arrival").value;
-       $("#arrival").click(function(){
-        clicknum++;
-        if(clicknum == 1){
-          var current_content = document.getElementById('arrival').value;
-          $("#arrival").click(function() {
-            console.log(current_content)
-            if (current_content != previous_content) {
-              search_form.submit();
-            }
-          });
-          clicknum = 0;
-        }
-       });
-      });
+    function search() {
+      console.log("clicked option");
+    }
   </script>
 {% endblock %}

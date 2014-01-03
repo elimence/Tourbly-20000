@@ -23,3 +23,77 @@ function filterButtonClickListener (evt) {
 		evt.preventDefault(); return;
 	}
 }
+
+function searchSelectedListeners() {
+	var search_form = document.getElementById("filter-form");
+
+    $(document).ready(function(){
+       var clicknum = 0;
+       var previous_content = document.getElementById("gender").value;
+       $("#gender").click(function(){
+        clicknum++;
+        if(clicknum == 1){
+          var current_content = document.getElementById('gender').value;
+          if (current_content != previous_content) {
+            search_form.submit();
+          }
+          clicknum = 0;
+        }
+       });
+      });
+
+    $(document).ready(function(){
+       var clicknum = 0;
+       var previous_content = document.getElementById("languages").value;
+       $("#languages").click(function(){
+        clicknum++;
+        if(clicknum == 1){
+          var current_content = document.getElementById('languages').value;
+          if (current_content != previous_content) {
+            search_form.submit();
+          }
+          clicknum = 0;
+        }
+       });
+      });
+
+    $(document).ready(function(){
+       var clicknum = 0;
+       var previous_content = document.getElementById("arrival").value;
+       $("#arrival").click(function(){
+        clicknum++;
+        if(clicknum == 1){
+          var current_content = document.getElementById('arrival').value;
+          $("#arrival").click(function() {
+            console.log(current_content)
+            if (current_content != previous_content) {
+              search_form.submit();
+            }
+          });
+          clicknum = 0;
+        }
+       });
+      });
+
+    $(document).ready(function(){
+       var clicknum = 0;
+       var previous_content = document.getElementById("select-beast").value;
+       $("#destination").click(function(){
+        clicknum++;
+        console.log(previous_content);
+        if(clicknum == 1){
+          var current_content = document.getElementById('select-beast').value;
+          if (current_content != previous_content) {
+            search_form.submit();
+          }
+          clicknum = 0;
+        }
+       });
+      });
+
+    $(document).ready(function() {
+      $("#select-beast").click(function() {
+        console.log("option clicked");
+      });
+    });
+}
