@@ -16,7 +16,7 @@
         <form role="form">
           <div class="form-group">
             <label for="country">Country</label>
-            <select name = "country" style = "margin-bottom : 15px;">
+            <select class="form-control" name = "country" style = "margin-bottom : 15px;">
               {% for country in countries %}
                 <option value = "{{country}}" {% if country == booking_args["country"] %} selected {% endif %}>
                   {{country}}
@@ -93,6 +93,7 @@
       </div>
     </div>
   </div>
+  <img class="loading" src="/assets/images/loading.gif">
 {% endblock %}
 {% block pagespecificjs %}
   <script src="/assets/js/picker.js"></script>
