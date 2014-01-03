@@ -15,12 +15,12 @@ class GuideHandler(Root.Handler):
 
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist, 
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist,
                 place_id = place_id)
         else:
             self.redirect("/home")
 
-    def post(self, guide_id):
+    def post(self, guide_id, place_id):
     	guide = Guide.Guide.get_by_id(int(guide_id))
     	tourist = Tourist.Tourist.get_by_id(self.get_user_id())
 
@@ -38,7 +38,7 @@ class GuideHandler(Root.Handler):
 
     		review = Review.Review(_reviewer = tourist, _reviewee = guide, _comment = comments, _rating = rating)
     		review.put()
-    		self.redirect("/guides/" + guide_id)
+    		self.redirect("/guides/" + guide_id + "/"+ place_id)
     	else:
     		self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist,
     			error = reviewing_error_prompt(name, comments), comments = comments, name = name)
@@ -50,7 +50,7 @@ class GuideApplicationForm(Root.Handler):
     def get(self):
         countries = self.all_countries
         guide_details = {}
-        self.render("guide_signup.html", isLoggedIn = self.check_session("query"), countries = countries, 
+        self.render("guide_signup.html", isLoggedIn = self.check_session("query"), countries = countries,
             guide_details = guide_details)
 
 
@@ -66,9 +66,9 @@ class GuideApplicationForm(Root.Handler):
             if self.validate_email(email):
                 self.write("Application to be a guide received successfully. Please follow the link sent to your email to complete the process.")
             else:
-                self.render("guide_signup.html", countries = countries, guide_details = guide_details, 
+                self.render("guide_signup.html", countries = countries, guide_details = guide_details,
                     email_error = "Invalid email entered")
         else:
             # self.write(country)
-            self.render("guide_signup.html", countries = countries, guide_details = guide_details, 
+            self.render("guide_signup.html", countries = countries, guide_details = guide_details,
                 error = "All fields are required")

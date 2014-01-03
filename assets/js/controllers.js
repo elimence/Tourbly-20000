@@ -1,7 +1,6 @@
 'use strict'
 
 function TourblyCtrl($scope, $window) {
-$scope.price = '$300';
 	$scope.apiBase   = '/oauth';
 	$scope.revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token';
 
@@ -166,13 +165,12 @@ $scope.price = '$300';
 			});
 		}
 	}// end function renderSignin
-
-
 }// end controller TourblyCtrl
 
 
-function PaymentCtrl($scope, $window) {
+function PaymentCtrl($scope, $window, $http) {
 
+	$scope.price = "0.00";
 	$scope.duration = '0';
 
 	$scope.success = function(status) {
@@ -184,18 +182,61 @@ function PaymentCtrl($scope, $window) {
 	};// end function failure
 
 	$scope.purchase = function() {
-		 $scope.generated_jwt = '';
 
-		if (item == "Item1")      $scope.generated_jwt = "{{ jwt_1 }}";
-		else if (item == "Item2") $scope.generated_jwt = "{{ jwt_2 }}";
-		else                      return;
+		if ($scope.startModel == undefined) {
+			alert("Please tell us when your tour starts");
+		} else if ($scope.endModel == undefined) {
+			alert("Please tell us when your tour will end");
+		} else {
 
-		goog.payments.inapp.buy({
-			'jwt'     : $scope.generated_jwt,
-			'success' : $scope.success,
-			'failure' : $scope.failure
-		});
+			var today         = new Date();
+			// add 10 hours to selected dat to allow users to specify one day tours
+			var departureDate = new Date(new Date($scope.endModel).setHours(new Date().getHours() + 10));
+			// add 5 hours to allow users to specify today as tour start date
+			var arrivalDate   = new Date(new Date($scope.startModel).setHours(new Date().getHours() + 5));
+
+			if (arrivalDate < today) {
+				alert('Sorry. Your tour start date cannot be a past date.');
+			} else if (departureDate < arrivalDate) {
+				alert('Your tour end date must be after your arrival date.');
+			} else {
+
+				$http({method: 'GET', url: '/payments/'+ $scope.duration})
+					.success(function(data, status, headers, config) {
+						console.log('success with : ', data);
+						goog.payments.inapp.buy({
+							'jwt'     : data,
+							'success' : $scope.success,
+							'failure' : $scope.failure
+						});
+					})
+					.error(function(data, status, headers, config) {
+						console.log('error');
+					})
+				; // end http invocation
+			}
+		}
+
 	};// end function payment
 
 
+	$scope.updateFields = function() {
+		var departureDate = Date.parse($scope.endModel);
+		var arrivalDate   = Date.parse($scope.startModel);
+
+		console.log(arrivalDate, departureDate);
+
+		if (arrivalDate && departureDate) {
+			$scope.duration = (new TimeSpan(departureDate - arrivalDate)).days;
+			if ($scope.duration == '0') $scope.duration = 1;
+			console.log('duration : ',$scope.duration);
+			$scope.price = $scope.duration * 50;
+		} else {
+			$scope.duration = "0";
+			$scope.price = "0.00";
+		}
+	}; // end function updateFields
+
+
 }// end function PaymentCtrl
+

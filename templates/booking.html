@@ -16,7 +16,7 @@
         <form role="form">
           <div class="form-group">
             <label for="country">Country</label>
-            <select name = "country" style = "margin-bottom : 15px;">
+            <select name = "country" style = "margin-bottom : 15px;" class="form-control" ng-model="countryModel">
               {% for country in countries %}
                 <option value = "{{country}}" {% if country == booking_args["country"] %} selected {% endif %}>
                   {{country}}
@@ -27,10 +27,10 @@
           <label for="country">Tour Start and End Dates</label>
           <div class="row">
             <div class="col-lg-6">
-              <input type="text" class="form-control input" id="arrival" name="arrival" placeholder="Tour starts on..." onblur = "dayAndChargeManipulations()" onfocus = "dayAndChargeManipulations()">
+              <input type="text" class="form-control input" id="arrival" name="arrival" placeholder="Tour starts on..." ng-model="startModel">
             </div>
             <div class="col-lg-6">
-              <input type="text" class="form-control input" id="departure" name="departure" placeholder="Tour ends on..." onblur = "dayAndChargeManipulations()" onfocus = "dayAndChargeManipulations()">
+              <input type="text" class="form-control input" id="departure" name="departure" ng-change="updateFields()" placeholder="Tour ends on..." ng-model="endModel">
             </div>
           </div>
           <div class="greet-guide">
@@ -70,13 +70,13 @@
           </div>
           <div class="row guide">
             <div class="col-lg-12">
-              <p class="lead" style="margin: 0;">Booking for Guide: <a href="/guides/{{guide.key().id()}}">{{guide._firstname}} {{guide._lastname}}</a></p>
+              <p class="lead" style="margin: 0;">Booking for Guide: <a href="/guides/{{guide.key().id()}}/{{place_id}}">{{guide._firstname}} {{guide._lastname}}</a></p>
             </div>
           </div>
           <div class="row duration-of-stay">
             <div class="col-lg-12">
 
-              <p class="lead" style="margin: 0;">This tour lasts <span id = "tour_days"></span> days</p>
+              <p class="lead" style="margin: 0;">This tour lasts <b><span ng-bind="duration"></span></b> day(s)</p>
 
             </div>
           </div>
@@ -86,7 +86,7 @@
                 <tr>
                   <td><h4 class="caption" style="margin: 0; font-weight: bold;">Total Charge</h4></td>
 
-                  <td><p id = "tour_charge" class="value" style="margin: 0; font-family: 'Libre Baskerville'; font-size: 1.4em; color: #ed9c28; font-weight: bold;">$300</p></td>
+                  <td><p id = "tour_charge" class="value" style="margin: 0; font-family: 'Libre Baskerville'; font-size: 1.4em; color: #ed9c28; font-weight: bold;"> <span ng-bind="price | currency"></span></p></td>
 
                 </tr>
               </table>
@@ -107,12 +107,18 @@
 
   <script src="/assets/js/date.js"></script>
   <script src="/assets/js/time.js"></script>
+
+  <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+  <script>
+    google.load('payments', '1.0', {
+      'packages': ['sandbox_config']
+    });
+  </script>
+
   <script>
     $(function () {
       $('#arrival').pickadate();
       $('#departure').pickadate();
-      attachPayButtonListener();
-      dayAndChargeManipulations();
     })
   </script>
 {% endblock %}

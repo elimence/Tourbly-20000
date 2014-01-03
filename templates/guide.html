@@ -53,11 +53,11 @@
                    {% endif %}
               </div>
               <div class="stat">
-                <i class="fa fa-smile-o"></i> 
+                <i class="fa fa-smile-o"></i>
                 {% if guide.reviews_set.count() == 0 %}
                   No Reviews
                 {% endif %}
-                {% if guide.reviews_set.count() == 1 %} 
+                {% if guide.reviews_set.count() == 1 %}
                   1 Total Review
                 {% endif %}
                 {% if guide.reviews_set.count() >1 %}
@@ -67,7 +67,7 @@
               <div class="stat">
                 Speaks
                 {% for language in guide._languages %}
-                  {{language}} 
+                  {{language}}
                   {% if not loop.last %}
                     &amp;
                   {% endif %}
@@ -133,7 +133,7 @@
         {% if tourist %}
           <div class="row new-review">
             <div class="col-lg-12">
-              <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
+              <form method = "post" action = "/guides/{{guide.key().id()}}/{{place_id}}" class="form-signin">
                 <h2 class="form-heading visible-xs visible-lg visible-sm visible-md" style="font-size: 25px;">Write a review</h2>
                 <p style = "color: red;">{{error}}</p>
                 {% if not tourist.first_name %}
@@ -142,7 +142,7 @@
                 {% endif %}
                 <input style="" type="number" name="rating" id="rating" class="rating" data-max="5" data-min="1" />
                 <p style = "color: red;">{{comments_error}}</p>
-                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" id="comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>            
+                <textarea type="text" class="form-control" placeholder="Your comments here" name = "comment" id="comment" style = "height:114px; margin-bottom: 2.05em;">{{comments}}</textarea>
                 <button id="submit-btn" class="btn btn-lg btn-primary btn-block" type="submit" name = "signup">Review</button>
               </form>
             </div>
