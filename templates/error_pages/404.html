@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %} Oops! We cant find that page{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="/assets/css/404.css" rel="stylesheet" media="screen">
+
+    {% endblock %}
+{% block content %}
+  <div class="container banner">
+    <div class="row">
+      <div class="col-lg-12">
+        <img src="/assets/images/404.png" class="img-responsive">
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block pagespecificjs %}
+  <script></script>
+{% endblock %}
