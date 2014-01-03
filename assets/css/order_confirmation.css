@@ -1,0 +1,77 @@
+.confirmation {
+  margin-top: 90px;
+  margin-bottom: 10px;
+  /*border: 1px solid #bbb;*/
+  width: 88.5%;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 6px;
+  background-clip: padding-box;
+  /*padding-bottom: 10em;*/
+}
+.header {
+  border-bottom: 1px solid #e8e8e8;
+}
+.header .main-text {
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  font-size: 29px;
+  text-align: center;
+  color: #0088cc;
+}
+
+.info {}
+.info .profile-alert {
+  border-radius: 0px;
+  position: relative;
+  bottom: 1px;
+  margin-bottom: 0;
+}
+
+.body {
+  padding-top: 1.0em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid #e8e8e8;
+}
+.body .heading {
+  margin-top: 0.3em;
+  margin-bottom: 0.2em;
+}
+.body .help-block {
+  margin-top: 0.0em;
+}
+.body .tourist-email {
+  font-weight: bold;
+}
+.body .help {
+  font-weight: bold;
+  margin-top: 1.8em;
+}
+
+.details {
+  padding-top: 0em;
+  padding-bottom: 0em;
+  border-bottom: 1px solid #e8e8e8;
+}
+.details .description {
+  font-size: 19px;
+  -webkit-font-smoothing: antialiased;
+}
+.details .description strong {
+  color: #7BD449;
+}
+.details .panel {
+  border: 0px solid transparent;
+}
+.next {
+  padding-top: 1.5em;
+  padding-bottom: 0.5em;
+}
+
+/* Xtra Small */
+@media (max-width: 991px) {
+  .photo .profile-picture-holder {
+    text-align: left; 
+    padding-right: 0;
+    margin-bottom: 0.4em;
+  }
+}

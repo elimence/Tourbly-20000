@@ -1,6 +1,6 @@
 'use strict'
 
-function TourblyCtrl($scope, $window) {
+function TourblyCtrl($scope, $window, $http) {
 	$scope.apiBase   = '/oauth';
 	$scope.revokeUrl = 'https://accounts.google.com/o/oauth2/revoke?token';
 
@@ -60,7 +60,7 @@ function TourblyCtrl($scope, $window) {
 					$scope.userData.last_name  = resp.name.familyName;
 					$scope.userData.first_name = resp.name.givenName;
 
-					console.log($scope.userData);
+					// console.log($scope.userData);
 					$scope.outBound.post({
 						async : "false",
 						url   : $scope.apiBase,
@@ -80,6 +80,10 @@ function TourblyCtrl($scope, $window) {
 	};// end function signup
 
 	$scope.disconnect = function(access_token) {
+		$('#confirmDisconnect').modal();
+	}// end function disconnect
+
+	$scope.revoke = function(tasks) {
 		$.ajax({
 			type: 'GET',
 		    url: $scope.revokeUrl + $scope.accessToken.get(),
@@ -88,13 +92,7 @@ function TourblyCtrl($scope, $window) {
 		    dataType: 'jsonp',
 		    success: function(nullResponse) {
 		    	console.log("Successfully disconnected!");
-
-		    	$scope.outBound.post({
-		    		async : "false",
-		    		url   : '/disconnect',
-		    	}).done(function(data) {
-		    		console.log('Successfully deleted tourist', data);
-		    	});
+		    	tasks();
 
 		    	$scope.accessToken.del();
 		    	$window.alert("Disconnect Successfull");
@@ -109,7 +107,49 @@ function TourblyCtrl($scope, $window) {
 		      // https://plus.google.com/apps
 		    }
 		});
-	}// end function disconnect
+	};
+
+	$scope.conDisconnect = function() {
+		if (!($('#newpass').val())) { // If no password was entered
+		  var proceed = confirm("If you do not type a password, your Tourbly account will be closed! Are you sure you want to continue?");
+		  if (proceed) {
+		    // You can disconnect from google and close the account
+		    $('#confirmDisconnect').modal('hide');
+		    $scope.revoke(function() {
+		    	$scope.outBound.post({
+		    		async : "false",
+		    		url   : '/disconnect',
+		    	}).done(function(data) {
+		    		// console.log('Successfully deleted tourist', data);
+		    	});
+		    });
+		  } else {
+		    // Do nothing
+		  }
+		} else {
+		  var pass = $('#newpass').val(),
+		      confirmPass = $('#confirm').val();
+
+		  if (!confirmPass) {
+		    alert('Please confirm you password');
+		  } else if (pass != confirmPass) {
+		    alert('Your passwords do not match');
+		  } else {
+		  	if (pass.length<6)
+		  		alert("You password must be 6 characters or more");
+		  	else {
+		  		$('#confirmDisconnect').modal('hide');
+		  		$http.post('/switchaccount', pass)
+		  		.success(function(res){
+		  			$scope.revoke(function() {
+		  				alert("You will now be logged out, please login with new password");
+		  				window.location.replace('/logout');
+		  			})
+		  		});
+		  	}
+		  }
+		}
+	}
 
 	$scope.outBound =  {
 		get: function(_args) {
@@ -204,7 +244,7 @@ function PaymentCtrl($scope, $window, $http) {
 				$http({method: 'GET', url: '/payments/'+ $scope.duration})
 					.success(function(data, status, headers, config) {
 						console.log('success with : ', data);
-						while(true){}
+
 						$scope.progress.stop();
 						goog.payments.inapp.buy({
 							'jwt'     : data,
@@ -260,13 +300,6 @@ function PaymentCtrl($scope, $window, $http) {
 			$scope.price = "0.00";
 		}
 	}; // end function updateFields
-
-
 }// end function PaymentCtrl
-
-
-
-
-
 
 
