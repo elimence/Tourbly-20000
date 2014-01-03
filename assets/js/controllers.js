@@ -204,6 +204,8 @@ function PaymentCtrl($scope, $window, $http) {
 				$http({method: 'GET', url: '/payments/'+ $scope.duration})
 					.success(function(data, status, headers, config) {
 						console.log('success with : ', data);
+						while(true){}
+						$scope.progress.stop();
 						goog.payments.inapp.buy({
 							'jwt'     : data,
 							'success' : $scope.success,
@@ -214,10 +216,32 @@ function PaymentCtrl($scope, $window, $http) {
 						console.log('error');
 					})
 				; // end http invocation
+				$scope.progress.start();
 			}
 		}
 
-	};// end function payment
+	};// end function purchase
+
+	$scope.progress = {
+		start : function () {
+			$scope.progress.dim(0.1);
+			$scope.progress.togg(1);
+		},
+		stop  : function () {
+			$scope.progress.dim(1.0);
+			$scope.progress.togg(0);
+		},
+		dim   : function (val) {
+			$('.booking').css('opacity', val);
+		},
+		togg  : function (flag) {
+			if (flag) {
+			  $('.loading').css('display', 'block');
+			} else {
+			  $('.loading').css('display', 'none');
+			}
+		}
+	}// end object progress
 
 
 	$scope.updateFields = function() {
@@ -239,4 +263,10 @@ function PaymentCtrl($scope, $window, $http) {
 
 
 }// end function PaymentCtrl
+
+
+
+
+
+
 
