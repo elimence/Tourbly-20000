@@ -3,6 +3,7 @@
 {% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="/assets/css/selectize.css" />
     <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/default.date.css" rel="stylesheet">
     <link href="/assets/css/default.time.css" rel="stylesheet">
@@ -26,7 +27,15 @@
               <span style = "color:red">{{error_message}}</span>
               <form method = "POST" action = "/home" role="form">
 
-                <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?">
+                <!-- <input type="text" class="form-control input" id="destination" name="destination" placeholder="Where are you headed?"> -->
+                <div class="control-group" id="destination">
+                  <select name="destination" id="select-beast" class="demo-default" placeholder="Select a person...">
+                    <option value="">Choose your destination</option>
+                    {% for place in all_places %}
+                      <option value="{{place.key().id()}}">{{place.name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
                 <input id="arrival" name="arrival" class="form-control input" type="text" placeholder="Arrival">
                 <input id="departure" name="departure" class="form-control input" type="text" placeholder="Departure">
                 <button type="submit" class="input btn btn-success" id="submit-btn">Search</button>
@@ -103,8 +112,9 @@
   </div>
 {% endblock %}
 {% block pagespecificjs %}
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-  <script type="text/javascript" src = "/assets/js/map_scripts.js"></script>
+  <!-- // <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script> -->
+  <!-- // <script type="text/javascript" src = "/assets/js/map_scripts.js"></script> -->
+  <script src="/assets/js/selectize.js"></script>
   <script src="/assets/js/picker.js"></script>
   <script src="/assets/js/picker.date.js"></script>
   <script src="/assets/js/picker.time.js"></script>
@@ -118,7 +128,13 @@
       $('.carousel').carousel({
         interval: 5000
       });
-      init();
+      $('#select-beast').selectize({
+        sortField: {
+          field: 'text',
+          direction: 'asc'
+        },
+        dropdownParent: 'body'
+      });
     })
   </script>
 {% endblock %}

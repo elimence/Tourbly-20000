@@ -3,30 +3,36 @@ from security import Root
 from models import Tourist
 from datetime import datetime
 from models import Destination
+import logging
 
 
 class Home(Root.Handler):
     def get(self):
         places = Destination.Destination.gql("limit 6")
+        all_places = Destination.Destination.all().run()   #@nanaewusi - I added this to get an initial dump of the places for the dropdown
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
             self.render("index.html", isLoggedIn = self.check_session("query"), tourist = tourist, 
-                places = places)
+                places = places, all_places = all_places)
         else:
-            self.render("index.html", isLoggedIn = self.check_session("query"), places = places)
+            self.render("index.html", isLoggedIn = self.check_session("query"), places = places, 
+                        all_places = all_places)
 
     def post(self):
+        all_places = Destination.Destination.all().run()   #@nanaewusi - I added this to get an initial dump of the places for the dropdown
         places = Destination.Destination.gql("limit 6")
     	destination = self.request.get("destination")
     	arrival_date = self.request.get("arrival")
     	departure_date = self.request.get("departure")
         current_date = datetime.now()
 
+        logging.info(arrival_date)
+
     	if destination and arrival_date and departure_date:
             self.redirect("/search?destination=" + destination + "&arrival_date=" + arrival_date
              + "&departure_date=" + departure_date)
     	self.render("index.html", error_message = "Please provide all details to complete search", 
-            places = places)
+            places = places, all_places = all_places)
         
        
 

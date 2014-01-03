@@ -36,7 +36,7 @@
             <p class="lead sub-heading">Showing Results for keyword {{keyword}}.</p>
           {% endif %}
           {% if places_query.count() == 0 %}
-            <p class="lead sub-heading">No destination found for keyword</p>
+            <p class="lead sub-heading">No destination found for keyword {{keyword}}</p>
           {% endif %}
         {% endif %}
       </div>

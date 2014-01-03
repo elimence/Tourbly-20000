@@ -2,7 +2,7 @@ from security import Root
 from models import Tourist
 from models import Destination
 from google.appengine.ext import db
-from google.appengine.datastore.datastore_query import Cursor
+import json
 
 
 class Places(Root.Handler):
@@ -61,7 +61,7 @@ def getPlacesJson(places):
 
     places_json["places"] = places_array
 
-    return places_json
+    return json.dumps(places_json)
 
 class GetAllPlaces(Root.Handler):
     def get(self):
