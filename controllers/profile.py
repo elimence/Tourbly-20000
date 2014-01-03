@@ -2,6 +2,8 @@
 import logging
 from security import Root
 from models import Tourist
+from google.appengine.api import files
+from google.appengine.ext import db
 
 
 class Profile(Root.Handler):
@@ -32,15 +34,24 @@ class Profile(Root.Handler):
         last_name = self.request.get("last_name")
         country = self.request.get("country")
         state = self.request.get("state")
-        picture = self.request.get("profile_pic")
+        picture = self.request.POST.get("photo")
+        # self.write(picture.filename[picture.filename.find(".") + 1 : ])
 
         profile_args = {"email" : new_email, "country" : country, "first_name" : first_name, 
             "last_name" : last_name, "state" : state, "picture" : picture}
 
         if self.validate_email(new_email) and self.validate_name(first_name) and self.validate_name(last_name):
             Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
-            if picture:
-                tourist.picture = db.Blob()
+            if picture != None:
+                picture_name = "/gs/tourbly/profile_pictures/" +  str(tourist.key().id()) + picture.filename[picture.filename.find(".") + 1 : ]
+                writable_file_name = files.gs.create(picture_name, mime_type='image/jpeg', acl='public-read')
+                with files.open(writable_file_name, 'a') as f:
+                    f.write(picture.file.read())
+                files.finalize(writable_file_name)
+
+                # self.write(picture_name)
+
+                tourist.picture = picture_name
                 tourist.put()
             self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
                 success_message = "Your profile has been updated successfully", tourist = tourist, 

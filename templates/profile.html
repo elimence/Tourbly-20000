@@ -22,16 +22,7 @@
     <form method = "POST" action = "/profile" enctype="multipart/form-data">
       <div class="row photo">
         <div class="col-lg-1" style="text-align: right; padding-right: 0;">
-          <img class="profile-picture" src="
-          {% if tourist.acct_type == "google" %}
-            <!-- {{profile_args["picture"]}} -->
-            {{tourist.picture}}
-          {% elif tourist.profile_picture %}
-            /img?entity_id={{tourist.profile_picture}}
-          {% else %}
-          /assets/images/user.png
-          {% endif %}
-          " alt="Profile Picture" />
+          <img class="profile-picture" src="{{tourist.picture}}" alt="Profile Picture" />
         </div>
         <div class="col-lg-11">
           <!-- Change Photo button -->
@@ -75,6 +66,7 @@
           <div class="form-group">
             <label for="">Country</label>
             <select name = "country" style = "margin-bottom : 15px;">
+              <option value = "">Select Country</option>
               {% for country in countries %}
                 <option value = "{{country}}" 
                 {% if country == profile_args["country"] %} 
