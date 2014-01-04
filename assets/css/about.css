@@ -1,0 +1,95 @@
+.navbar-default .navbar-nav>li>a#places:link, .navbar-default .navbar-nav>li>a#places:visited {
+  color: #ED9C28;
+}
+.places-intro-banner {
+  border: 1px solid transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  color: #fff;
+}
+
+.body {
+  margin-top: 3em;
+}
+.body .sidebar {}
+.body .sidebar .welcome {
+  margin-bottom: 0.3em;
+  color: #00b0ff;
+  font-weight: normal;
+}
+
+.body .sidebar > li {
+  border-bottom: 1px solid #dbdbdb;
+  box-shadow: 0 1px 1px white;
+}
+.body .sidebar > li > a {
+  display: block;
+  color: #716b7a;
+  padding: 5px 20px 5px 3px;
+  font-size: 1.2em;
+  /*-webkit-font-smoothing: antialiased;*/
+}
+
+.bs-sidenav {
+  /*margin-top: 30px;*/
+  /*margin-bottom: 30px;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-shadow: 0 1px 0 #fff;
+  background-color: #f7f5fa;
+  /*border-radius: 5px;*/
+}
+.bs-sidebar {
+  padding-left: 0;
+}
+.bs-sidebar .nav > li > a {
+display: block;
+color: #716b7a;
+padding: 5px 20px;
+}
+
+
+.body .about {
+  padding-left: 5em;
+}
+
+.body .about .heading {
+  margin: 4px 0 19px 0;
+  color: #393c3d;
+  font-weight: bold;
+}
+.body .about .section {
+  margin: 30px 0 19px 0;
+  color: #393c3d;
+  font-weight: bold;
+}
+.body .about .lead-para {
+  font-weight: bold; 
+  font-size: 15.5px;
+  -webkit-font-smoothing: antialiased;
+}
+.body .about .sub-para {
+  -webkit-font-smoothing: antialiased;
+}
+.body .places .place-text-overlay .caption {
+  font-size: 1.3em;
+}
+.body .places .place-text-overlay {
+  left: 1.9%;
+}
+.body .places {
+  padding-left: 6px;
+  padding-right: 15px;
+}
+
+
+.founders .teammate {
+  text-align: center;
+  font-family: "Lily Script One", serif;
+}
+.founders .teammate .lead {
+  font-weight: bold;
+  margin-top: 0.5em;
+  font-size: 1.7em;
+}

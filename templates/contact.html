@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %} Contact Us{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="/assets/css/contact.css" rel="stylesheet" media="screen">
+{% endblock %}
+{% block content %}
+  <div class="container-fluid places-intro-banner" style = "background-image: url(../assets/images/places_pics/bromich.jpg);">
+<!--     <div class="banner-caption">
+      <h1 class="caption-header">Meet Tourbly</h1>
+      <p id = "tagline" class="lead">Welcome</p>
+    </div> -->
+  </div>
+  <div class="container body" style="border: 0px solid #bbb; width: 88.5%;">
+    <div class="row">
+      <div class="col-lg-3">
+        <ul class="nav sidebar">
+          <li><p class="lead welcome"><span class="fa fa-smile-o"></span> Drop us a line!</p></li>
+          <li><a href="#contacts">Contact Info</a></li>
+        </ul>
+      </div>
+      <div id="#contacts" class="col-lg-9 contacts">
+        <h3 class="heading">Get in touch</h3>
+        <div class="title">GENERAL CONTACT INFORMATION</div>
+        <div class="contact-type">
+            <div class="subtitle">Telephone</div>
+            <ul>
+                <li>+(233) 246-634349</li>
+                <li>+(233) 267-650109</li>
+                <li>+(233) 267-050813</li>
+            </ul> 
+        </div>
+        <div class="contact-type">
+            <div class="subtitle">Location</div>
+            <address>
+                20 Aluguntuguntu Street<br />
+                East Legon<br />
+                PMB CT 13<br />
+                Accra, Ghana<br />
+            </address>
+        </div>
+        <div class="contact-type">
+            <div class="subtitle">Email</div>
+            <a href="mailto:tourbly2013@gmail.com">tourbly2013@gmail.com</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block pagespecificjs %}
+  <script></script>
+{% endblock %}
