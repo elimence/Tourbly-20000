@@ -37,7 +37,7 @@ class Signin(Root.Handler):
                     self.create_session(session_vars)
                     self.create_session(session_vars2)
 
-                    if redirects:
+                    if redirects[0] is not None:
                         redirects = urllib.unquote(redirects[0].decode("utf-8"))
                         redirects = redirects[redirects.find("/", 8) : ]
 
