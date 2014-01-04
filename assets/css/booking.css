@@ -82,3 +82,20 @@
   top: 40%;
   left: 40%;
 }
+
+/* Xtra Small */
+@media (max-width: 320px) {
+  .date-holder {
+    width: 100%;
+    margin-bottom: 0.5em;
+  }
+  .tags {
+    display: none;
+  }
+}
+/* up to Small */
+@media (max-width: 991px) {
+  .payment {
+    margin-top: 1em;
+  }
+}
