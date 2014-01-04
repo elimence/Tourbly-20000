@@ -21,8 +21,8 @@
     <div class="row body">
       <div class="col-lg-9">
         <h2 class="heading">Thanks for using Tourbly</h2>
-        <p class="lead" style="margin-bottom: 0px;">Your temporary booking number is: <strong>31A84045</strong></p>
-        <span class="help-block">We'll send an email confirmation shortly to: <span class="tourist-email">elimence@gmail.com</span></span>
+        <p class="lead" style="margin-bottom: 0px;">Your temporary booking number is: <strong>{{bookingNumber}}</strong></p>
+        <span class="help-block">We'll send an email confirmation shortly to: <span class="tourist-email">{{tourist.email}}</span></span>
       </div>
       <div class="col-lg-3">
         <p class="help">Questions?<br />
@@ -43,7 +43,7 @@
             </div>
             <div id="collapseOne" class="panel-collapse collapse in">
               <div class="panel-body">
-                <p class="lead description"><strong>Tour:</strong> 3-Day Guided Tour to Kruger National Park<br /><strong>Starting:</strong> January 5, 2014<br /><strong>With:</strong> Nana Ewusi<br /><strong>Booked On:</strong> January 3, 2014<br /><strong>Costing:</strong> $300.00</p>
+                <p class="lead description"><strong>Tour:</strong> {{duration}}-Day Guided Tour to {{placeName}}<br /><strong>Starting:</strong> {{arrival}}<br /><strong>With:</strong> {{guideName}}<br /><strong>Booked On:</strong> {{departure}}<br /><strong>Costing:</strong> ${{price}}</p>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
     </div>
     <div class="row next">
       <div class="col-lg-12">
-        <p class="lead">You can click <a href="#">here</a> to view your bookings. Or <a href="/">continue to our homepage</a></p>
+        <p class="lead">You can click <a href="/bookings">here</a> to view your bookings. Or <a href="/">continue to our homepage</a></p>
       </div>
     </div>
   </div>

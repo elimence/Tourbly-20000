@@ -73,7 +73,9 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/booking/confirm',                          handler=order_confirmation.OrderConfirmation,   name='confirm_booking'),
     webapp2.Route(r'/bookings',                                 handler=bookings.Bookings,                      name='bookings'),
     webapp2.Route(r'/switchaccount',                            handler=signup.Switch,                          name='switchaccount'),
-    webapp2.Route(r'/uploadprofilepic',                         handler=profile.UploadAndReadHandler,           name='uploadandreadprofilepic')
+    webapp2.Route(r'/uploadprofilepic',                         handler=profile.UploadAndReadImageHandler,           name='uploadandreadprofilepic'),
+    webapp2.Route(r'/about',                                    handler=home.About,                             name='about'),
+    webapp2.Route(r'/contact',                                  handler=home.Contact,                           name='contact')
 ], debug=True)          # CHANGE TO False BEFORE FINAL DEPLOYMENT
 
 # ERROR HANDLERS

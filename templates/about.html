@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %} About Us{% endblock %}
+{% block cannonical %}<link rel="canonical" href="http://gcdc2013-tourbly.appspot.com/">{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link href="/assets/css/index.css" rel="stylesheet" media="screen">
+    <link href="/assets/css/about.css" rel="stylesheet" media="screen">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+  <div class="container-fluid places-intro-banner" style = "background-image: url(../assets/images/places_pics/redhook.jpg);">
+<!--     <div class="banner-caption">
+      <h1 class="caption-header">Meet Tourbly</h1>
+      <p id = "tagline" class="lead">Welcome</p>
+    </div> -->
+  </div>
+  <div class="container body" style="border: 0px solid #bbb; width: 88.5%;">
+    <div class="row">
+      <div class="col-lg-3">
+        <ul class="nav sidebar">
+          <li><p class="lead welcome"><span class="fa fa-smile-o"></span> Meet Tourbly</p></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#founders">The Team</a></li>
+        </ul>
+      </div>
+      <div id="#about" class="col-lg-9 about">
+        <h3 class="heading">About Us</h3>
+        <p class="lead lead-para">Founded in October 2013 and based in Accra, Ghana, Tourbly is a trusted community of travel lovers, working to connect other travellers with friendly & reliable tour guides to hundreds of tourist destinations worldwide. Our committment is to provide you a safe and exciting experience.</p>
+        <p class="sub-para">Whether its to South Africa's Safaris, or to Ghana's Monkey & Butterfly Sanctuaries, Tourbly connects travellers to unique experiences, all in the company of a tour guide you can actually trust. Your safety and comfort are of great importance to us. That's why we go great lengths to ensure integrity and reliablity in our tour guides. We are committed to helping you get the most out of your trip. <a href="">Find a tour guide</a> on Tourbly today!</p>
+        <p class="sub-para">Tourbly is a great way to earn money, showing tourists around all the awesome attractions in your city/town. Interested? <a href="#">Drop us a line today</a>, and we'll get in touch.</p>
+        <h3 class="section" style="margin-bottom: 10px;">Featured Destinations</h3>
+        <p class="lead" style="font-size: 18px; margin-bottom: 10px;">We've got eager tour guides, waiting to show you around these awesome destinations.</p>
+        <div class="row places">
+          {% for place in featured_places %}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 place-img-holder">
+              <a href="/places/{{place.key().id()}}"><img class="img-rounded img-responsive" src="/assets/images/places_pics/rsz_{{place.pictures[0]}}" data-src="" alt=""></a>
+              <div class="place-text-overlay">
+                <h3 class="caption">{{place.name}}</h3>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div id="founders" class="row founders">
+          <div class="col-lg-12" style="margin-bottom: 2em;">
+            <h3 class="heading">Meet the Team</h3>
+            <p class="lead" style="font-size: 18px; margin-bottom: 10px;">We are a team of young entrepreneurs, passionate about travel. We believe that in the right company while travelling, the possibilities for discovery & learning are endless. By connecting you with awesome tour guides, we hope to help you get the most of your trip.</p>
+          </div>
+          <div class="col-lg-4 teammate">
+            <img src="/assets/images/guides_pics/nana.png" alt="" class="img-circle img-responsive">
+            <p class="lead">Nana</p>
+          </div>
+          <div class="col-lg-4 teammate">
+            <img src="/assets/images/sam.jpeg" alt="" class="img-circle img-responsive">
+            <p class="lead">Sam</p>
+          </div>
+          <div class="col-lg-4 teammate">
+            <img src="/assets/images/chris.jpg" alt="" class="img-circle img-responsive">
+            <p class="lead">Chris</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block pagespecificjs %}
+  <script></script>
+{% endblock %}
