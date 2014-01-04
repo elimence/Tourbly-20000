@@ -215,6 +215,7 @@ function PaymentCtrl($scope, $window, $http) {
 
 	$scope.success = function(status) {
 		$window.console.log('Purchase Completed Successfully : ', status);
+		$('#bookingForm').submit();
 	};// end function success
 
 	$scope.failure = function(status) {

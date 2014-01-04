@@ -28,7 +28,7 @@ class BookingHandler(Root.Handler):
 	  	booking_args = {"country" : country, "arrival" : arrival, "departure" : departure, "tour_days" : 2}
 
 	  	self.render("booking.html", isLoggedIn = self.check_session("query"), countries = countries,
-	    	booking_args = booking_args, guide = guide, place = place)
+	    	bookingArgs = booking_args, guide = guide, place = place)
 
 
 	def post(self):
