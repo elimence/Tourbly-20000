@@ -2,7 +2,14 @@
 import logging
 from security import Root
 from models import Tourist
+from google.appengine.api import files
+from google.appengine.ext import db
 
+try:
+    files.gs
+except AttributeError:
+    import gs
+    files.gs = gs
 
 class Profile(Root.Handler):
     def get(self):
@@ -32,16 +39,46 @@ class Profile(Root.Handler):
         last_name = self.request.get("last_name")
         country = self.request.get("country")
         state = self.request.get("state")
-        picture = self.request.get("profile_pic")
+        picture = self.request.POST.get("photo")
+        # self.write(picture.filename[picture.filename.find(".") + 1 : ])
+
+        # writable_file_name = files.gs.create("/gs/tourbly/profile_pictures/test", mime_type='text/plain', acl='public-read')
+        # with files.open(writable_file_name, 'a') as f:
+        #     f.write("just testing")
+        # files.finalize(writable_file_name)
+
+        # with files.open("/gs/tourbly/profile_pictures/test", 'r') as fp:
+        #     buf = fp.read(1000000)
+        #     while buf:
+        #         self.response.out.write(buf)
+        #         buf = fp.read(1000000)
+        # self.redirect("/profile")
 
         profile_args = {"email" : new_email, "country" : country, "first_name" : first_name, 
             "last_name" : last_name, "state" : state, "picture" : picture}
 
         if self.validate_email(new_email) and self.validate_name(first_name) and self.validate_name(last_name):
             Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
-            if picture:
-                tourist.picture = db.Blob()
-                tourist.put()
+            # if picture != None:
+            #     picture_extension = picture.filename[picture.filename.find(".") + 1 : ]
+            #     picture_name = "/gs/tourbly/profile_pictures" +  str(tourist.key().id()) + picture_extension
+            #     writable_file_name = files.gs.create(picture_name, mime_type='image/jpeg', acl='public-read')
+            #     with files.open(writable_file_name, 'a') as f:
+            #         f.write(picture.file.read())
+            #     files.finalize(writable_file_name)
+
+            #     with files.open(picture_name, 'r') as fp:
+            #         buf = fp.read(1000000)
+            #         while buf:
+            #             self.response.headers['Content-Type'] = 'image/png'
+            #             self.write(buf)
+            #             buf = fp.read(1000000)
+
+                # self.write(picture_name)
+
+                # tourist.picture = "http://storage.googleapis.com/tourbly/profile_pictures/" + str(tourist.key().id()) + picture_extension
+                # self.write(picture_name)
+                # tourist.put()
             self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
                 success_message = "Your profile has been updated successfully", tourist = tourist, 
                 countries = countries)
@@ -50,6 +87,26 @@ class Profile(Root.Handler):
              profile_args = profile_args, success_message = "there is something wrong", countries = countries)
 
 
+class UploadAndReadImageHandler(Root.Handler):
+    def post(self):
+        picture = self.request.POST.get("photo")
+
+        if picture != None:
+                picture_extension = picture.filename[picture.filename.find(".") + 1 : ]
+                picture_name = "/gs/tourbly/profile_pictures" +  str(tourist.key().id()) + picture_extension
+                writable_file_name = files.gs.create(picture_name, mime_type='image/jpeg', acl='public-read')
+                with files.open(writable_file_name, 'a') as f:
+                    f.write(picture.file.read())
+                files.finalize(writable_file_name)
+
+                with files.open(picture_name, 'r') as fp:
+                    buf = fp.read(1000000)
+                    while buf:
+                        self.response.headers['Content-Type'] = 'image/png'
+                        self.write(buf)
+                        buf = fp.read(1000000)
+        
+        
 
 
 

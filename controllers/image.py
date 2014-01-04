@@ -14,3 +14,8 @@ class Image(Root.Handler):
         if entity.picture:
         	self.response.headers['Content-Type'] = 'image/png'
         	self.write(entity.picture)
+
+# class ReadCloudImage(Root.Handler):
+# 	def get(self):
+		
+		

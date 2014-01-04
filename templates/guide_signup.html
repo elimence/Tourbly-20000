@@ -17,12 +17,13 @@
           <input type="text" class="form-control input" id="full-name" name="full_name" placeholder="Your Full Name" value = "{{full_name}}">
         </div>
         <select name = "country" style = "margin-bottom : 15px;">
-            {% for country in countries %}
-              <option value = "{{country}}" {% if country == guide_details["country"] %} selected {% endif %}>
-                {{country}}
-              </option>
-            {% endfor %}
-          </select>
+          <option value = "">Select Country</option>
+          {% for country in countries %}
+            <option value = "{{country}}" {% if country == guide_details["country"] %} selected {% endif %}>
+              {{country}}
+            </option>
+          {% endfor %}
+        </select>
         <div class="form-group">
           <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address" value = "{{email}}">
           <p class="lead error-label">{{email_error}}</p>
