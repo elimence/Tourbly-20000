@@ -2,7 +2,7 @@
 import logging
 from security import Root
 from models import Tourist
-
+from datetime import datetime
 
 class Bookings(Root.Handler):
   def get(self):
