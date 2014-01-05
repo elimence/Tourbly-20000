@@ -108,6 +108,9 @@ class Wallet(webapp.RequestHandler):
             description = str(seller_dat['description'])
             message = str(seller_dat['message'])
 
+            logging.info('here is the tourist')
+            logging.info(tourist)
+
             booking = Booking.Booking(_tourist=tourist, _guide=guide, _tour_start=start,
               _tour_end=end, _message=message, _description=description, _price=price,
                _payment_staus=paymentStatus, _booking_number=order_id)
