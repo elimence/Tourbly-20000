@@ -21,6 +21,10 @@ class Oauth(Root.Handler):
         last_name 	= self.request.get('last_name')
         gender 		= self.request.get('gender')
         picture 	= self.request.get('picture')
+        redirects   = self.request.get('redirects')
+
+        logging.info("here is redirects")
+        logging.info(redirects)
 
 
         # Attempt to retrieve Tourist
@@ -38,7 +42,7 @@ class Oauth(Root.Handler):
         cookie_str2 = self.create_cookie_str(session_vars2)
 
         # Set auth cookies and grant access
-        self.write(cookie_str1+"*-*"+cookie_str2)
+        self.write(cookie_str1+ "*-*"+ cookie_str2+ "*-*"+ redirects)
 
 
 

@@ -9,5 +9,5 @@ class Logout(Root.Handler):
         if referer:
             referer = referer[referer.find("/", 8) : ]
         self.write(referer)
-        self.logout(["authenticator", "query"])
+        self.logout(["authenticator", "query", "access_token", "redirects"])
         self.redirect(referer)
