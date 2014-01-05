@@ -19,9 +19,9 @@ class Booking(db.Model, Root.Handler):
     _tour_start   = db.DateTimeProperty()
     _tour_end = db.DateTimeProperty()
     _message = db.TextProperty()
-    _description = db.TextProperty()
+    _description = db.StringProperty()
     _price = db.StringProperty()
-    _payment_status = db.BooleanProperty()
+    _payment_status = db.StringProperty()
     _booked_at = db.DateTimeProperty(auto_now_add = True)
     _booking_number = db.StringProperty()
 

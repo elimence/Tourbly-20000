@@ -23,12 +23,49 @@ from models import Booking
 from models import Guide
 from models import Tourist
 from models import Destination
+from google.appengine.api import mail
 
 # application-specific imports
 from sellerinfo import SELLER_ID
 from sellerinfo import SELLER_SECRET
 
 class Wallet(webapp.RequestHandler):
+
+  def send_booking_email(self, _args):
+      message = mail.EmailMessage(sender="Tourbly <tourbly2013@gmail.com>",
+                          subject="Tourbly Guide Booking Successfully")
+
+      message.to = "<" + str(_args["email"]) + ">"
+      message.body = """
+      Hello """ + str(_args["first_name"]) + """:
+
+      You have successfully booked a guide on Tourbly. Here is your booking details:
+
+      Booking_Id :    """ + str(_args["booking_id"]) + """
+      Tour            """ + str(_args["description"]) + """
+      Starting        """ + str(_args["start_date"]) + """
+      Ending          """ + str(_args["end_date"]) + """
+      With            """ + str(_args["guide_firstname"]) + " " + _args["guide_lastname"] + """
+      Costing         """ + str(_args["price"]) + """
+
+      You can contact """ + str(_args["guide_firstname"]) + """ via phone : """ + str(_args["guide_number"]) + """
+      or through email """ + str(_args["guide_email"]) + """
+
+      However, you will be contacted on the tour start date by """ + str(_args["guide_firstname"]) + """ who will meet up with you.
+
+
+      Hey, have fun touring with Tourbly
+
+      Cheers,
+      The Tourbly Team
+      """
+
+      message.send()
+
+
+
+
+
   def get(self, duration):
 
     # Get entries for seller data object
@@ -98,6 +135,8 @@ class Wallet(webapp.RequestHandler):
             # optional - update local database
             seller_dat = json.loads(request_info['sellerData'])
 
+            logging.info(seller_dat)
+
             # Get entries for seller data object
             end = datetime.strptime(str(seller_dat['end']), '%d %B, %Y')
             start = datetime.strptime(str(seller_dat['start']), '%d %B, %Y')
@@ -116,9 +155,9 @@ class Wallet(webapp.RequestHandler):
                _payment_staus=paymentStatus, _booking_number=order_id)
             booking.put()
 
-            email_args = {"email" : tourist.email, "booking_id" : order_id, "start_date" : start, "end_date": end, 
-            "description" : description, "guide_firstname" : guide.first._firstname, "guide_lastname" : guide._lastname,
-             "guide_number" : guide._phoneNumber, "guide_email" : guide.email, "price" : price}
+            email_args = {"email" : tourist.email, "booking_id" : order_id, "start_date" : start, "end_date": end,
+            "description" : description, "guide_firstname" : guide._firstname, "guide_lastname" : guide._lastname,
+             "guide_number" : guide._phoneNumber, "guide_email" : guide._email, "price" : price, "first_name" : tourist.first_name}
 
             self.send_booking_email(email_args)
 
