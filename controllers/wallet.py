@@ -38,8 +38,9 @@ class Wallet(webapp.RequestHandler):
       message.to = "<" + str(_args["email"]) + ">"
       message.body = """
       Hello """ + str(_args["first_name"]) + """:
-
-      You have successfully booked a guide on Tourbly. Here is your booking details:
+      
+      Thank you for using Tourbly.
+      You have successfully booked a guide. Here is your booking details:
 
       Booking_Id :    """ + str(_args["booking_id"]) + """
       Tour            """ + str(_args["description"]) + """

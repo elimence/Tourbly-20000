@@ -66,7 +66,9 @@ class GuideApplicationForm(Root.Handler):
             if self.validate_email(email):
                 _args = {"email" : email, "full_name" : full_name}
                 self.send_guide_application_email(_args)
-                self.redirect("/home")
+                # self.redirect("/home")
+                self.render("guide_signup.html", countries = countries, guide_details = guide_details,
+                    message = "Guide application successful. An email has been sent to you, please check it to complete your application")
             else:
                 self.render("guide_signup.html", countries = countries, guide_details = guide_details,
                     email_error = "Invalid email entered")

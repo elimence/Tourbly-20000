@@ -647,10 +647,12 @@ class Handler(Security, Utility, webapp2.RequestHandler):
         message.body = """
         Hello """ + _args["full_name"] + """:
 
-        You have successfully applied to be a Tourbly platform. Help tourists discover beautiful scenery,
-        culture and lifestyles whilst getting something into your pocket.
+        Thank you for expressing interest in becoming a Tourbly guide.
 
-        We will contact you to complete your application """ + _args["url"] + """
+        This is a great way to earn money whilst helping tourists discover beautiful scenery,
+        culture and lifestyles in your country.
+
+        We will send you a link to complete your application.
 
         Cheers,
         The Tourbly Team
