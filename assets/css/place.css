@@ -76,22 +76,6 @@
     margin-bottom: 1em;
   }
 }
-/*@media (max-width: 320px) {
-  .places-intro-banner .banner-caption {
-    margin: 11em auto 2em auto;
-  }
-  .places-intro-banner .caption-header {
-    font-size: 2.0em;
-  }
-  .places-intro-banner .search-box form .input {
-    width: 100%;
-  }
-  .places-intro-banner .search-box form button {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 8px;
-  }
-}*/
 
 @media (min-width: 240px) and (max-width: 319px) {
   .places-intro-banner .banner-caption {
@@ -124,6 +108,12 @@
   .place-details .description .tags {
     margin-top: 1.6em;
     /*color: #f00;*/
+  }
+}
+/* Min Medium */
+@media (min-width: 1199px){
+  .places-intro-banner {
+    background-attachment: fixed;
   }
 }
 
