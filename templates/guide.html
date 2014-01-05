@@ -135,7 +135,13 @@
         {% if tourist %}
           <div class="row new-review">
             <div class="col-lg-12">
-              <form method = "post" action = "/guides/{{guide.key().id()}}" class="form-signin">
+              <form method = "post" action = 
+              "{% if isViewing %}
+                /guides/{{guide.key().id()}}
+              {% else %}
+                /guides/{{guide.key().id()}}/{{place_id}}
+              {% endif %}
+              " class="form-signin">
                 <h2 class="form-heading visible-xs visible-lg visible-sm visible-md" style="font-size: 25px;">Write a review</h2>
                 <p style = "color: red;">{{error}}</p>
                 {% if not tourist.first_name %}
