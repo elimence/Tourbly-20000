@@ -7,6 +7,7 @@
   background-size: cover;
   height: 500px;
   color: #fff;
+  background-attachment: fixed;
 }
 
 .body {
@@ -67,7 +68,7 @@ padding: 5px 20px;
   color: #00b0ff;
 }
 .body .contacts .subtitle {
-  
+
   text-transform: uppercase;
   font-size: 13px;
   line-height: 20px;

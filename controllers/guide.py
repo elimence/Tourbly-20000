@@ -63,14 +63,60 @@ class GuideApplicationForm(Root.Handler):
         guide_details = {"full_name" : full_name, "country" : country, "email" : email}
 
         if full_name and country and email:
-            if self.validate_email(email):
-                _args = {"email" : email, "full_name" : full_name}
-                self.send_guide_application_email(_args)
-                self.redirect("/home")
-            else:
+            all_users = Guide.Guide.all()
+            if not self.validate_email(email):
                 self.render("guide_signup.html", countries = countries, guide_details = guide_details,
                     email_error = "Invalid email entered")
+            elif self.get_user_by_email(all_users, email) != None:
+                self.render("guide_signup.html", countries = countries, guide_details = guide_details,
+                    email_error = "This email has already been used to apply")
+            else:
+                _args = {"email" : email, "full_name" : full_name}
+                self.send_guide_application_email(_args)
+                # self.redirect("/home")
+                first_name, last_name = full_name.split(" ")
+                guide = Guide.Guide(_firstname = first_name, _lastname = last_name, _country = country, _email = email, 
+                    _isAvailable = False)
+                guide.put()
+
+                self.render("guide_signup.html", countries = countries, guide_details = guide_details,
+                    message = "Guide application successful. An email has been sent to you, please check it to complete your application")
         else:
             # self.write(country)
             self.render("guide_signup.html", countries = countries, guide_details = guide_details,
                 error = "All fields are required")
+
+class GuideViewHandler(Root.Handler):
+    def get(self, guide_id):
+        guide = Guide.Guide.get_by_id(int(guide_id))
+
+        if self.check_session("query"):
+            tourist = Tourist.Tourist.get_by_id(self.get_user_id())
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist,
+                isViewing = True)
+        else:
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), isViewing = True)
+
+    def post(self, guide_id):
+        guide = Guide.Guide.get_by_id(int(guide_id))
+        tourist = Tourist.Tourist.get_by_id(self.get_user_id())
+
+        if tourist.first_name:
+            name = tourist.first_name
+        else:
+            name = self.request.get("name")
+        rating   = int(self.request.get("rating"))
+        comments = self.request.get("comment")
+
+        _args = {"name" : name, "comments" : comments}
+        if name and comments:
+            tourist.first_name = name
+            tourist.put()
+
+            review = Review.Review(_reviewer = tourist, _reviewee = guide, _comment = comments, _rating = rating)
+            review.put()
+            self.redirect("/guides/" + guide_id)
+        else:
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist,
+                error = reviewing_error_prompt(name, comments), comments = comments, name = name)
+

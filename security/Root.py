@@ -216,9 +216,12 @@ class Utility():
 
     def getLatLngFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
-        geometries = reponseResults[0]["geometry"]
 
-        latlng = geometry_type = str(geometries["location"]["lat"]) + "," + str(geometries["location"]["lng"])
+        latlng = ""
+        if len(reponseResults) > 0:
+            geometries = reponseResults[0]["geometry"]
+
+            latlng = geometry_type = str(geometries["location"]["lat"]) + "," + str(geometries["location"]["lng"])
 
         return latlng
 
@@ -233,18 +236,19 @@ class Utility():
 
     def getRegionFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
-        components_list = reponseResults[0]["address_components"]
-       
+
         region = ""
+        if len(reponseResults) > 0:
+            components_list = reponseResults[0]["address_components"]
 
-        count = 0
-        for component in components_list:
-            component_type = components_list[count]["types"]
+            count = 0
+            for component in components_list:
+                component_type = components_list[count]["types"]
 
-            if component_type[0] == "administrative_area_level_1":
-                region = component["long_name"]
+                if component_type[0] == "administrative_area_level_1":
+                    region = component["long_name"]
 
-            count += 1
+                count += 1
 
         return region
 
@@ -259,18 +263,19 @@ class Utility():
 
     def getCityFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
-        components_list = reponseResults[0]["address_components"]
-       
+
         city = ""
+        if len(reponseResults) > 0:
+            components_list = reponseResults[0]["address_components"]
+           
+            count = 0
+            for component in components_list:
+                component_type = components_list[count]["types"]
 
-        count = 0
-        for component in components_list:
-            component_type = components_list[count]["types"]
+                if component_type[0] == "administrative_area_level_2":
+                    city = component["long_name"]
 
-            if component_type[0] == "administrative_area_level_2":
-                city = component["long_name"]
-
-            count += 1
+                count += 1
 
         return city
 
@@ -647,10 +652,51 @@ class Handler(Security, Utility, webapp2.RequestHandler):
         message.body = """
         Hello """ + _args["full_name"] + """:
 
-        You have successfully applied to be a Tourbly platform. Help tourists discover beautiful scenery,
-        culture and lifestyles whilst getting something into your pocket.
+        Thank you for expressing interest in becoming a Tourbly guide.
 
-        We will contact you to complete your application """ + _args["url"] + """
+        This is a great way to earn money whilst helping tourists discover beautiful scenery,
+        culture and lifestyles in your country.
+
+        We will send you a link to complete your application.
+
+        Cheers,
+        The Tourbly Team
+        """
+
+        message.send()
+
+    # Name - send_guide_application_email
+    # Desc
+    #   Email sent to a person applying to be a guide for confirmation of application
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   _args : List -> list of objects with cookie name and value as follows
+    #                           :: email  -> Email of user to which verification message will be sent
+    #                           :: full_name -> full name of the applicant
+    # returns
+    #   : Void -> Returns nothing
+    def send_booking_email(self, _args):
+        message = mail.EmailMessage(sender="Tourbly <tourbly2013@gmail.com>",
+                            subject="Tourbly Guide Booking Successfully")
+
+        message.to = "<" + _args["email"] + ">"
+        message.body = """
+        Hello """ + _args["first_name"] + """:
+
+        You have successfully booked a guide on Tourbly. Here is your booking details:
+
+        Booking_Id :    """ + _args["booking_id"] + """
+        Tour            """ + _args["description"] + """
+        Starting        """ + _args["start_date"] + """
+        Ending          """ + _args["end_date"] + """
+        With            """ + _args["guide_firstname"] + " " + _args["guide_lastname"] + """
+        Costing         """ + _args["price"] + """
+
+        You can contact """ + _args["guide_firstname"] + """ via phone : """ + _args["guide_number"] + """ 
+        or through email """ + _args["guide_email"] + """
+        
+
+        Hey, have fun touring with Tourbly
 
         Cheers,
         The Tourbly Team
