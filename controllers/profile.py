@@ -41,39 +41,18 @@ class Profile(Root.Handler):
         picture = self.request.POST.get("photo")
         # self.write(picture.filename[picture.filename.find(".") + 1 : ])
 
-        # writable_file_name = files.gs.create("/gs/tourbly/profile_pictures/test", mime_type='text/plain', acl='public-read')
-        # with files.open(writable_file_name, 'a') as f:
-        #     f.write("just testing")
-        # files.finalize(writable_file_name)
-
-        # with files.open("/gs/tourbly/profile_pictures/test", 'r') as fp:
-        #     buf = fp.read(1000000)
-        #     while buf:
-        #         self.response.out.write(buf)
-        #         buf = fp.read(1000000)
-        # self.redirect("/profile")
-
         profile_args = {"email" : new_email, "country" : country, "first_name" : first_name, 
             "last_name" : last_name, "state" : state, "picture" : picture}
 
         if self.validate_email(new_email) and self.validate_name(first_name) and self.validate_name(last_name):
             Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
             if picture != None:
-                picture_extension = picture.filename[picture.filename.find(".") + 1 : ]
-                picture_name = "/gs/tourbly/profile_pictures/" +  str(tourist.key().id()) 
+                picture_extension = picture.filename[picture.filename.rfind(".") : ]
+                picture_name = "/gs/tourbly/profile_pictures/" +  str(tourist.key().id()) + picture_extension
                 writable_file_name = files.gs.create(picture_name, mime_type='image/jpeg', acl='public-read')
                 with files.open(writable_file_name, 'a') as f:
                     f.write(picture.file.read())
                 files.finalize(writable_file_name)
-
-                # with files.open(picture_name, 'r') as fp:
-                #     buf = fp.read(1000000)
-                #     while buf:
-                #         self.response.headers['Content-Type'] = 'image/png'
-                #         self.write(buf)
-                #         buf = fp.read(1000000)
-
-                # self.write(picture_name)
 
                 tourist.picture = "http://storage.googleapis.com/tourbly/profile_pictures/" + str(tourist.key().id()) + picture_extension
                 self.write(picture_name)
