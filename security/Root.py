@@ -600,10 +600,10 @@ class Handler(Security, Utility, webapp2.RequestHandler):
 
     # Name - send_verification_email
     # Desc
-    #   To get the right error prompt to be displayed to the user when password is enterd for signup
+    #   Verification email sent with link to tourist on signup to verify email
     # params
     #   self           : Ref    -> reference to object instance
-    #   _args : List -> list of objects with cookie name and value as follows
+    #   _args : List -> list of objects with tourist details
     #                           :: email  -> Email of user to which verification message will be sent
     #                           :: url -> link with token to verify user's email
     # returns
@@ -629,6 +629,34 @@ class Handler(Security, Utility, webapp2.RequestHandler):
         message.send()
 
 
+    # Name - send_guide_application_email
+    # Desc
+    #   Email sent to a person applying to be a guide for confirmation of application
+    # params
+    #   self           : Ref    -> reference to object instance
+    #   _args : List -> list of objects with cookie name and value as follows
+    #                           :: email  -> Email of user to which verification message will be sent
+    #                           :: full_name -> full name of the applicant
+    # returns
+    #   : Void -> Returns nothing
+    def send_guide_application_email(self, _args):
+        message = mail.EmailMessage(sender="Tourbly <tourbly2013@gmail.com>",
+                            subject="Welcome To Tourbly, Confirmation of Guide Application")
+
+        message.to = "<" + _args["email"] + ">"
+        message.body = """
+        Hello """ _args["full_name"] + """:
+
+        You have successfully applied to be a Tourbly platform. Help tourists discover beautiful scenery,
+        culture and lifestyles whilst getting something into your pocket.
+
+        We will contact you to complete your application """ + _args["url"] + """
+
+        Cheers,
+        The Tourbly Team
+        """
+
+        message.send()
 
 
     # Name - get_countries

@@ -66,24 +66,24 @@ class Profile(Root.Handler):
                     f.write(picture.file.read())
                 files.finalize(writable_file_name)
 
-                with files.open(picture_name, 'r') as fp:
-                    buf = fp.read(1000000)
-                    while buf:
-                        self.response.headers['Content-Type'] = 'image/png'
-                        self.write(buf)
-                        buf = fp.read(1000000)
+                # with files.open(picture_name, 'r') as fp:
+                #     buf = fp.read(1000000)
+                #     while buf:
+                #         self.response.headers['Content-Type'] = 'image/png'
+                #         self.write(buf)
+                #         buf = fp.read(1000000)
 
                 # self.write(picture_name)
 
-                # tourist.picture = "http://storage.googleapis.com/tourbly/profile_pictures/" + str(tourist.key().id()) + picture_extension
-                # self.write(picture_name)
-                # tourist.put()
-        #     self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
-        #         success_message = "Your profile has been updated successfully", tourist = tourist, 
-        #         countries = countries)
-        # else:
-        #     self.render("profile.html", email_error = self.profile_email_error_prompt(tourist.email, new_email),
-        #      profile_args = profile_args, success_message = "there is something wrong", countries = countries)
+                tourist.picture = "http://storage.googleapis.com/tourbly/profile_pictures/" + str(tourist.key().id()) + picture_extension
+                self.write(picture_name)
+                tourist.put()
+            self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
+                success_message = "Your profile has been updated successfully", tourist = tourist, 
+                countries = countries)
+        else:
+            self.render("profile.html", email_error = self.profile_email_error_prompt(tourist.email, new_email),
+             profile_args = profile_args, success_message = "there is something wrong", countries = countries)
 
 
 class UploadAndReadImageHandler(Root.Handler):

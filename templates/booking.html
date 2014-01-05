@@ -60,6 +60,7 @@
           <div class="form-group">
             <label for="country">Country</label>
             <select class="form-control" name = "country" style = "margin-bottom : 15px;" ng-model="countryModel">
+              <option value = "">Select Country</option>
               {% for country in countries %}
                 <option value = "{{country}}" {% if country == bookingArgs["country"] %} selected {% endif %}>
                   {{country}}

@@ -19,12 +19,12 @@ class Image(Root.Handler):
 class ReadCloudImage(Root.Handler):
 	def get(self, tourist_id):
 		BUCKET_BASE = "/gs/tourbly/profile_pictures/"
-
-		with files.open(BUCKET_BASE + str(tourist_id), 'r') as fp:
-			buf = fp.read(1000000)
-			while buf:
-				self.response.headers['Content-Type'] = 'image/png'
-				self.write(buf)
-				buf = fp.read(1000000)
+		self.write("image")
+		# with files.open(BUCKET_BASE + str(tourist_id), 'r') as fp:
+		# 	buf = fp.read(1000000)
+		# 	while buf:
+		# 		self.response.headers['Content-Type'] = 'image/png'
+		# 		self.write(buf)
+		# 		buf = fp.read(1000000)
 		
 		
