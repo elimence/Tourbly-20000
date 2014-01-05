@@ -92,7 +92,7 @@ class GuideViewHandler(Root.Handler):
 
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist, 
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist,
                 isViewing = True)
         else:
             self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), isViewing = True)
@@ -115,8 +115,8 @@ class GuideViewHandler(Root.Handler):
 
             review = Review.Review(_reviewer = tourist, _reviewee = guide, _comment = comments, _rating = rating)
             review.put()
-            self.redirect("/guides/" + guide_id + "/"+ place_id)
+            self.redirect("/guides/" + guide_id)
         else:
             self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist,
                 error = reviewing_error_prompt(name, comments), comments = comments, name = name)
-        
+

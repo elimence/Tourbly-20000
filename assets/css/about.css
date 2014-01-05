@@ -7,6 +7,7 @@
   background-size: cover;
   height: 500px;
   color: #fff;
+  background-attachment: fixed;
 }
 
 .body {
@@ -65,7 +66,7 @@ padding: 5px 20px;
   font-weight: bold;
 }
 .body .about .lead-para {
-  font-weight: bold; 
+  font-weight: bold;
   font-size: 15.5px;
   -webkit-font-smoothing: antialiased;
 }
