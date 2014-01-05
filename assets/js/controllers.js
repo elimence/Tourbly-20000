@@ -13,7 +13,8 @@ function TourblyCtrl($scope, $window, $http) {
 		last_name  : "",
 		languages  : "",
 		activated  : "",
-		first_name : ""
+		first_name : "",
+		redirects  : ""
 	};
 
 
@@ -61,6 +62,11 @@ function TourblyCtrl($scope, $window, $http) {
 					$scope.userData.first_name = resp.name.givenName;
 
 					// console.log($scope.userData);
+					var redirects_cookie = $.cookie('redirects');
+					if (redirects_cookie != 'undefined') {
+						$scope.userData.redirects = redirects_cookie;
+					}
+
 					$scope.outBound.post({
 						async : "false",
 						url   : $scope.apiBase,
@@ -68,7 +74,13 @@ function TourblyCtrl($scope, $window, $http) {
 					}).done(function(data) {
 						document.cookie=data.split("*-*")[0];
 						document.cookie=data.split("*-*")[1];
-						location.reload();
+						if (data.split("*-*")[2].length > 1) {
+							alert("redirecting");
+							location.replace(data.split("*-*")[2]);
+						} else {
+							alert("reloading");
+							location.reload();
+						}
 					});
 
 				});
