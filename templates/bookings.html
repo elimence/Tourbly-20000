@@ -35,9 +35,14 @@
               </thead>
               <tbody>
                 {% for booking in tourist.tourist_booking_set %}
-                  <tr class="success">
+                  {% set currentDate = datetime.datetime.now() %}
+                  {% if booking._tour_end < currentDate %}
+                    <tr>
+                  {% else %}
+                    <tr class="success">
+                  {% endif %}
                     <td>{{booking._booking_number}}</td>
-                    <td>{{booking._booked_at.strftime("%M %d, %y")}}</td>
+                    <td>{{booking._booked_at.strftime("%m %d, %YYYY")}}</td>
                     <td>{{booking._description}}</td>
                     <td>{{booking._guide._firstname}} {{booking._guide._lastname}}</td>
                     <td>{{booking._price}}</td>
@@ -48,85 +53,7 @@
             </table>
           {% else %}
             You currently have no completed bookings
-          {% endif %}
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Final Booking Number</th>
-                <th>BookingDate</th>
-                <th>Description</th>
-                <th>Guide</th>
-                <th>Cost</th>
-                <th>Payment Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="success">
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-              <tr class="success">
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-              <tr class="success">
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-              <tr>
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-              <tr>
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-              <tr>
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-              <tr>
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-              <tr>
-                <td>31372A4F</td>
-                <td>January 3, 2014</td>
-                <td>3-Day Guided tour to Kruger National Park</td>
-                <td>Nana Ewusi</td>
-                <td>$450.00</td>
-                <td>Completed</td>
-              </tr>
-            </tbody>
-          </table>
+          {% endif
         </div>
       </div>
     </div>
