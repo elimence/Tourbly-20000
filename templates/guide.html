@@ -26,9 +26,11 @@
                 {% endif %}
               </span></p>
             </div>
-            <div class="book">
-              <a id="bookGuide" href="/guides/{{guide.key().id()}}/{{place_id}}/book" class="btn btn-success btn-block btn-lg">Book {{guide._firstname}}</a>
-            </div>
+            {% if not isViewing %}
+              <div class="book">
+                <a id="bookGuide" href="/guides/{{guide.key().id()}}/{{place_id}}/book" class="btn btn-success btn-block btn-lg">Book {{guide._firstname}}</a>
+              </div>
+            {% endif %}
             <!-- <div class="hangout">
               <a id="hangout" href="#" class="btn btn-warning btn-block btn-lg">Hangout</a>
             </div> -->

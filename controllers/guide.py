@@ -81,9 +81,10 @@ class GuideViewHandler(Root.Handler):
 
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist)
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), tourist = tourist, 
+                isViewing = True)
         else:
-            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"))
+            self.render("guide.html", guide = guide, isLoggedIn = self.check_session("query"), isViewing = True)
 
     def post(self, guide_id):
         guide = Guide.Guide.get_by_id(int(guide_id))
