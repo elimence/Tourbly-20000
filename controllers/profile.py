@@ -48,14 +48,14 @@ class Profile(Root.Handler):
             Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
             if picture != None:
                 picture_extension = picture.filename[picture.filename.rfind(".") : ]
-                picture_name = "/gs/tourbly/profile_pictures/" +  str(tourist.key().id()) + picture_extension
+                picture_url = "/tourbly/profile_pictures/" +  str(tourist.key().id()) + self.rand_salt("picture") + picture_extension
+                picture_name = "/gs" + picture_url
                 writable_file_name = files.gs.create(picture_name, mime_type='image/jpeg', acl='public-read')
                 with files.open(writable_file_name, 'a') as f:
                     f.write(picture.file.read())
                 files.finalize(writable_file_name)
 
-                tourist.picture = "http://storage.googleapis.com/tourbly/profile_pictures/" + str(tourist.key().id()) + picture_extension
-                self.write(picture_name)
+                tourist.picture = "http://storage.googleapis.com" + picture_url
                 tourist.put()
             self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
                 success_message = "Your profile has been updated successfully", tourist = tourist, 
