@@ -3,7 +3,6 @@ import logging
 from security import Root
 from models import Tourist
 from google.appengine.api import files
-from google.appengine.ext import db
 
 try:
     files.gs
@@ -59,32 +58,32 @@ class Profile(Root.Handler):
 
         if self.validate_email(new_email) and self.validate_name(first_name) and self.validate_name(last_name):
             Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
-            # if picture != None:
-            #     picture_extension = picture.filename[picture.filename.find(".") + 1 : ]
-            #     picture_name = "/gs/tourbly/profile_pictures" +  str(tourist.key().id()) + picture_extension
-            #     writable_file_name = files.gs.create(picture_name, mime_type='image/jpeg', acl='public-read')
-            #     with files.open(writable_file_name, 'a') as f:
-            #         f.write(picture.file.read())
-            #     files.finalize(writable_file_name)
+            if picture != None:
+                picture_extension = picture.filename[picture.filename.find(".") + 1 : ]
+                picture_name = "/gs/tourbly/profile_pictures/" +  str(tourist.key().id()) 
+                writable_file_name = files.gs.create(picture_name, mime_type='image/jpeg', acl='public-read')
+                with files.open(writable_file_name, 'a') as f:
+                    f.write(picture.file.read())
+                files.finalize(writable_file_name)
 
-            #     with files.open(picture_name, 'r') as fp:
-            #         buf = fp.read(1000000)
-            #         while buf:
-            #             self.response.headers['Content-Type'] = 'image/png'
-            #             self.write(buf)
-            #             buf = fp.read(1000000)
+                with files.open(picture_name, 'r') as fp:
+                    buf = fp.read(1000000)
+                    while buf:
+                        self.response.headers['Content-Type'] = 'image/png'
+                        self.write(buf)
+                        buf = fp.read(1000000)
 
                 # self.write(picture_name)
 
                 # tourist.picture = "http://storage.googleapis.com/tourbly/profile_pictures/" + str(tourist.key().id()) + picture_extension
                 # self.write(picture_name)
                 # tourist.put()
-            self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
-                success_message = "Your profile has been updated successfully", tourist = tourist, 
-                countries = countries)
-        else:
-            self.render("profile.html", email_error = self.profile_email_error_prompt(tourist.email, new_email),
-             profile_args = profile_args, success_message = "there is something wrong", countries = countries)
+        #     self.render("profile.html", isLoggedIn = self.check_session("query"), profile_args = profile_args,
+        #         success_message = "Your profile has been updated successfully", tourist = tourist, 
+        #         countries = countries)
+        # else:
+        #     self.render("profile.html", email_error = self.profile_email_error_prompt(tourist.email, new_email),
+        #      profile_args = profile_args, success_message = "there is something wrong", countries = countries)
 
 
 class UploadAndReadImageHandler(Root.Handler):

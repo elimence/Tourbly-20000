@@ -404,10 +404,7 @@ class Handler(Security, Utility, webapp2.RequestHandler):
     # returns
     #   : Void
     def delete_cookie(self, name):
-        cookie = self.get_cookie(name)
-
-        if cookie:
-            self.response.delete_cookie(cookie[0])
+        self.response.delete_cookie(name)
 
     # Name - get_cookie ==> (Deprecated)
     # Desc
