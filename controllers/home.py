@@ -4,10 +4,14 @@ from models import Tourist
 from datetime import datetime
 from models import Destination
 import logging
+import random
 
 
 class Home(Root.Handler):
     def get(self):
+        # num_places = Destination.Destination.all().count()
+        # offset = random.randrange(0, num_places)
+        # places = Destination.Destination.all().fetch(offset)
         places = Destination.Destination.gql("limit 6")
         all_places = Destination.Destination.all().run()   #@nanaewusi - I added this to get an initial dump of the places for the dropdown
         if self.check_session("query"):
