@@ -75,10 +75,8 @@ function TourblyCtrl($scope, $window, $http) {
 						document.cookie=data.split("*-*")[0];
 						document.cookie=data.split("*-*")[1];
 						if (data.split("*-*")[2].length > 1) {
-							alert("redirecting");
 							location.replace(data.split("*-*")[2]);
 						} else {
-							alert("reloading");
 							location.reload();
 						}
 					});
