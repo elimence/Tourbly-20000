@@ -22,6 +22,7 @@ from datetime import datetime
 from models import Booking
 from models import Guide
 from models import Tourist
+from models import Destination
 
 # application-specific imports
 from sellerinfo import SELLER_ID
@@ -39,6 +40,7 @@ class Wallet(webapp.RequestHandler):
     paymentStatus = self.request.get('paymentStatus') or ""
     description = self.request.get('description') or ""
     message = self.request.get('message') or ""
+    placeID = self.request.get('placeID') or ""
 
     price = int(duration) * 50
     curr_time = int(time.time())
@@ -107,7 +109,8 @@ class Wallet(webapp.RequestHandler):
             message = str(seller_dat['message'])
 
             booking = Booking.Booking(_tourist=tourist, _guide=guide, _tour_start=start,
-              _tour_end=end, _message=message, _description=description, _price=price, _payment_staus=paymentStatus)
+              _tour_end=end, _message=message, _description=description, _price=price,
+               _payment_staus=paymentStatus, _booking_number=order_id)
             booking.put()
 
             # respond back to complete payment
