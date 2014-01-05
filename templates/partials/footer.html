@@ -3,6 +3,23 @@
   <hr class="footer-divider">
   <div class="col-lg-9" style="padding-left: 0;">
     <p>&copy; 2013 Tourbly. <a href="/about">About</a> &middot; <a href="/contact">Contact Us</a> &middot; <a href="https://plus.google.com/114524818757221632119" rel="publisher">Like us on Google Plus</a></p>
+    <div id="hangout"></div>
+    <script type="text/javascript">
+      window.___gcfg = {
+        lang: 'en-GB'
+      };
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/platform.js?onload=renderButtons';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+
+      function renderButtons(){
+        gapi.hangout.render('hangout', {
+            'render': 'createhangout',
+          });
+      }
+    </script>
   </div>
   <div class="col-lg-3">
     <!-- AddToAny BEGIN -->
