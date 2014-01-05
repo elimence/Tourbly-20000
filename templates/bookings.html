@@ -44,7 +44,7 @@
                     <td>{{booking._booking_number}}</td>
                     <td>{{booking._booked_at.strftime("%d %B, %Y")}}</td>
                     <td>{{booking._description}}</td>
-                    <a href = "/guides/{{booking._guide.key().id()}}"><td>{{booking._guide._firstname}} {{booking._guide._lastname}}</td></a>
+                    <td><a href = "/guides/{{booking._guide.key().id()}}">{{booking._guide._firstname}} {{booking._guide._lastname}}</a></td>
                     <td>{{booking._price}}</td>
                     <td>{{booking._payment_status}}</td>
                   </tr>
