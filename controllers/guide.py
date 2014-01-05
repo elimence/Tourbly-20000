@@ -63,7 +63,14 @@ class GuideApplicationForm(Root.Handler):
         guide_details = {"full_name" : full_name, "country" : country, "email" : email}
 
         if full_name and country and email:
-            if self.validate_email(email):
+            all_users = Guide.Guide.all()
+            if not self.validate_email(email):
+                self.render("guide_signup.html", countries = countries, guide_details = guide_details,
+                    email_error = "Invalid email entered")
+            elif self.get_user_by_email(all_users, email) != None:
+                self.render("guide_signup.html", countries = countries, guide_details = guide_details,
+                    email_error = "This email has already been used to apply")
+            else:
                 _args = {"email" : email, "full_name" : full_name}
                 self.send_guide_application_email(_args)
                 # self.redirect("/home")
@@ -74,9 +81,6 @@ class GuideApplicationForm(Root.Handler):
 
                 self.render("guide_signup.html", countries = countries, guide_details = guide_details,
                     message = "Guide application successful. An email has been sent to you, please check it to complete your application")
-            else:
-                self.render("guide_signup.html", countries = countries, guide_details = guide_details,
-                    email_error = "Invalid email entered")
         else:
             # self.write(country)
             self.render("guide_signup.html", countries = countries, guide_details = guide_details,

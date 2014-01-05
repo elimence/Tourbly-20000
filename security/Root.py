@@ -216,9 +216,12 @@ class Utility():
 
     def getLatLngFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
-        geometries = reponseResults[0]["geometry"]
 
-        latlng = geometry_type = str(geometries["location"]["lat"]) + "," + str(geometries["location"]["lng"])
+        latlng = ""
+        if len(reponseResults) > 0:
+            geometries = reponseResults[0]["geometry"]
+
+            latlng = geometry_type = str(geometries["location"]["lat"]) + "," + str(geometries["location"]["lng"])
 
         return latlng
 
@@ -233,18 +236,19 @@ class Utility():
 
     def getRegionFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
-        components_list = reponseResults[0]["address_components"]
-       
+
         region = ""
+        if len(reponseResults) > 0:
+            components_list = reponseResults[0]["address_components"]
 
-        count = 0
-        for component in components_list:
-            component_type = components_list[count]["types"]
+            count = 0
+            for component in components_list:
+                component_type = components_list[count]["types"]
 
-            if component_type[0] == "administrative_area_level_1":
-                region = component["long_name"]
+                if component_type[0] == "administrative_area_level_1":
+                    region = component["long_name"]
 
-            count += 1
+                count += 1
 
         return region
 
@@ -259,18 +263,19 @@ class Utility():
 
     def getCityFromJson(self, jsonResponse):
         reponseResults = jsonResponse["results"]
-        components_list = reponseResults[0]["address_components"]
-       
+
         city = ""
+        if len(reponseResults) > 0:
+            components_list = reponseResults[0]["address_components"]
+           
+            count = 0
+            for component in components_list:
+                component_type = components_list[count]["types"]
 
-        count = 0
-        for component in components_list:
-            component_type = components_list[count]["types"]
+                if component_type[0] == "administrative_area_level_2":
+                    city = component["long_name"]
 
-            if component_type[0] == "administrative_area_level_2":
-                city = component["long_name"]
-
-            count += 1
+                count += 1
 
         return city
 
