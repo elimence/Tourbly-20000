@@ -57,7 +57,7 @@
       <div class="row">
         <div class="col-lg-12">
           <ul class="pager">
-            {% if cursor %}
+            {% if cursor == "" %}
               <!-- <li class="previous"><a href="#">&larr; Go Back</a></li> -->
               <li class="next"><a href="?cursor={{cursor}}">Show Me More &rarr;</a></li>
               {% endif %}

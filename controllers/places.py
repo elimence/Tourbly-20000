@@ -3,29 +3,27 @@ from models import Tourist
 from models import Destination
 from google.appengine.ext import db
 import json
+# from djangoappengine.db.utils import get_cursor, set_cursor
 
 
 class Places(Root.Handler):
     def get(self):
     	tourist = Tourist.Tourist.get_by_id(self.get_user_id())
-        # places = Destination.Destination.getAllDestinations()
-        places_query = db.GqlQuery("select * from Destination")
+        places_query = Destination.Destination.getAllDestinations()
         keyword = self.request.get("keyword")
         cursor = urlsafe=self.request.get("cursor")
         # query = Destination.Destination.query()
 
         if keyword:
-        	# places = Destination.Destination.gql("where keywords = :1" ,keyword.lower())
-            places_query = db.GqlQuery("select * from Destination where keywords = :1", keyword.lower())
+        	places_query = Destination.Destination.gql("where keywords = :1" ,keyword.lower())
 
-        # items, next_curs, more = places.fetch(2, start_cursor = cursor)
+        # places, next_curs, more = places_query.fetch(2, start_cursor = db.Cursor(cursor)
         # if more:
         #     next_c = next_curs.urlsafe()
         # else:
         #     next_c = None
         # items = db.GqlQuery("select * from Destination limit 1")
         if cursor:
-            # self.write(str(cursor))
             places_query.with_cursor(cursor)
         places = places_query.fetch(9)
         cursor = places_query.cursor()
