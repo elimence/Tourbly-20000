@@ -110,6 +110,12 @@ class Wallet(webapp.RequestHandler):
               _tour_end=end, _message=message, _description=description, _price=price, _payment_staus=paymentStatus)
             booking.put()
 
+            email_args = {"email" : tourist.email, "booking_id" : order_id, "start_date" : start, "end_date": end, 
+            "description" : description, "guide_firstname" : guide.first._firstname, "guide_lastname" : guide._lastname,
+             "guide_number" : guide._phoneNumber, "guide_email" : guide.email, "price" : price}
+
+            self.send_booking_email(email_args)
+
             # respond back to complete payment
             self.response.out.write(order_id)
 

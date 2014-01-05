@@ -678,10 +678,18 @@ class Handler(Security, Utility, webapp2.RequestHandler):
 
         You have successfully booked a guide on Tourbly. Here is your booking details:
 
-        Booking_Id :    blah blah
+        Booking_Id :    """ + _args["booking_id"] + """
+        Tour            """ + _args["description"] + """
+        Starting        """ + _args["start_date"] + """
+        Ending          """ + _args["end_date"] + """
+        With            """ + _args["guide_firstname"] + " " + _args["guide_lastname"] + """
+        Costing         """ + _args["price"] + """
+
+        You can contact """ + _args["guide_firstname"] + """ via phone : """ + _args["guide_number"] + """ 
+        or through email """ + _args["guide_email"] + """
         
 
-        We will contact you to complete your application """ + _args["url"] + """
+        Hey, have fun touring with Tourbly
 
         Cheers,
         The Tourbly Team
