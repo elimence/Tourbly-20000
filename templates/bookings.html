@@ -36,12 +36,12 @@
               <tbody>
                 {% for booking in tourist.tourist_booking_set %}
                   <tr class="success">
-                    <td>31372A4F</td>
-                    <td>January 3, 2014</td>
-                    <td>3-Day Guided tour to Kruger National Park</td>
-                    <td>Nana Ewusi</td>
-                    <td>$450.00</td>
-                    <td>Completed</td>
+                    <td>{{booking._booking_number}}</td>
+                    <td>{{booking._booked_at.strftime("%M %d, %y")}}</td>
+                    <td>{{booking._description}}</td>
+                    <td>{{booking._guide._firstname}} {{booking._guide._lastname}}</td>
+                    <td>{{booking._price}}</td>
+                    <td>{{booking._payment_status}}</td>
                   </tr>
                 {% endfor %}
               </tbody>
