@@ -113,6 +113,7 @@
   <img class="loading" src="/assets/images/loading.gif">
 {% endblock %}
 {% block pagespecificjs %}
+  <script src="/assets/js/jquery.cookie.js"></script>
   <script src="/assets/js/picker.js"></script>
   <script src="/assets/js/picker.date.js"></script>
   <script src="/assets/js/picker.time.js"></script>
@@ -129,6 +130,7 @@
   </script>
 
   <script>
+    $.removeCookie('redirects', { path: '/' });
     $(function () {
       $('#arrival').pickadate();
       $('#departure').pickadate();
