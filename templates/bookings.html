@@ -35,14 +35,14 @@
               </thead>
               <tbody>
                 {% for booking in tourist.tourist_booking_set %}
-                  {% set currentDate = datetime.datetime.now() %}
+                  {% set currentDate = _date.now() %}
                   {% if booking._tour_end < currentDate %}
                     <tr>
                   {% else %}
                     <tr class="success">
                   {% endif %}
                     <td>{{booking._booking_number}}</td>
-                    <td>{{booking._booked_at.strftime("%m %d, %YYYY")}}</td>
+                    <td>{{booking._booked_at.strftime("%d %B, %Y")}}</td>
                     <td>{{booking._description}}</td>
                     <td>{{booking._guide._firstname}} {{booking._guide._lastname}}</td>
                     <td>{{booking._price}}</td>

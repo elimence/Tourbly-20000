@@ -152,7 +152,7 @@ class Wallet(webapp.RequestHandler):
 
             booking = Booking.Booking(_tourist=tourist, _guide=guide, _tour_start=start,
               _tour_end=end, _message=message, _description=description, _price=price,
-               _payment_staus=paymentStatus, _booking_number=order_id)
+              _booking_number=order_id)
             booking.put()
 
             email_args = {"email" : tourist.email, "booking_id" : order_id, "start_date" : start, "end_date": end,
