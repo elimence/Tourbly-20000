@@ -21,7 +21,10 @@
         <input name="price" ng-model="price" style="display:none">
         <input name="guideName" value="{{guide._firstname}}" style="display:none">
         <input name="duration" ng-model="duration" style="display:none">
-        <input name="placeName" value="{{place.name}}" style="display:none">
+        <input name="placeName" id="placeName" value="{{place.name}}" style="display:none">
+
+        <input ng-init="guideID = {{guide.key().id()}}" type="hidden">
+        <input ng-init="touristID = {{touristID}}" type="hidden">
 
           <div class="form-group">
             <label for="country">Country of origin</label>
@@ -50,7 +53,7 @@
                 <img class="img-rounded img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" alt="">
               </div>
               <div class="col-lg-10">
-                <textarea class="message form-control" name="message" rows="4" placeholder="Message your host..."></textarea>
+                <textarea class="message form-control" ng-model="guideMessage" name="message" rows="4" placeholder="Message your host..."></textarea>
               </div>
             </div>
           </div>

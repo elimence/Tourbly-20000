@@ -14,7 +14,14 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.ext.webapp.util import run_wsgi_app
 import jwt
+import json
 import logging
+
+from datetime import datetime
+
+from models import Booking
+from models import Guide
+from models import Tourist
 
 # application-specific imports
 from sellerinfo import SELLER_ID
@@ -23,9 +30,32 @@ from sellerinfo import SELLER_SECRET
 class Wallet(webapp.RequestHandler):
   def get(self, duration):
 
+    # Get entries for seller data object
+    end = self.request.get('end') or ""
+    start = self.request.get('start') or ""
+    price = self.request.get('price') or ""
+    guideID = self.request.get('guideID') or ""
+    touristID = self.request.get('touristID') or ""
+    paymentStatus = self.request.get('paymentStatus') or ""
+    description = self.request.get('description') or ""
+    message = self.request.get('message') or ""
+
     price = int(duration) * 50
     curr_time = int(time.time())
     exp_time = curr_time + 3600
+
+
+    sellerData = {
+      "description":description,
+      "guideID":guideID,
+      "price":price,
+      "paymentStatus":paymentStatus,
+      "touristID":touristID,
+      "start":start,
+      "end":end,
+      "message":message
+    }
+
     logging.info(price)
     jwt_info = {
       "iss" : SELLER_ID,
@@ -36,9 +66,9 @@ class Wallet(webapp.RequestHandler):
       "request" :{
         "name" : "Book a Tourbly Guide",
         "description" : 'One time payment for a '+ duration+ ' day guided tour',
-        "price" : price,
+        "price" : '0.05',
         "currencyCode" : "USD",
-        "sellerData" : "user_id:1224245,offer_code:3098576987,affiliate:aksdfbovu9j"
+        "sellerData" : json.dumps(sellerData)
       }
     }
 
@@ -64,6 +94,21 @@ class Wallet(webapp.RequestHandler):
           if ('currencyCode' in request_info and 'sellerData' in request_info
               and 'name' in request_info and 'price' in request_info):
             # optional - update local database
+            seller_dat = json.loads(request_info['sellerData'])
+
+            # Get entries for seller data object
+            end = datetime.strptime(str(seller_dat['end']), '%d %B, %Y')
+            start = datetime.strptime(str(seller_dat['start']), '%d %B, %Y')
+            price = str(seller_dat['price'])
+            guide = Guide.Guide.get_by_id(int(seller_dat['guideID']))
+            tourist = Tourist.Tourist.get_by_id(int(seller_dat['touristID']))
+            paymentStatus = str(seller_dat['paymentStatus'])
+            description = str(seller_dat['description'])
+            message = str(seller_dat['message'])
+
+            booking = Booking.Booking(_tourist=tourist, _guide=guide, _tour_start=start,
+              _tour_end=end, _message=message, _description=description, _price=price, _payment_staus=paymentStatus)
+            booking.put()
 
             # respond back to complete payment
             self.response.out.write(order_id)
