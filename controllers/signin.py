@@ -41,7 +41,6 @@ class Signin(Root.Handler):
                         redirects = urllib.unquote(redirects[0].decode("utf-8"))
                         redirects = redirects[redirects.find("/", 8) : ]
 
-                        self.delete_cookie("redirects")
                         self.redirect(redirects)
                     elif referer == "/home":
                         self.redirect("/search")
