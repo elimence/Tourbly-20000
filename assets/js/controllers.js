@@ -213,6 +213,19 @@ function PaymentCtrl($scope, $window, $http) {
 	$scope.price = "0.00";
 	$scope.duration = '0';
 
+	$scope.getParams = function() {
+        return {
+            end:$scope.endModel,
+            start:$scope.startModel,
+            price:$scope.price,
+            guideID:$scope.guideID,
+            message:$scope.guideMessage,
+            touristID:$scope.touristID,
+            description:$scope.duration + " - day guided tour to "+ document.getElementById('placeName').value,
+            paymentStatus:"Completed"
+        };
+    };
+
 	$scope.success = function(status) {
 		$window.console.log('Purchase Completed Successfully : ', status);
 		$('#bookingForm').submit();
@@ -242,21 +255,37 @@ function PaymentCtrl($scope, $window, $http) {
 				alert('Your tour end date must be after your arrival date.');
 			} else {
 
-				$http({method: 'GET', url: '/payments/'+ $scope.duration})
-					.success(function(data, status, headers, config) {
-						console.log('success with : ', data);
+				// $http({method: 'GET', url: '/payments/'+ $scope.duration})
+				// 	.success(function(data, status, headers, config) {
+				// 		console.log('success with : ', data);
 
-						$scope.progress.stop();
-						goog.payments.inapp.buy({
-							'jwt'     : data,
-							'success' : $scope.success,
-							'failure' : $scope.failure
-						});
-					})
-					.error(function(data, status, headers, config) {
-						console.log('error');
-					})
-				; // end http invocation
+				// 		$scope.progress.stop();
+				// 		goog.payments.inapp.buy({
+				// 			'jwt'     : data,
+				// 			'success' : $scope.success,
+				// 			'failure' : $scope.failure
+				// 		});
+				// 	})
+				// 	.error(function(data, status, headers, config) {
+				// 		console.log('error');
+				// 	})
+				// ; // end http invocation
+
+				$http({url: '/payments/'+ $scope.duration, method: "GET", params: $scope.getParams()})
+                    .success(function(data, staus, headers, config) {
+                    // console.log('success with : ', data);
+
+                        $scope.progress.stop();
+                        goog.payments.inapp.buy({
+                            'jwt'     : data,
+                            'success' : $scope.success,
+                            'failure' : $scope.failure
+                        });
+                        })
+	                .error(function(data, status, headers, config) {
+	                        console.log('error');
+	                })
+                ;// end http invocation
 				$scope.progress.start();
 			}
 		}

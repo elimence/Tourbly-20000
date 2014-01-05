@@ -54,11 +54,23 @@
           <p class="help-block" style="margin-top: 1em; border: 0px solid #bbb; width: 95%; margin-left: auto; margin-right: auto;">Your payment will be processed securely using Google wallet.</p>
         </div>
       </div>
+
+
       <div class="col-lg-8 col-md-8 payment">
         <h3 class="header">Payment Details</h3>
-        <form role="form">
+        <form id="bookingForm" role="form" action="/booking/confirm" method="post">
+
+        <!-- hidden fields to pass data -->
+        <input name="price" ng-model="price" style="display:none">
+        <input name="guideName" value="{{guide._firstname}}" style="display:none">
+        <input name="duration" ng-model="duration" style="display:none">
+        <input name="placeName" id="placeName" value="{{place.name}}" style="display:none">
+
+        <input ng-init="guideID = {{guide.key().id()}}" type="hidden">
+        <input ng-init="touristID = {{touristID}}" type="hidden">
+
           <div class="form-group">
-            <label for="country">Country</label>
+            <label for="country">Country of origin</label>
             <select class="form-control" name = "country" style = "margin-bottom : 15px;" ng-model="countryModel">
               <option value = "">Select Country</option>
               {% for country in countries %}
@@ -78,25 +90,24 @@
             </div>
           </div>
           <div class="greet-guide">
-            <h3 class="header">Say Hello to Nana, Your Host</h3>
-            <span class="help-block">Let Nana know the purpose of your trip and about the other travellers in your party.</span>
+            <h3 class="header">Say Hello to {{guide._firstname}}, Your Host</h3>
+            <span class="help-block">Let {{guide._firstname}} know the purpose of your trip and about the other travellers in your party.</span>
             <div class="row">
               <div class="col-xs-2 hidden-xs">
                 <img class="img-rounded img-responsive" src="/assets/images/guides_pics/{{guide._picture}}" alt="">
               </div>
               <div class="col-xs-12 col-sm-10">
-                <textarea class="message form-control" name="message" rows="4" placeholder="Message your host..."></textarea>
+                <textarea class="message form-control" ng-model="guideMessage" name="message" rows="4" placeholder="Message your host..."></textarea>
               </div>
             </div>
           </div>
           <div class="form-group" style="margin-top: 2em;">
-            <h3 class="header">Checkout Options</h3>
+            <h3 class="header">Payment Methods</h3>
             <a id="pay-button" ng-click="purchase()" class="btn btn-info btn-block">Pay with Google Wallet</a>
-            <span class="help-block">You will receive confirmation of receipt by email.</span>
+            <span class="help-block">You will receive an email from Google Wallet when the transaction completes successfully. You will also receive an email from us with further detials on meeting your guide.</span>
           </div>
         </form>
       </div>
-      
     </div>
   </div>
   <img class="loading" src="/assets/images/loading.gif">

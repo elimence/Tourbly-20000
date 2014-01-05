@@ -12,8 +12,8 @@ import Guide
 date = ""
 
 class Booking(db.Model, Root.Handler):
-    _tourist   = db.ReferenceProperty(Tourist.Tourist, collection_name = "tourists_set")
-    _guide     = db.ReferenceProperty(Guide.Guide, collection_name = "guides_set")
+    _tourist   = db.ReferenceProperty(Tourist.Tourist, collection_name = "tourist_booking_set")
+    _guide     = db.ReferenceProperty(Guide.Guide, collection_name = "guide_booking_set")
     _tour_start   = db.DateTimeProperty()
     _tour_end = db.DateTimeProperty()
     _message = db.TextProperty()
