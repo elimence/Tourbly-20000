@@ -66,7 +66,7 @@ class Wallet(webapp.RequestHandler):
       "request" :{
         "name" : "Book a Tourbly Guide",
         "description" : 'One time payment for a '+ duration+ ' day guided tour',
-        "price" : '0.05',
+        "price" : price,
         "currencyCode" : "USD",
         "sellerData" : json.dumps(sellerData)
       }
