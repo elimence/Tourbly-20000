@@ -15,7 +15,7 @@
       <form role="form" name="new-guide-signup-form" method="POST" action="/guides/apply">
         <p class="lead error-label">{{error}}</p>
         <div class="form-group">
-          <input type="text" class="form-control input" id="full-name" name="full_name" placeholder="Your Full Name" value = "{{full_name}}">
+          <input type="text" class="form-control input" id="full-name" name="full_name" placeholder="Your Full Name" value = "{{guide_details['full_name']}}">
         </div>
         <select name = "country" style = "margin-bottom : 15px;" class = "form-control" ng-model="countryModel">
           <option value = "">Select Country</option>
@@ -26,7 +26,7 @@
           {% endfor %}
         </select>
         <div class="form-group">
-          <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address" value = "{{email}}">
+          <input type="email" class="form-control input" id="email"  name="email" placeholder="Your Email Address" value = "{{guide_details['email']}}">
           <p class="lead error-label">{{email_error}}</p>
           <span class="help-block">We will send a verification link to this email address with further instructions.</span>
         </div>
