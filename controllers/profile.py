@@ -46,7 +46,7 @@ class Profile(Root.Handler):
 
         if self.validate_email(new_email) and self.validate_name(first_name) and self.validate_name(last_name):
             Tourist.Tourist.updateTourist(tourist, new_email, first_name, last_name, country, state)
-            if picture != None:
+            if picture != None and picture != "":
                 picture_extension = picture.filename[picture.filename.rfind(".") : ]
                 picture_url = "/tourbly/profile_pictures/" +  str(tourist.key().id()) + self.rand_salt("picture") + picture_extension
                 picture_name = "/gs" + picture_url
