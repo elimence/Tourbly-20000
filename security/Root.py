@@ -645,7 +645,7 @@ class Handler(Security, Utility, webapp2.RequestHandler):
 
         message.to = "<" + _args["email"] + ">"
         message.body = """
-        Hello """ _args["full_name"] + """:
+        Hello """ + _args["full_name"] + """:
 
         You have successfully applied to be a Tourbly platform. Help tourists discover beautiful scenery,
         culture and lifestyles whilst getting something into your pocket.

@@ -64,7 +64,7 @@ class GuideApplicationForm(Root.Handler):
 
         if full_name and country and email:
             if self.validate_email(email):
-                _args = {"email" : email, "full_name"}
+                _args = {"email" : email, "full_name" : full_name}
                 self.send_guide_application_email(_args)
                 self.redirect("/home")
             else:
