@@ -46,7 +46,7 @@ class Wallet(webapp.RequestHandler):
       Starting        """ + str(_args["start_date"]) + """
       Ending          """ + str(_args["end_date"]) + """
       With            """ + str(_args["guide_firstname"]) + " " + _args["guide_lastname"] + """
-      Costing         """ + str(_args["price"]) + """
+      Costing         $""" + str(_args["price"]) + """
 
       You can contact """ + str(_args["guide_firstname"]) + """ via phone : """ + str(_args["guide_number"]) + """
       or through email """ + str(_args["guide_email"]) + """
