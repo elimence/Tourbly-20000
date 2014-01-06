@@ -152,7 +152,13 @@ class Wallet(webapp.RequestHandler):
             # logging.info(tourist)
 
             # Increment booking count of guide
-            cur_count = int(guide._times_booked)
+            cur_count = 0
+            count = guide._times_booked
+            if count is None:
+              cur_count = 0
+            else:
+              cur_count = int(count)
+              
             new_count = str(cur_count + 1)
             guide._times_booked = new_count
             guide.put()
