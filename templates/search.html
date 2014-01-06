@@ -172,6 +172,8 @@
   <script src="/assets/js/bootstrap-rating-input.js"></script>
   <script>
     $(function () {
+      var arrivalPicker = $('#arrival').pickadate().pickadate('picker');
+      var departurPicker = $('#departure').pickadate().pickadate('picker');
       $('#arrival').pickadate();
       $('#departure').pickadate();
       attachFilterButtonListener();
@@ -188,6 +190,16 @@
         }
       });
       // init();
+      arrivalPicker.on('set', function() {
+       if (document.getElementById('arrival').value && document.getElementById("arrival").value) {
+        document.getElementById("filter-form").submit();
+       } 
+     });
+      departurPicker.on('set', function() {
+       if (document.getElementById('arrival').value && document.getElementById("arrival").value) {
+        document.getElementById("filter-form").submit();
+       }  
+     });
     })
   </script>
 {% endblock %}
