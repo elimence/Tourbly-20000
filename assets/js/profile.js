@@ -3,6 +3,21 @@ function pseudoPhotoSelectClickListener (e) {
   $('#picture-select').click();
 }
 function actualPhotoSelectClickListener (e) {
+	var s =$('#picture-select').value;
+	console.log(s);
+}
+
+function previewImage(input) {
+	var preview = document.getElementById('profilePic');
+	if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+	  reader.onload = function (e) {
+	    preview.setAttribute('src', e.target.result);
+	  }
+	  reader.readAsDataURL(input.files[0]);
+	} else {
+	  preview.setAttribute('src', 'placeholder.png');
+	}
 }
 
 // function disconnectButtonClickListener(e) {
