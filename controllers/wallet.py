@@ -148,8 +148,14 @@ class Wallet(webapp.RequestHandler):
             description = str(seller_dat['description'])
             message = str(seller_dat['message'])
 
-            logging.info('here is the tourist')
-            logging.info(tourist)
+            # logging.info('here is the tourist')
+            # logging.info(tourist)
+
+            # Increment booking count of guide
+            cur_count = int(guide._times_booked)
+            new_count = str(cur_count + 1)
+            guide._times_booked = new_count
+            guide.put()
 
             booking = Booking.Booking(_tourist=tourist, _guide=guide, _tour_start=start,
               _tour_end=end, _message=message, _description=description, _price=price,
