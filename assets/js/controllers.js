@@ -351,7 +351,10 @@ function PaymentCtrl($scope, $window, $http) {
             .success(function(data, staus, headers, config) {
             // console.log('success with : ', data);
             $scope.progress.stop();
-            	if (data == "true") {
+            	console.log('is guide available ? ', data);
+            	var dat = data.split('*-*');
+            	console.log(dat, data);
+            	if (dat[0] == "true") {
 								if (arrivalDate && departureDate) {
 									$scope.duration = (new TimeSpan(departureDate - arrivalDate)).days;
 									if ($scope.duration == '0') $scope.duration = 1;
@@ -362,7 +365,9 @@ function PaymentCtrl($scope, $window, $http) {
 									$scope.price = "0.00";
 								}
             	} else {
-            		alert ("Sorry, guide is busy within the selected period");
+            		$scope.endModel = "";
+            		$('#periodID').html( dat[1]+ ' to '+ dat[2]);
+            		$('#guideAvailability').modal('show');
             	}
 
             })

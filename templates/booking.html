@@ -111,6 +111,22 @@
     </div>
   </div>
   <img class="loading" src="/assets/images/loading.gif">
+  <div class="modal fade" id="guideAvailability">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" style="color: #0088cc;">Time Slot Not Available</h4>
+        </div>
+        <div class="modal-body">
+          <p id="s">Sorry. {{guide._firstname}} is booked from <span id="periodID"></span>. Please select another time period.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 {% endblock %}
 {% block pagespecificjs %}
   <script src="/assets/js/jquery.cookie.js"></script>
