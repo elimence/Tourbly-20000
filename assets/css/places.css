@@ -198,3 +198,9 @@
     margin-top: 8px;
   }
 }
+/* Min Medium */
+@media (min-width: 1199px){
+  .places-intro-banner {
+    background-attachment: fixed;
+  }
+}
