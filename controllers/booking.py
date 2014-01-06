@@ -42,24 +42,33 @@ class BookingHandler(Root.Handler):
 
 class GuideAvailableHandler(Root.Handler):
 	def get(self):
-		guide_id = self.request.get("guide_id")
-		start_date = self.request.get("start_date")
-		end_date =  self.request.get("end_date")
+		guide_id = self.request.get("guideID")
+		start_date = self.request.get("start")
+		end_date =  self.request.get("end")
 
 		guide = Guide.Guide.get_by_id(int(guide_id))
 		start_date = datetime.strptime(start_date, '%d %B, %Y')
 		end_date = datetime.strptime(end_date, '%d %B, %Y')
 
-		output = "false"
+		output_str = "%s*-*%s*-*%s"
+
+		output = "true"
+		b_start = ""
+		b_end = ""
 		for booking in guide.guide_booking_set:
 			if (booking._tour_start <= end_date) and (start_date <= booking._tour_end):
-				output = "true"
+				output = "false"
+				b_start = booking._tour_start
+				b_end = booking._tour_end
 				break
 
-		self.write(output)
+		if output == 'true':
+			self.write('true*-*n*--*n')
+		else:
+			self.write(output_str %(output, b_start.strftime('%d %B, %Y'), b_end.strftime('%d %B, %Y')))
 
 
 
-		
-		
+
+
 
