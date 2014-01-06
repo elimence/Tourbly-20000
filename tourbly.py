@@ -59,6 +59,7 @@ app = webapp2.WSGIApplication([
     webapp2.Route(r'/verify_email',                             handler=verifyemail.VerifyEmail,                name='verify'),
     webapp2.Route(r'/guides/<:[0-9]+>/<:[0-9]+>',               handler=guide.GuideHandler,                     name='guide'),
     webapp2.Route(r'/guides/<:[0-9]+>/<:[0-9]+>/book',          handler=booking.BookingHandler,                 name='booking'),
+    webapp2.Route(r'/guideavailable',                           handler=booking.GuideAvailableHandler,         name='guide_availability'),
     webapp2.Route(r'/guides/<:[0-9]+>',                         handler=guide.GuideViewHandler,                 name='viewguide'),
     webapp2.Route(r'/oauth',                                    handler=oauth.Oauth,                            name='oauth'),
     webapp2.Route(r'/loader',                                   handler=loader.Loader,                          name='loader'),

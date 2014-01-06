@@ -40,3 +40,26 @@ class BookingHandler(Root.Handler):
 		departure = self.request.get("departure")
 		message = self.request.get("message")
 
+class GuideAvailableHandler(Root.Handler):
+	def get(self):
+		guide_id = self.request.get("guide_id")
+		start_date = self.request.get("start_date")
+		end_date =  self.request.get("end_date")
+
+		guide = Guide.Guide.get_by_id(int(guide_id))
+		start_date = datetime.strptime(start_date, '%d %B, %Y')
+		end_date = datetime.strptime(end_date, '%d %B, %Y')
+
+		output = "false"
+		for booking in guide.guide_booking_set:
+			if (booking._tour_start <= end_date) and (start_date <= booking._tour_end):
+				output = "true"
+				break
+
+		self.write(output)
+
+
+
+		
+		
+

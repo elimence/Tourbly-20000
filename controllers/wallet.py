@@ -33,7 +33,7 @@ class Wallet(webapp.RequestHandler):
 
   def send_booking_email(self, _args):
       message = mail.EmailMessage(sender="Tourbly <tourbly2013@gmail.com>",
-                          subject="Tourbly Guide Booking Successfully")
+                          subject="Tourbly Guide Booked Successfully")
 
       message.to = "<" + str(_args["email"]) + ">"
       message.body = """
@@ -148,8 +148,20 @@ class Wallet(webapp.RequestHandler):
             description = str(seller_dat['description'])
             message = str(seller_dat['message'])
 
-            logging.info('here is the tourist')
-            logging.info(tourist)
+            # logging.info('here is the tourist')
+            # logging.info(tourist)
+
+            # Increment booking count of guide
+            cur_count = 0
+            count = guide._times_booked
+            if count is None:
+              cur_count = 0
+            else:
+              cur_count = int(count)
+
+            new_count = str(cur_count + 1)
+            guide._times_booked = new_count
+            guide.put()
 
             booking = Booking.Booking(_tourist=tourist, _guide=guide, _tour_start=start,
               _tour_end=end, _message=message, _description=description, _price=price,
