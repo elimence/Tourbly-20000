@@ -101,17 +101,14 @@
     <div class="col-lg-9 viewport">
       <div class="row header">
         <h3 class="header-text">
-          {% if suggested_guides is not none and suggested_guides|count > 0 %}
+          {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date']  %}
+            Choose your preferences to browse available tour guides.
+          {% elif suggested_guides|count == 0 %}
+            No guide matches your search preferences.
+          {% elif suggested_guides|count > 0  %}
             Showing available tour guides
           {% endif %}
-
-          {% if not search_args['destination'] and not search_args['arrival_date'] and not search_args['departure_date'] and search_args["gender"] == "Any" and search_args["language"] == "Any" %}
-            Choose your preferences to browse available tour guides.
-          {% endif %}
-
-          {% if suggested_guides is not none and suggested_guides|count == 0 %}
-            Choose your preferences to browse available tour guides.
-          {% endif %}
+          
         </h3>
       </div>
       <div class="row body guides">
