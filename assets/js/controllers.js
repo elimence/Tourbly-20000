@@ -236,6 +236,14 @@ function PaymentCtrl($scope, $window, $http) {
         };
     };
 
+    $scope.getAvailabilityParams = function() {
+        return {
+            end:$scope.endModel,
+            start:$scope.startModel,
+            guideID:$scope.guideID
+        };
+    };
+
 	$scope.success = function(status) {
 		$window.console.log('Purchase Completed Successfully : ', status);
 		$('#bookingForm').submit();
@@ -328,17 +336,44 @@ function PaymentCtrl($scope, $window, $http) {
 		var departureDate = Date.parse($scope.endModel);
 		var arrivalDate   = Date.parse($scope.startModel);
 
-		console.log(arrivalDate, departureDate);
+		var today         = new Date();
+		// add 10 hours to selected dat to allow users to specify one day tours
+		var departureDate = new Date(new Date($scope.endModel).setHours(new Date().getHours() + 10));
+		// add 5 hours to allow users to specify today as tour start date
+		var arrivalDate   = new Date(new Date($scope.startModel).setHours(new Date().getHours() + 5));
 
-		if (arrivalDate && departureDate) {
-			$scope.duration = (new TimeSpan(departureDate - arrivalDate)).days;
-			if ($scope.duration == '0') $scope.duration = 1;
-			console.log('duration : ',$scope.duration);
-			$scope.price = $scope.duration * 50;
+		if (arrivalDate < today) {
+			alert('Sorry. Your tour start date cannot be a past date.');
+		} else if (departureDate < arrivalDate) {
+			alert('Your tour end date must be after your arrival date.');
 		} else {
-			$scope.duration = "0";
-			$scope.price = "0.00";
+				$http({url: '/guideavailable', method: "GET", params: $scope.getAvailabilityParams()})
+            .success(function(data, staus, headers, config) {
+            // console.log('success with : ', data);
+            $scope.progress.stop();
+            	if (data == "true") {
+								if (arrivalDate && departureDate) {
+									$scope.duration = (new TimeSpan(departureDate - arrivalDate)).days;
+									if ($scope.duration == '0') $scope.duration = 1;
+										console.log('duration : ',$scope.duration);
+										$scope.price = $scope.duration * 50;
+								} else {
+									$scope.duration = "0";
+									$scope.price = "0.00";
+								}
+            	} else {
+            		alert ("Sorry, guide is busy within the selected period");
+            	}
+
+            })
+          .error(function(data, status, headers, config) {
+                  console.log('error');
+          })
+        ;// end http invocation
+        $scope.progress.start();
 		}
+
+
 	}; // end function updateFields
 }// end function PaymentCtrl
 
