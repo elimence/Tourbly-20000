@@ -24,3 +24,24 @@
 .side-text .lead {
   text-shadow: 0 1px 7px #000;
 }
+@-moz-document url-prefix() {
+  .guide-signup-form form .input {
+    padding: 0.3em 0.6em 0.4em 0.6em;
+    font-size: 1.5em;
+  }
+  .form-control {
+      display: block;
+      width: 100%;
+      height: 55px;
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 1.42857;
+      color: rgb(85, 85, 85);
+      vertical-align: middle;
+      background-color: rgb(255, 255, 255);
+      border: 1px solid rgb(204, 204, 204);
+      border-radius: 4px;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+      transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  }
+}

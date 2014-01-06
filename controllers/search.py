@@ -6,6 +6,7 @@ from google.appengine.ext import db
 from google.appengine.api import urlfetch
 import urllib
 import json
+from datetime import datetime
 
 all_languages = ["Afrikaans", "Albanian", "Arabic", "Armenian", "Basque", "Bengali", "Bulgarian",
  "Catalan", "Cambodian", "Chinese", "Croatian", "Czech", "Danish", "Dutch", "English", "Estonian",
@@ -33,7 +34,7 @@ def getCountryFromJson(jsonResponse):
 
     return country
 
-def getSuggestedGuidesQuery(arrival_date, departure_date, gender, language,
+def getSuggestedGuides(arrival_date, departure_date, gender, language,
     destination_country):
     suggested_guides = None
 
@@ -64,6 +65,26 @@ def getGuidesWithLanguage(suggested_guides, language):
 
     return actual_suggested_guides
 
+def getGuidesForSelectedDate(suggested_guides, start_date, end_date):
+    actual_suggested_guides = []
+    for suggested_guide in suggested_guides:
+        if isAvailable(suggested_guide, start_date, end_date):
+            actual_suggested_guides.append(suggested_guide)
+
+    return actual_suggested_guides
+
+def isAvailable(guide, start_date, end_date):
+    start_date = datetime.strptime(start_date, '%d %B, %Y')
+    end_date = datetime.strptime(end_date, '%d %B, %Y')
+
+    output = True
+    for booking in guide.guide_booking_set:
+        if (booking._tour_start <= end_date) and (start_date <= booking._tour_end):
+            output = False
+            break
+
+    return output
+
 
 class Search(Root.Handler):
     def get(self):
@@ -89,8 +110,10 @@ class Search(Root.Handler):
                 destination_country = destination.country
                 search_args["destination"] = destination
 
-        suggested_guides = getSuggestedGuidesQuery(arrival_date, departure_date, gender,
+        suggested_guides = getSuggestedGuides(arrival_date, departure_date, gender,
          language, destination_country)
+
+        suggested_guides = getGuidesForSelectedDate(suggested_guides, arrival_date, departure_date)
 
         if self.check_session("query"):
             tourist = Tourist.Tourist.get_by_id(self.get_user_id())
