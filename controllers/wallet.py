@@ -33,7 +33,7 @@ class Wallet(webapp.RequestHandler):
 
   def send_booking_email(self, _args):
       message = mail.EmailMessage(sender="Tourbly <tourbly2013@gmail.com>",
-                          subject="Tourbly Guide Booking Successfully")
+                          subject="Tourbly Guide Booked Successfully")
 
       message.to = "<" + str(_args["email"]) + ">"
       message.body = """
@@ -158,7 +158,7 @@ class Wallet(webapp.RequestHandler):
               cur_count = 0
             else:
               cur_count = int(count)
-              
+
             new_count = str(cur_count + 1)
             guide._times_booked = new_count
             guide.put()
