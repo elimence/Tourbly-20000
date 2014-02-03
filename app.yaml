@@ -1,4 +1,4 @@
-application: gcdc2013-tourbly
+application: tourbly
 version: 2
 runtime: python27
 api_version: 1
